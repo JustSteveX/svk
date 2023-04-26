@@ -1,0 +1,12 @@
+.nunito {
+  font-family: 'TSCu_Comic';
+}
+
+.slider {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.slider-cell {
+  counter-increment: slider-cell;
+}

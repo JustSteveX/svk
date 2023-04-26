@@ -1,19 +1,36 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-    content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-    ],
+  content: [
+    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+    './storage/framework/views/*.php',
+    './resources/views/**/*.blade.php',
+    './node_modules/flowbite/**/*.js',
+  ],
 
-    theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            },
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+      },
+      backgroundImage: {
+        schuetzenplatz: "url('../images/schuetzenplatz.png')",
+      },
+      gap: {
+        6: '1.4rem',
+      },
+      colors: {
+        'custom-green': {
+          900: '#283d27',
         },
+      },
     },
+  },
+  variants: {
+    extend: {
+      visibility: ['group-hover'],
+    },
+  },
 
-    plugins: [require('@tailwindcss/forms')],
-};
+  plugins: [require('@tailwindcss/forms'), require('flowbite/plugin')],
+}

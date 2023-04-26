@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    // return view('welcome');
+    return view('components.content.startpage');
+})->name('startseite');
+
+/*Route::get('/aktuelles', function (){
+  return view('content.aktuelles');
+})->name('aktuelles');*/
+Route::get('/aktuelles', [NewsController::class, 'index'])->name('aktuelles');
+
+Route::get('/verein', function(){
+  return view('components.content.verein');
+})->name('verein');
+
+Route::get('/galerie', function(){
+  return view('components.content.galerie');
+})->name('galerie');
+
+Route::get('/termine', function (){
+  return view('components.content.termine');
+})->name('termine');
+
+Route::get('/kontakt', function(){
+  return view('components.content.kontakt');
+})->name('kontakt');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
