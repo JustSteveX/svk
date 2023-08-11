@@ -14,10 +14,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
-        $data = News::all();
-
-        return view('components.content.aktuelles', ['articles' => News::all()]);
+        return view('components.content.news', ['articles' => News::all()]);
     }
 
     /**

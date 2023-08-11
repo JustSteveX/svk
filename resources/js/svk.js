@@ -1,5 +1,5 @@
 /**
- * Funktion um Collapsables aus / ein-zuklappen
+ * Funktion um Collapsible Elements aus / ein-zuklappen
  * @param {string} elementName welches ein / ausgeklappt wird
  * */
 function collapse(elementName) {

@@ -3,7 +3,9 @@
     <div class="my-8 max-w-6xl mx-auto">
       <div class="flex content-end justify-end mb-8">
         <!-- Wechselt die Ansicht in einen Kalender -->
-        <span><x-button>Ansichtswechsel</x-button></span>
+        <span>
+          <x-button>Ansichtswechsel</x-button>
+        </span>
       </div>
       <div class="h-32 flex flex-row my-4 bg-gray-900 bg-opacity-80">
         <div class="bg-gray-900 h-full grow-0 min-w-[8rem] text-white text-center pt-3">

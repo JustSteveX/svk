@@ -1,5 +1,5 @@
 /**
- * Funktion um Collapsables aus / ein-zuklappen
+ * Funktion um Collapsible Elements aus / ein-zuklappen
  * @param {string} elementName welches ein / ausgeklappt wird
  * */
 function collapse(elementName) {
@@ -14,19 +14,26 @@ function collapse(elementName) {
 }
 
 /**
- * Scrolls the carousel in a specific direction
- * @param {'forward' | 'back'} direction
+ * Scrolls the carousel
+ * @param {HTMLButtonElement} btnElem
  */
-function scrollCarousel(direction) {
-  const carouselElem = document.getElementsByClassName('carousel-wrapper')[0];
-  const scrollStep = (direction === 'back' ? -1 : 1) * carouselElem.getElementsByClassName('carousel-container')[0].offsetWidth;
-  console.log(`ClientWidth: ${carouselElem.clientWidth} && ScrollWidth: ${carouselElem.scrollWidth}`);
-  carouselElem.scrollBy(scrollStep, 0);
-
+function scrollCarousel(btnElem) {
+  const direction = btnElem.id;
+  const carouselElem = btnElem.parentElement.getElementsByClassName('carousel-wrapper')[0];
   if (direction === 'back' && carouselElem.scrollLeft === 0) {
-    carouselElem.scrollTo(carouselElem.scrollLeftMax, 0);
-  }
-  if (direction === 'forward' && carouselElem.scrollLeft === carouselElem.scrollLeftMax) {
+    carouselElem.scrollTo(carouselElem.scrollWidth, 0);
+    //carouselElem.scrollTo(carouselElem.scrollLeftMax, 0);
+  } else if (direction === 'forward' && carouselElem.scrollLeft + carouselElem.offsetWidth === carouselElem.scrollWidth) {
     carouselElem.scrollTo(0, 0);
+  } else {
+    const gap = calcGap(carouselElem);
+    const scrollStep = (direction === 'back' ? -1 : 1) * (carouselElem.getElementsByClassName('carousel-container')[0].offsetWidth + gap);
+    carouselElem.scrollBy(scrollStep, 0);
+  }
+
+  function calcGap(carouselElem) {
+    const carouselItems = carouselElem.getElementsByClassName('carousel-container');
+    return (carouselElem.scrollWidth - (carouselItems.length * carouselItems[0].offsetWidth)) / (carouselItems.length - 1);
   }
 }
+

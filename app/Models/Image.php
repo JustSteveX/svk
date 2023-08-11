@@ -7,5 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  public function album()
+  {
+    return $this->belongsTo(Album::class);
+  }
+
+  public function collapsibleElement()
+  {
+    return $this->belongsTo(CollapsibleElement::class);
+  }
 }

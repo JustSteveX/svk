@@ -6,7 +6,7 @@
     <form action="subscribe" method="POST" class="flex flex-row pt-2">
       <x-input id="email" class="rounded-none" type="email" name="email" :value="old('email')" required
         placeholder="E-Mail" />
-      <x-button class="h-6 box-content w-full rounded-none bg-black place-content-center">
+      <x-button class="box-content w-full rounded-none bg-black place-content-center">
         Anmelden
       </x-button>
     </form>
@@ -17,6 +17,6 @@
       Georg
       Abel</p>
     <p>Copyright © Schützenverein Kommern e.V.</p>
-    {{app()->version()}}
+    {{ app()->version() }}
   </div>
 </footer>

@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('albums', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->boolean('show_in_gallery')->default(true);
-            $table->timestamps();
+        //
+        Schema::table('albums', function(Blueprint $table) {
+          $table->renameColumn('show_in_galery', 'show_in_gallery');
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('albums');
+        //
     }
 };

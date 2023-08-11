@@ -2,10 +2,12 @@
   <div class="py-10">
     <div class="max-w-6xl mx-auto flex flex-col gap-y-12">
       <div>
+        @foreach ($collapsibleElements as $collapsible)
+          <x-collapsible :title="$collapsible->title" :content="$collapsible->content" />
+        @endforeach
         <h1 class="text-2xl">Historie</h1>
         <hr />
-        <x-collapsable :title="'Hier landet irgendwann ein Titel aus der Datenbank'"
-          :content="'Hier landet irgendwann ein Text aus der Datenbank'" />
+        <x-collapsible :title="'Hier landet irgendwann ein Titel aus der Datenbank'" :content="'Hier landet irgendwann ein Text aus der Datenbank Test'" />
         <div>
           Im Jahre 1859 gründete der Lehrer Friedrich Wilhelm Axer zu Ehren des
           Hl. Sebastianus die „Bürger Schützengesellschaft zu Commern", nachdem

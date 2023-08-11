@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClubController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,33 +18,26 @@ use App\Http\Controllers\NewsController;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    return view('components.content.startpage');
+  // return view('welcome');
+  return view('components.content.startpage');
 })->name('startseite');
 
-/*Route::get('/aktuelles', function (){
-  return view('content.aktuelles');
-})->name('aktuelles');*/
 Route::get('/aktuelles', [NewsController::class, 'index'])->name('aktuelles');
 
-Route::get('/verein', function(){
-  return view('components.content.verein');
-})->name('verein');
+Route::get('/verein', [ClubController::class, 'index'])->name('verein');
 
-Route::get('/galerie', function(){
-  return view('components.content.galerie');
-})->name('galerie');
+Route::get('/galerie', [GalleryController::class, 'index'])->name('galerie');
 
-Route::get('/termine', function (){
-  return view('components.content.termine');
+Route::get('/termine', function () {
+  return view('components.content.event');
 })->name('termine');
 
-Route::get('/kontakt', function(){
-  return view('components.content.kontakt');
+Route::get('/kontakt', function () {
+  return view('components.content.contact');
 })->name('kontakt');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+  return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

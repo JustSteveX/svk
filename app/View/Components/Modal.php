@@ -4,23 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Aktuelles extends Component
+class Modal extends Component
 {
-    /**
-     * Die News Artikel
-     *
-     * @var News
-     */
-    public $articles;
-
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(News $articles)
+    public function __construct()
     {
-        $this->articles = $articles;
+        //
     }
 
     /**
@@ -30,6 +23,6 @@ class Aktuelles extends Component
      */
     public function render()
     {
-        return view('content.news');
+        return view('components.modal');
     }
 }

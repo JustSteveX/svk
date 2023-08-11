@@ -2,7 +2,7 @@
 
 return [
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Authentication Language Lines
     |--------------------------------------------------------------------------
@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+  'failed' => 'Diese Anmeldedaten stimmen mit keinem Nutzerkonto überein.',
+  'password' => 'Das eingebene Passwort nicht korrekt.',
+  'throttle' => 'Zu viele Loginversuche. Bitte versuche es nochmal :seconds Sekunden.',
 
 ];

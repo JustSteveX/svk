@@ -3,24 +3,25 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Models\Album;
 
-class Aktuelles extends Component
+class Gallery extends Component
 {
     /**
-     * Die News Artikel
+     * Die Alben Objekte
      *
-     * @var News
+     * @var Album
      */
-    public $articles;
+    public $albums;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(News $articles)
+    public function __construct(Album $albums)
     {
-        $this->articles = $articles;
+        $this->albums = $albums;
     }
 
     /**
@@ -30,6 +31,6 @@ class Aktuelles extends Component
      */
     public function render()
     {
-        return view('content.news');
+        return view('content.gallery');
     }
 }

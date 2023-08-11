@@ -5,20 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Album extends Model
+class CollapsibleElement extends Model
 {
-  use HasFactory;
 
-  /**
-   * Gets the images for the album
-   */
+  use HasFactory;
+  public function parent()
+  {
+    return $this->morphTo();
+  }
+
   public function images()
   {
     return $this->hasMany(Image::class);
   }
 
-  public function collapsibleElements()
+  public function albums()
   {
-    return $this->belongsToMany(CollapsibleElement::class, 'album_collapsible_element');
+    return $this->belongsToMany(Album::class, 'album_collapsible_element');
   }
 }

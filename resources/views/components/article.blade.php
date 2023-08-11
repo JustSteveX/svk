@@ -1,12 +1,12 @@
 <article class="flex flex-row my-8 bg-gray-300 p-8">
   <figure class="float-left max-w-sm ml-8 mb-3">
-    <img src="{{asset('images/schuetzenplatz.png')}}" alt="">
+    <img src="{{ asset('images/schuetzenplatz.png') }}" alt="">
     <figcaption>{{ $article->thumbnail_caption }}</figcaption>
   </figure>
   <article class="pl-8">
     <h1 class="font-bold text-lg">{{ $article->title }}</h1>
     <address>Autor: <span>{{ $article->author }}</span></address>
-    <p>Erstellt am: <time datetime="{{$article->created_at}}">{{ $article->created_at->format('d.m.Y') }}</time></p>
+    <p>Erstellt am: <time datetime="{{ $article->created_at }}">{{ $article->created_at->format('d.m.Y') }}</time></p>
     <hr class="my-2 border-gray-400">
     <p class="text-justify">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis odit consequatur at

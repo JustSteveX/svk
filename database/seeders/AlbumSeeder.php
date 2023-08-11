@@ -17,7 +17,7 @@ class AlbumSeeder extends Seeder
     {
         DB::table('albums')->insert([
           'name' => 'Highlights',
-          'show_in_galery' => false
+          'show_in_gallery' => false
         ]);
     }
 }
