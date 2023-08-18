@@ -15,6 +15,7 @@ class AlbumSeeder extends Seeder
      */
     public function run()
     {
+      // TODO anpassen damit die Album Default Werte auch gesetzt werden (muss übers model funktionieren)
         DB::table('albums')->insert([
           'name' => 'Highlights',
           'show_in_gallery' => false
