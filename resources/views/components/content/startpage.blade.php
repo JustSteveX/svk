@@ -1,6 +1,6 @@
 <x-app-layout>
-  <div class="bg-auto bg-center h-screen" style="background-image: url('{{ asset('/images/schuetzenplatz.png') }}')">
-    <div class="pt-40 mx-auto max-w-6xl flex flex-row justify-around gap-32">
+  <div class="h-screen bg-center bg-auto bg-schuetzenhaus">
+    <div class="flex flex-row justify-around max-w-6xl gap-32 pt-40 mx-auto">
       <x-application-logo class="w-[25%] fill-current text-gray-500" />
       <div class="bg-custom-green-900 bg-opacity-70 from-transparent p-3 max-w-[50%]">
         <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos blanditiis eum minus.
@@ -19,8 +19,8 @@
       </div>
     </div>
   </div>
-  <div class="pt-10 pb-20 max-w-7xl mx-auto">
-    <h1 class="text-center pb-12 pt-4 text-2xl font-bold">Aktuelle Highlights</h1>
-    <x-slider :gap="'gap-44'" class="h-[70vh]"></x-slider>
+  <div class="pt-10 pb-20 mx-auto max-w-7xl">
+    <h1 class="pt-4 pb-12 text-2xl font-bold text-center">Aktuelle Highlights</h1>
+    <x-image-showcase :mediaList="$mediaList"></x-image-showcase>
   </div>
 </x-app-layout>

@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Album;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class AlbumSeeder extends Seeder
 {
@@ -15,10 +14,14 @@ class AlbumSeeder extends Seeder
      */
     public function run()
     {
-      // TODO anpassen damit die Album Default Werte auch gesetzt werden (muss übers model funktionieren)
-        DB::table('albums')->insert([
-          'name' => 'Highlights',
-          'show_in_gallery' => false
-        ]);
+        // Überprüfen, ob ein Album mit dem Namen 'Highlights' bereits existiert
+        $existingAlbum = Album::where('name', 'Highlights')->first();
+        if (! $existingAlbum) {
+            // Album mit dem Namen 'Highlights' erstellen, wenn es nicht existiert
+            Album::create([
+                'name' => 'Highlights',
+                'archived' => false, // Setze die entsprechenden Werte für andere Felder
+            ]);
+        }
     }
 }

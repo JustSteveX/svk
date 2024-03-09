@@ -7,18 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Album extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  /**
-   * Gets the images for the album
-   */
-  public function images()
-  {
-    return $this->hasMany(Image::class);
-  }
+    protected $fillable = ['name', 'archived', 'thumbnail_id'];
 
-  public function collapsibleElements()
-  {
-    return $this->belongsToMany(CollapsibleElement::class, 'album_collapsible_element');
-  }
+    protected $attributes = ['archived' => false];
+
+    public function thumbnail()
+    {
+        return $this->belongsTo(Media::class, 'thumbnail_id');
+    }
+
+    public function media()
+    {
+        return $this->hasMany(Media::class);
+    }
 }

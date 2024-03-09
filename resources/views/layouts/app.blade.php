@@ -3,22 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <meta name="author" content="JustSteve">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="{{ csrf_token() }}" name="csrf-token">
+  <meta content="JustSteve" name="author">
 
   <title>{{ config('app.name', 'Laravel') }}</title>
 
   <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- CSS --->
-  <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-  <link href="{{ asset('/css/svk.css') }}" rel="stylesheet">
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   <!-- Scripts -->
-  <script src="{{ asset('/js/app.js') }}" type="text/javascript" defer></script>
-  <script src="{{ asset('/js/svk.js') }}" type="text/javascript" defer></script>
+  <link href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
 
 <body class="font-sans antialiased">

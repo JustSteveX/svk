@@ -1,6 +1,7 @@
 <x-app-layout>
+  <x-markdown-editor></x-markdown-editor>
   <div class="py-10">
-    <div class="max-w-6xl mx-auto flex flex-col gap-y-12">
+    <div class="flex flex-col max-w-6xl mx-auto gap-y-12">
       <div>
         @foreach ($collapsibleElements as $collapsible)
           <x-collapsible :title="$collapsible->title" :content="$collapsible->content" />

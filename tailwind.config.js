@@ -1,36 +1,37 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+import defaultTheme from 'tailwindcss/defaultTheme';
+import forms from '@tailwindcss/forms';
 
+/** @type {import'tailwindcss.Config} */
 module.exports = {
-  content: [
-    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-    './storage/framework/views/*.php',
-    './resources/views/**/*.blade.php',
-    './node_modules/flowbite/**/*.js',
-  ],
+	content: [
+		'./resources/**/*.blade.php',
+		'./resources/**/*.js',
+		'./node_modules/flowbite/**/*.js',
+	],
 
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-      },
-      backgroundImage: {
-        schuetzenplatz: "url('../images/schuetzenplatz.png')",
-      },
-      gap: {
-        6: '1.4rem',
-      },
-      colors: {
-        'custom-green': {
-          900: '#283d27',
-        },
-      },
-    },
-  },
-  variants: {
-    extend: {
-      visibility: ['group-hover'],
-    },
-  },
+	theme: {
+		extend: {
+			fontFamily: {
+				sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+			},
+			backgroundImage: {
+				schuetzenhaus: "url('../images/schuetzenhaus.jpg')",
+			},
+			gap: {
+				6: '1.4rem',
+			},
+			colors: {
+				'custom-green': {
+					900: '#283d27',
+				},
+			},
+		},
+	},
+	variants: {
+		extend: {
+			visibility: ['group-hover'],
+		},
+	},
 
-  plugins: [require('@tailwindcss/forms'), require('flowbite/plugin')],
-}
+	plugins: [forms, require('flowbite/plugin')],
+};

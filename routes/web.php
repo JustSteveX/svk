@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\BlogpostController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ClubController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\NewsController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -17,27 +18,45 @@ use App\Http\Controllers\NewsController;
 |
 */
 
-Route::get('/', function () {
-  // return view('welcome');
-  return view('components.content.startpage');
-})->name('startseite');
+Route::get('/', [HomeController::class, 'index'])->name('startseite');
 
-Route::get('/aktuelles', [NewsController::class, 'index'])->name('aktuelles');
+Route::get('/aktuelles', [BlogpostController::class, 'index'])->name('aktuelles');
 
-Route::get('/verein', [ClubController::class, 'index'])->name('verein');
+Route::get('/verein')->name('verein');
 
-Route::get('/galerie', [GalleryController::class, 'index'])->name('galerie');
+Route::get('/galerie', [AlbumController::class, 'index'])->name('galerie');
+
+// Route für die Anzeige der Medien in einem Album
+Route::get('/galerie/{albumName}', [AlbumController::class, 'show'])->name('galerie/name');
 
 Route::get('/termine', function () {
-  return view('components.content.event');
+    return view('components.content.event');
 })->name('termine');
 
 Route::get('/kontakt', function () {
-  return view('components.content.contact');
+    return view('components.content.contact');
 })->name('kontakt');
 
-Route::get('/dashboard', function () {
-  return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/kontakt', function () {
+    return view('components.content.contact');
+})->name('kontakt');
 
-require __DIR__ . '/auth.php';
+Route::get('/debug', function () {
+    return view('components.content.test');
+})->name('test');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::post('blogpost', [BlogpostController::class, 'store'])->name('blogpost.create');
+    Route::delete('blogpost', [BlogpostController::class, 'destroy'])->name('blogpost.delete');
+
+    Route::post('/media', [MediaController::class, 'store'])->name('media.create');
+    Route::delete('/media', [MediaController::class, 'destroy'])->name('media.delete');
+
+    Route::post('/album', [AlbumController::class, 'store'])->name('album.create');
+    Route::patch('/album', [AlbumController::class, 'update'])->name('album.update');
+    Route::delete('/album', [AlbumController::class, 'destroy'])->name('album.delete');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+require __DIR__.'/auth.php';

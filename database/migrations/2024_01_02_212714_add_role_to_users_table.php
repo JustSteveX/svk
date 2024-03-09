@@ -8,25 +8,21 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('news', function (Blueprint $table) {
-            $table->text('content');
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['superadmin', 'admin', 'user'])->default('user');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('news', function (Blueprint $table) {
-            $table->dropColumn('content');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
         });
     }
 };
