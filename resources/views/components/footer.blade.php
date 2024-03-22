@@ -18,5 +18,9 @@
       Abel</p>
     <p>Copyright © Schützenverein Kommern e.V.</p>
     {{ app()->version() }}
+    @if (!Auth::check())
+      <a class="text-gray-300 border-b border-gray-500 hover:border-gray-300 hover:text-gray-500"
+        href="/login">{{ __('navigation.tologin') }}</a>
+    @endif
   </div>
 </footer>

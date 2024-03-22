@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {
         $albumList = Album::all();
         $mediaList = Media::all();
-        $blogpostList = Blogpost::all();
+        $blogpostList = Blogpost::orderBy('created_at', 'desc')->get();
 
         return view('dashboard', compact('albumList', 'mediaList', 'blogpostList'));
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\BlogpostController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
@@ -29,9 +30,7 @@ Route::get('/galerie', [AlbumController::class, 'index'])->name('galerie');
 // Route für die Anzeige der Medien in einem Album
 Route::get('/galerie/{albumName}', [AlbumController::class, 'show'])->name('galerie/name');
 
-Route::get('/termine', function () {
-    return view('components.content.event');
-})->name('termine');
+Route::get('/termine', [EventController::class, 'index'])->name('termine');
 
 Route::get('/kontakt', function () {
     return view('components.content.contact');
@@ -55,6 +54,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/album', [AlbumController::class, 'store'])->name('album.create');
     Route::patch('/album', [AlbumController::class, 'update'])->name('album.update');
     Route::delete('/album', [AlbumController::class, 'destroy'])->name('album.delete');
+
+    Route::post('/event', [EventController::class, 'store'])->name('event.create');
+    Route::patch('/event', [EventController::class, 'update'])->name('event.update');
+    Route::delete('/event', [EventController::class, 'destroy'])->name('event.delete');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

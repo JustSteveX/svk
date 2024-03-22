@@ -228,7 +228,9 @@
 
       <div aria-labelledby="event-tab" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="event"
         role="tabpanel">
-        <p class="text-sm text-gray-500 dark:text-gray-400">Dashboard:Termine -> Work in progress...</p>
+
+        <x-dashboard.events></x-dashboard.events>
+
       </div>
       <div aria-labelledby="email-tab" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="email"
         role="tabpanel">
