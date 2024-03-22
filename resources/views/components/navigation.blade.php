@@ -15,7 +15,7 @@
           <x-nav-link :active="request()->routeIs('verein')" :href="route('verein')">
             Verein
           </x-nav-link>
-          <x-nav-link :active="request()->routeIs('galerie')" :href="route('galerie')">
+          <x-nav-link :active="Str::startsWith(request()->path(), 'galerie')" :href="route('galerie')">
             Galerie
           </x-nav-link>
           <x-nav-link :active="request()->routeIs('termine')" :href="route('termine')">
