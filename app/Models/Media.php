@@ -9,7 +9,7 @@ class Media extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'mime_type', 'album_id'];
+    protected $fillable = ['name', 'mime_type', 'album_id', 'caption'];
 
     public function album()
     {

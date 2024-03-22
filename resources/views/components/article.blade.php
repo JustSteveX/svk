@@ -11,7 +11,9 @@
       @if ($blogpost->media)
         <figure class="float-right max-w-sm ml-4">
           <img alt="" src="{{ Storage::url('media/' . $blogpost->media->name) }}">
-          <figcaption>Mehr lorem mehr ipsum</figcaption>
+          @if ($blogpost->media->caption)
+            <figcaption>{{ $blogpost->media->caption }}</figcaption>
+          @endif
         </figure>
       @endif
 

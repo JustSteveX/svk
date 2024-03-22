@@ -1,8 +1,5 @@
 import './bootstrap';
 import 'flowbite';
-import L from 'leaflet';
-
-window.L = L;
 
 import Alpine from 'alpinejs';
 

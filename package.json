@@ -17,7 +17,6 @@
 		"vite": "^4.0.0"
 	},
 	"dependencies": {
-		"leaflet": "^1.9.4",
 		"simplemde": "^1.11.2",
 		"flowbite": "^2.2.1"
 	}
