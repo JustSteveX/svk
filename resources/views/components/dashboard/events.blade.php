@@ -38,3 +38,13 @@
     <x-primary-button class="">{{ __('Termin anlegen') }}</x-primary-button>
   </div>
 </form>
+<div class="mt-6">
+  <h3>Alle Termine in der Übersicht:</h3>
+  <hr>
+  @foreach ($eventList as $eventItem)
+    <div class="mt-4 mb-2">
+      <p class="text-gray-600">{{ $eventItem->name }} in {{ $eventItem->location }} findet statt am
+        {{ $eventItem->starts_on->format('d.m.Y') }}</p>
+    </div>
+  @endforeach
+</div>
