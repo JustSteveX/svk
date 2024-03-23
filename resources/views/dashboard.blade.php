@@ -36,17 +36,20 @@
         <li role="presentation">
           <button aria-controls="email" aria-selected="false"
             class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-            data-tabs-target="#email" id="email-tab" role="tab" type="button">E-Mails</button>
+            data-tabs-target="#email" id="email-tab" role="tab" type="button">Abonennten</button>
+        </li>
+        <li role="presentation">
+          <button aria-controls="users" aria-selected="false"
+            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+            data-tabs-target="#users" id="users-tab" role="tab" type="button">Benutzer</button>
         </li>
       </ul>
     </div>
-    <div id="default-tab-content">
-      <div aria-labelledby="home-tab" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="home"
-        role="tabpanel">
+    <div id="default-tab-content" class="mb-12 bg-gray-300">
+      <div aria-labelledby="home-tab" class="hidden p-4 rounded-lg" id="home" role="tabpanel">
         <p class="text-sm text-gray-500 dark:text-gray-400">Dashboard:Startseite -> Work in progress...</p>
       </div>
-      <div aria-labelledby="blogpost-tab" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="blogpost"
-        role="tabpanel">
+      <div aria-labelledby="blogpost-tab" class="hidden p-4 rounded-lg" id="blogpost" role="tabpanel">
 
         <form action="{{ route('blogpost.create') }}" method="POST">
           @csrf
@@ -74,7 +77,8 @@
             <div class="flex flex-row items-end justify-between">
               <div class="flex flex-col gap-2">
                 <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="albumselection">Album
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    for="albumselection">Album
                     auswählen</label>
                   <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="albumselection"
                     name="album">
@@ -119,12 +123,10 @@
         </div>
 
       </div>
-      <div aria-labelledby="club-tab" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="club"
-        role="tabpanel">
+      <div aria-labelledby="club-tab" class="hidden p-4 rounded-lg " id="club" role="tabpanel">
         <p class="text-sm text-gray-500 dark:text-gray-400">Dashboard:Vereinsinfo -> Work in progress...</p>
       </div>
-      <div aria-labelledby="media-tab" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="media"
-        role="tabpanel">
+      <div aria-labelledby="media-tab" class="hidden p-4 rounded-lg " id="media" role="tabpanel">
         <!--p class="text-sm text-gray-500 dark:text-gray-400">Dashboard:Medien -> Work in progress...</p-->
 
         <div class="flex flex-row justify-between w-full gap-12">
@@ -226,18 +228,22 @@
         @endif
       </div>
 
-      <div aria-labelledby="event-tab" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="event"
-        role="tabpanel">
+      <div aria-labelledby="event-tab" class="hidden p-4 rounded-lg " id="event" role="tabpanel">
 
         <x-dashboard.events></x-dashboard.events>
 
       </div>
-      <div aria-labelledby="email-tab" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="email"
-        role="tabpanel">
+      <div aria-labelledby="email-tab" class="hidden p-4 rounded-lg " id="email" role="tabpanel">
 
         <div>Editor zum erstellen neuer Emails:</div>
         <p>Vielleicht mit checkbox für alle benachrichtigungen oder nur wichtiges</p>
         <div>Email Verteiler:</div>
+
+      </div>
+
+      <div aria-labelledby="users-tab" class="hidden p-4 rounded-lg " id="users" role="tabpanel">
+
+        <x-dashboard.users></x-dashboard.users>
 
       </div>
     </div>
