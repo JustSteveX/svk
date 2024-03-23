@@ -1,6 +1,6 @@
 <x-app-layout>
-  <div class="flex flex-row w-4/6 gap-8 mx-auto mt-48">
-    <section class="flex flex-col w-1/2 gap-1 py-2 pl-4 border-l-2 border-green-600">
+  <div class="flex flex-row w-4/6 gap-8 mx-auto mt-24">
+    <section class="flex flex-col w-1/2 gap-1 py-2 pl-4 border-l-2 border-[#66a782]">
       <p>St. Seb. Schützenbruderschaft e.V. Kommern</p>
       <p>Straße: Schützenweg</p>
       <p>PLZ - Ort: 53894 - Mechernich / Kommern</p>
