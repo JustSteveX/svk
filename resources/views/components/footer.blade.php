@@ -13,10 +13,8 @@
   </div>
   <div class="max-w-6xl pb-2 mx-auto text-center text-white">
     <p>Erstellt von <a href="mailto:kontakt@steve-designs.de" class="hover:underline hover:text-gray-400">Stefan
-        von Drehle</a> und
-      Georg
-      Abel</p>
-    <p>Copyright © Schützenverein Kommern e.V.</p>
+        von Drehle</a></p>
+    <p>Copyright © {{ date('Y') }} Schützenverein Kommern e.V. Alle Rechte vorbehalten.</p>
     {{ app()->version() }}
     @if (!Auth::check())
       <a class="text-gray-300 border-b border-gray-500 hover:border-gray-300 hover:text-gray-500"
