@@ -1,14 +1,14 @@
 <x-app-layout>
   <div class="flex flex-row w-4/6 gap-8 mx-auto mt-24">
-    <section class="flex flex-col w-1/2 gap-1 py-2 pl-4 border-l-2 border-[#66a782]">
+    <section class="flex flex-col w-1/2 justify-evenly py-2 pl-4 border-l-2 border-[#66a782]">
       <p>St. Seb. Schützenbruderschaft e.V. Kommern</p>
       <p>Straße: Schützenweg</p>
       <p>PLZ - Ort: 53894 - Mechernich / Kommern</p>
-      <p>Telefon: <a class="hover:text-gray-500 hover:underline" href="tel:492443/7489">02443/7489</a></p>
+      <p>Telefon: <a class="text-gray-500 hover:underline" href="tel:492443/7489">02443/7489</a></p>
       <p>Vereinslokal: Schützenhaus Kommern</p>
       <p>Gründungsjahr: 1859</p>
       <p>Präsident: Thomas Bank</p>
-      <p>E-Mail: <a class="hover:text-gray-500 hover:underline"
+      <p>E-Mail: <a class="text-gray-500 hover:underline"
           href="mailto:praesident@schuetzenverein-kommern.de">praesident@schuetzenverein-kommern.de</a></p>
     </section>
     <section class="w-1/2">

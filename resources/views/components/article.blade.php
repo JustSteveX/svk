@@ -1,9 +1,9 @@
-<article class="flex flex-col p-8 my-8 bg-gray-300">
+<article class="flex flex-col p-8 my-4 bg-gray-300">
   <header>
     <h1 class="text-lg font-bold">{{ $blogpost->title }}</h1>
     <address class="text-gray-600">Autor: <span>{{ $blogpost->author }}</span></address>
     <p class="text-gray-600">Erstellt am: <time
-        datetime="2022-01-01 19:00">{{ $blogpost->created_at->format('d.m.Y') }}</time></p>
+        datetime="{{ $blogpost->created_at }}">{{ $blogpost->created_at->format('d.m.Y') }}</time></p>
     <hr class="my-2 border-gray-400">
   </header>
   <section>

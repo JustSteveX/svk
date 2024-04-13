@@ -3,7 +3,9 @@
     <p class="text-white">Du möchtest alle Neuigkeiten per Mail erhalten?<br> Dann abonniere jetzt, kostenlos,
       unseren
       Newsletter!</p>
-    <form action="subscribe" method="POST" class="flex flex-row pt-2">
+    <form action="{{ route('newsletter.store') }}" method="POST" class="flex flex-row pt-2">
+      @csrf
+      @method('post')
       <x-input id="email" class="rounded-none" type="email" name="email" :value="old('email')" required
         placeholder="E-Mail" />
       <x-button class="box-content w-full bg-black rounded-none place-content-center">

@@ -43,7 +43,8 @@
   <hr>
   @foreach ($eventList as $eventItem)
     <div class="mt-4 mb-2">
-      <p class="text-gray-600">{{ $eventItem->name }} in {{ $eventItem->location }} findet statt am
+      <p class="text-gray-600">{{ $eventItem->name }} in {{ $eventItem->location }}
+        {{ $eventItem->starts_on->lte(Carbon\Carbon::yesterday()) ? 'fand' : 'findet' }} statt am
         {{ $eventItem->starts_on->format('d.m.Y') }}</p>
     </div>
   @endforeach

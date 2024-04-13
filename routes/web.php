@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\BlogpostController;
+use App\Http\Controllers\ClubController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Middleware\DevelopmentMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +26,9 @@ Route::get('/', [HomeController::class, 'index'])->name('startseite');
 
 Route::get('/aktuelles', [BlogpostController::class, 'index'])->name('aktuelles');
 
-Route::get('/verein')->name('verein');
+Route::get('/verein', [ClubController::class, 'index'])->name('verein');
+
+Route::get('/verein/{subpage?}', [ClubController::class, 'show'])->name('verein/name')->where('subpage', '.*');
 
 Route::get('/galerie', [AlbumController::class, 'index'])->name('galerie');
 
@@ -36,13 +41,11 @@ Route::get('/kontakt', function () {
     return view('components.content.contact');
 })->name('kontakt');
 
-Route::get('/kontakt', function () {
-    return view('components.content.contact');
-})->name('kontakt');
-
-Route::get('/debug', function () {
+Route::middleware([DevelopmentMiddleware::class])->get('/debug', function () {
     return view('components.content.test');
 })->name('test');
+
+Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('blogpost', [BlogpostController::class, 'store'])->name('blogpost.create');
@@ -58,6 +61,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/event', [EventController::class, 'store'])->name('event.create');
     Route::patch('/event', [EventController::class, 'update'])->name('event.update');
     Route::delete('/event', [EventController::class, 'destroy'])->name('event.delete');
+
+    Route::post('/subpage', [ClubController::class, 'store'])->name('subpage.create');
+    Route::patch('/subpage', [ClubController::class, 'update'])->name('subpage.update');
+    Route::delete('/subpage', [ClubController::class, 'destroy'])->name('subpage.delete');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

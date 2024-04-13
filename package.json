@@ -8,8 +8,9 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/forms": "^0.5.2",
-		"autoprefixer": "^10.4.16",
+		"@tailwindcss/typography": "^0.5.12",
 		"alpinejs": "^3.4.2",
+		"autoprefixer": "^10.4.16",
 		"axios": "^1.6.1",
 		"laravel-vite-plugin": "^0.8.0",
 		"postcss": "^8.4.32",
@@ -17,8 +18,8 @@
 		"vite": "^4.0.0"
 	},
 	"dependencies": {
-		"simplemde": "^1.11.2",
 		"flowbite": "^2.2.1",
-		"flowbite-datepicker": "^1.2.6"
+		"flowbite-datepicker": "^1.2.6",
+		"simplemde": "^1.11.2"
 	}
 }

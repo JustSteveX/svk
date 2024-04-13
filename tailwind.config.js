@@ -33,5 +33,9 @@ module.exports = {
 		},
 	},
 
-	plugins: [forms, require('flowbite/plugin')],
+	plugins: [
+		forms,
+		require('@tailwindcss/typography'),
+		require('flowbite/plugin'),
+	],
 };

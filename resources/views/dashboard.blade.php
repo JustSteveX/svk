@@ -56,7 +56,7 @@
       </div>
       <div aria-labelledby="club-tab" class="hidden p-4 rounded-lg " id="club" role="tabpanel">
 
-        <x-dashboard.club></x-dashboard.club>
+        <x-dashboard.club :subpageList="$subpageList"></x-dashboard.club>
 
       </div>
       <div aria-labelledby="media-tab" class="hidden p-4 rounded-lg " id="media" role="tabpanel">

@@ -1,5 +1,5 @@
 <x-app-layout>
-  <div class="py-10">
+  <div>
     <div class="max-w-6xl mx-auto">
       @foreach ($groupedBlogposts as $year => $blogpostYearList)
         @foreach ($blogpostYearList as $blogpostItem)
