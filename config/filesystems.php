@@ -47,7 +47,7 @@ return [
         'public_root' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').':'.$_SERVER['SERVER_PORT'].'/storage',
+            'url' => env('APP_URL').':8000/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
