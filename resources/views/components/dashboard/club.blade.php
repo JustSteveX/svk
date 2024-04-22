@@ -22,6 +22,16 @@
 				</select>
 		</div>
 
+		<a x-data=""
+				x-on:click.prevent="$dispatch('close-all-modals'); $dispatch('open-modal', 'mediaSelection')">
+				Media auswählen
+		</a>
+
 		<x-primary-button>Neue Seite anlegen</x-primary-button>
 
+
 </form>
+
+<div x-init="''">
+		@include('components.modals.media-selection')
+</div>
