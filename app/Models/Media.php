@@ -15,4 +15,9 @@ class Media extends Model
     {
         return $this->belongsTo(Album::class);
     }
+
+    public function url()
+    {
+        return 'storage/media/'.$this->name;
+    }
 }

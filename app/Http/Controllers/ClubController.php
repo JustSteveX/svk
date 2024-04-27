@@ -40,14 +40,25 @@ class ClubController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        if ($request->validate([
             'title' => ['string', 'required'],
             'content' => ['string', 'required'],
             'parent_id' => ['nullable', 'exists:subpages,id'],
-        ]);
+        ])) {
+            return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen');
+        }
 
-        $subpage = Subpage::create(['title' => $request->title, 'content' => $request->content, 'parent_id' => $request->parent_id]);
+        $subpage = Subpage::whereNull('parent_id')->first();
 
-        return redirect()->back()->with('success', 'Die Seite wurde erfolgreich angelegt');
+        if ($subpage) {
+            $subpage->title = $request->title;
+            $subpage->content = $request->content;
+            $subpage->save();
+        } else {
+            Subpage::create(['title' => $request->title, 'content' => $request->content, 'parent_id' => $request->parent_id]);
+        }
+        // Subpage::updateOrCreate(['parent_id' => null], ['title' => $request->title, 'content' => $request->content]);
+
+        return redirect()->route('dashboard')->with('success', 'Die Seite wurde erfolgreich angelegt');
     }
 }

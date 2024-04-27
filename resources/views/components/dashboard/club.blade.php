@@ -1,4 +1,4 @@
-@props(['subpageList' => []])
+@props(['subpageList' => [], 'mediaList' => []])
 <h2>Jetzt eine neue Seite für den Teil "Verein" anlegen</h2>
 <hr>
 <form action="{{ route('subpage.create') }}" method="POST">
@@ -9,7 +9,7 @@
 				<label for="title" class="block text-sm font-medium text-gray-900 dark:text-white">Titel angeben</label>
 				<input type="text" name="title" id="title" required class="w-full" maxlength="255">
 		</div>
-		<x-markdown-editor :compName="'content'"></x-markdown-editor>
+		<x-markdown-editor :compName="'content'" :subpageList="$subpageList"></x-markdown-editor>
 
 		<div class="mb-4">
 				<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="parentpage-select">Elternseite
@@ -22,16 +22,10 @@
 				</select>
 		</div>
 
-		<a x-data=""
-				x-on:click.prevent="$dispatch('close-all-modals'); $dispatch('open-modal', 'mediaSelection')">
-				Media auswählen
-		</a>
-
 		<x-primary-button>Neue Seite anlegen</x-primary-button>
-
 
 </form>
 
 <div x-init="''">
-		@include('components.modals.media-selection')
+		@include('components.modals.media-selection', ['mediaList' => $mediaList])
 </div>
