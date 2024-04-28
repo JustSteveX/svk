@@ -40,10 +40,10 @@ class Media extends Model
         return false;
     }
 
-    public function shortenedName(): string
+    public function shortenedName($withExtension = false): string
     {
         $fileParts = explode('_', $this->name, 2); // Aufteilen des Dateinamens nach dem ersten Unterstrich
 
-        return pathinfo($fileParts[1], PATHINFO_FILENAME); // Entfernen der Dateierweiterung
+        return $withExtension === true ? $fileParts[1] : pathinfo($fileParts[1], PATHINFO_FILENAME); // Entfernen der Dateierweiterung
     }
 }

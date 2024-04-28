@@ -8,7 +8,7 @@
   </header>
   <section>
     <div class="inline-block w-full h-full">
-      @if ($blogpost->media)
+      @if ($blogpost->media && $blogpost->media->isImage())
         <figure class="float-right max-w-sm ml-4">
           <img alt="" src="{{ Storage::url('media/' . $blogpost->media->name) }}">
           @if ($blogpost->media->caption)
@@ -23,7 +23,17 @@
     </div>
     @isset($blogpost->album)
       <hr class="my-4 border-gray-400">
-      <x-image-showcase :mediaList="$blogpost->album->media"></x-image-showcase>
+      @if(count($blogpost->album->media->filter->isImage())>0)
+        <x-image-showcase :mediaList="$blogpost->album->media->filter->isImage()"></x-image-showcase>
+      @else
+      <div>
+        @foreach($blogpost->album->media->reject->isImage() as $mediaItem)
+
+          <x-button-download :media="$mediaItem"></x-button-download>
+
+        @endforeach
+      </div>
+      @endif
     @endisset
   </section>
 </article>
