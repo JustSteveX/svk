@@ -6,6 +6,7 @@ use App\Models\Subpage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClubController extends Controller
 {
@@ -40,22 +41,30 @@ class ClubController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        if ($request->validate([
+        /*if ($request->validate([
             'title' => ['string', 'required'],
             'content' => ['string', 'required'],
             'parent_id' => ['nullable', 'exists:subpages,id'],
         ])) {
-            return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen');
+            return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen '.($request->parent_id ?? 'null'));
+        }*/
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'parent_id' => 'nullable|exists:subpages,id',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen '.implode(', ', $validator->errors()->keys()));
         }
 
-        $subpage = Subpage::whereNull('parent_id')->first();
-
-        if ($subpage) {
+        if ($request->parent_id) {
+            Subpage::create(['title' => $request->title, 'content' => $request->content, 'parent_id' => $request->parent_id]);
+        } else {
+            $subpage = Subpage::whereNull('parent_id')->first();
             $subpage->title = $request->title;
             $subpage->content = $request->content;
             $subpage->save();
-        } else {
-            Subpage::create(['title' => $request->title, 'content' => $request->content, 'parent_id' => $request->parent_id]);
         }
         // Subpage::updateOrCreate(['parent_id' => null], ['title' => $request->title, 'content' => $request->content]);
 

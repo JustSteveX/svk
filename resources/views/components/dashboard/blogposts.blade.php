@@ -26,7 +26,7 @@
           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="albumselection">Album
             auswählen</label>
           <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="albumselection" name="album">
-            <option selected>Kein Album</option>
+            <option selected value="">Kein Album</option>
             @foreach ($albumList as $albumItem)
               <option value="{{ $albumItem->id }}">{{ $albumItem->name }}</option>
             @endforeach
@@ -36,7 +36,7 @@
           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="mediaselection">Datei
             auswählen</label>
           <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="mediaselection" name="media">
-            <option selected>Keine Datei</option>
+            <option selected value="">Keine Datei</option>
             @foreach ($mediaList as $mediaItem)
               <option value="{{ $mediaItem->id }}">{{ $mediaItem->name }}</option>
             @endforeach

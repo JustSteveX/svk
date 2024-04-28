@@ -94,9 +94,9 @@
 
 						let output = '';
 						output += images.map(image =>
-								` ![${text}](${window.location.origin}/storage/media/${image})`
+								`![${text}](<${window.location.origin}/storage/media/${image}>)`
 						);
-            output += docs.map(doc => ` [Download ${doc}](${window.location.origin}/storage/media/${doc})`);
+            output += docs.map(doc => `[Download ${doc}](<${window.location.origin}/storage/media/${doc}>)`);
 
 						cm.replaceSelection(output);
 				});
@@ -115,7 +115,7 @@
       const editor = window.editor;
       const cm = editor.codemirror;
       const selectedText = cm.getSelection();
-      const output = ` [${event.detail.title}](${event.detail.path})`;
+      const output = `[${event.detail.title}](<${event.detail.path}>)`;
       cm.replaceSelection(output);
     }
 </script>

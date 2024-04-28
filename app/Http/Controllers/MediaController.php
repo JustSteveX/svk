@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Media;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,22 +31,36 @@ class MediaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'files.*' => ['required', 'file', 'mimes:jpeg,png,pdf,mp4,gif', 'max:20480'], // Anpassen der Validierungsregeln je nach Bedarf
+            // Erlaubte FileTypen: jp(e)g, png, gif, videos (mp4, avi, mov, wmv), pdf, docx, xlsx, pptx, odt, ods, odp
+            'files.*' => [
+                'required',
+                'file',
+                'max:20480', // Maximale Dateigröße 20 MB
+                'mimetypes:image/jpeg,image/png,image/gif,video/mp4,video/x-msvideo,video/quicktime,video/x-ms-wmv,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.oasis.opendocument.text,application/vnd.oasis.opendocument.spreadsheet,application/vnd.oasis.opendocument.presentation',
+            ],
             'album' => ['string', 'required'],
         ]);
 
         foreach ($request->file('files') as $file) {
-            $fileName = time().'_'.$file->getClientOriginalName();
+            $timestamp = time();
+            $fileName = $timestamp.'_'.$file->getClientOriginalName();
 
             // Datei im Storage speichern
             Storage::disk('public')->put('media/'.$fileName, file_get_contents($file));
 
             // Datensatz für Media erzeugen
-            $media = new Media;
-            $media->name = $fileName;
-            $media->mime_type = $file->getMimeType();
-            $media->album_id = $request->album;
-            $media->save();
+            // $media = new Media;
+            // $media->name = $fileName;
+            // $media->mime_type = $file->getMimeType();
+            // $media->album_id = $request->album;
+            // $media->save();
+
+            Media::create([
+                'name' => $fileName,
+                'mime_type' => $file->getMimeType(),
+                'album_id' => $request->album,
+                'created_at' => Carbon::createFromTimestamp($timestamp),
+            ]);
         }
 
         return redirect()->back()->with('success', 'File uploaded successfully.');

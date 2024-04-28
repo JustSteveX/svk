@@ -33,8 +33,8 @@
 				</nav>
 
 				<hr class="my-4">
-				<div class="px-4">
-						<div class="prose">
+				<div class="px-4 pb-4">
+						<div class="min-w-full prose">
 								{{ new Illuminate\Support\HtmlString(Str::of($subpage->content)->markdown(['html_input' => 'escape', 'allow_unsafe_links' => true])) }}
 						</div>
 				</div>

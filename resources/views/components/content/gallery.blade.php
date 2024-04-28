@@ -42,9 +42,9 @@
         @endforeach
       @endisset
       @isset($mediaList)
-        @forelse ($mediaList as $mediaItem)
+        @forelse ($mediaList->filter->isImage() as $mediaItem)
           <div class="w-full px-4 mb-4 sm:w-1/2 md:w-1/3 lg:w-1/4">
-            <img alt="" class="w-full h-auto" src="{{ Storage::url('media/' . $mediaItem->name) }}">
+              <img alt="" class="w-full h-auto" src="{{ Storage::url('media/' . $mediaItem->name) }}">
           </div>
         @empty
           <p>Hier wurde noch nichts veröffentlicht...</p>

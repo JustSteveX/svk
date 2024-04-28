@@ -5,7 +5,6 @@ import 'flowbite-datepicker';
 import 'flowbite/dist/datepicker.turbo.js';
 
 import Alpine from 'alpinejs';
-import { Dismiss } from 'flowbite';
 
 window.Alpine = Alpine;
 
@@ -31,18 +30,3 @@ window.openModal = function (name, callback, closeAll = true) {
 		}
 	);
 };
-
-const options = {
-	transition: 'transition-opacity',
-	duration: 10000,
-	timing: 'ease-out',
-
-	// callback functions
-	onHide: (context, targetEl) => {},
-};
-
-const dismiss = new Dismiss(
-	document.getElementById('alert'),
-	document.querySelector('.alert-close'),
-	options
-);

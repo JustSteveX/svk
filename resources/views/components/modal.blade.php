@@ -10,7 +10,7 @@
 		][$maxWidth];
 @endphp
 
-<div class="fixed inset-0 z-50 px-4 py-6 overflow-y-auto sm:px-0" style="display: {{ $show ? 'block' : 'none' }};"
+<div class="fixed inset-0 px-4 py-6 overflow-y-auto sm:px-0 z-[10000]" style="display: {{ $show ? 'block' : 'none' }};"
 		x-ref="modal" x-data="{
     show: @js($show),
     selectedData: [],

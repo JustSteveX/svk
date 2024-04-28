@@ -1,3 +1,4 @@
+@if(count($mediaList->filter->isImage()) > 0)
 <div class="relative w-full max-w-2xl mx-auto" data-carousel="slide" id="animation-carousel">
   <!-- Carousel wrapper -->
   <div class="relative h-56 overflow-hidden md:h-96">
@@ -19,17 +20,15 @@
     <div class="hidden ease-in-out duration-2000" data-carousel-item>
       <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg">
     </div-->
-    @forelse ($mediaList as $mediaItem)
+    @foreach ($mediaList->filter->isImage() as $mediaItem)
       <div class="hidden ease-in-out duration-2000" data-carousel-item="{{ $loop->first ? 'active' : '' }}">
         <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           src="{{ Storage::url('media/' . $mediaItem->name) }}">
       </div>
-    @empty
-      <p>No images found.</p>
-    @endforelse
+    @endforeach
 
   </div>
-  @if (count($mediaList) > 0)
+  @if (count($mediaList->filter->isImage()) > 0)
     <!-- Slider controls -->
     <button
       class="absolute z-30 flex items-center justify-center px-4 cursor-pointer top-1/2 bottom-1/2 start-0 group focus:outline-none"
@@ -59,3 +58,4 @@
     </button>
   @endif
 </div>
+@endif
