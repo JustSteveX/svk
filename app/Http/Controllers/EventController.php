@@ -45,4 +45,11 @@ class EventController extends Controller
           gmap-link
          */
     }
+
+    public function destroy(Request $request)
+    {
+        $request->validate(['id' => 'required|string|exists:events,id']);
+
+        return redirect()->back()->with('success', 'Termin wurde erfolgreich entfernt');
+    }
 }

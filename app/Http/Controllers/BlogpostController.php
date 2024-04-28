@@ -10,7 +10,7 @@ class BlogpostController extends Controller
 {
     public function index()
     {
-        $blogpostList = Blogpost::all();
+        $blogpostList = Blogpost::where('archived', '=', false)->get();
 
         $groupedBlogposts = $blogpostList->sortByDesc('created_at')->groupBy(function ($blogpost) {
             return Carbon::parse($blogpost->created_at)->format('Y');
@@ -40,5 +40,27 @@ class BlogpostController extends Controller
         $blogpost->save();
 
         return redirect()->back()->with('success', 'Beitrag erfolgreich angelegt');
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|string|exists:blogposts,id',
+        ]);
+
+        Blogpost::destroy($request->id);
+
+        return redirect()->back()->with('success', 'Beitrag wurde erfolgreich gelöscht');
+    }
+
+    public function archive(Request $request)
+    {
+        $request->validate(['id' => 'required|string|exists:blogposts,id']);
+
+        $blogpost = Blogpost::find($request->id);
+        $blogpost->archived = ! $blogpost->archived;
+        $blogpost->save();
+
+        return redirect()->back()->with('success', 'Beitrag wurde '.($blogpost->archived ? 'archiviert' : 'wiederhergestellt'));
     }
 }

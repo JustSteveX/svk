@@ -58,16 +58,30 @@ class ClubController extends Controller
             return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen '.implode(', ', $validator->errors()->keys()));
         }
 
+        $content = str_replace("\n", '
+', $request->content);
+
         if ($request->parent_id) {
-            Subpage::create(['title' => $request->title, 'content' => $request->content, 'parent_id' => $request->parent_id]);
+            Subpage::create(['title' => $request->title, 'content' => $content, 'parent_id' => $request->parent_id]);
         } else {
             $subpage = Subpage::whereNull('parent_id')->first();
             $subpage->title = $request->title;
-            $subpage->content = $request->content;
+            $subpage->content = $content;
             $subpage->save();
         }
         // Subpage::updateOrCreate(['parent_id' => null], ['title' => $request->title, 'content' => $request->content]);
 
         return redirect()->route('dashboard')->with('success', 'Die Seite wurde erfolgreich angelegt');
+    }
+
+    public function destroy(Request $request): RedirectResponse
+    {
+        $request->validate(['id' => 'string|required|exists:subpages,id']);
+        if ($request->id === 1) {
+            return redirect()->back()->with('error', 'Diese Seite kann nicht gelöscht werden');
+        }
+        Subpage::destroy($request->id);
+
+        return redirect()->back()->with('success', 'Die Seite wurde erfolgreich gelöscht');
     }
 }

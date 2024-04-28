@@ -38,14 +38,25 @@
     <x-primary-button class="">{{ __('Termin anlegen') }}</x-primary-button>
   </div>
 </form>
-<div class="mt-6">
-  <h3>Alle Termine in der Übersicht:</h3>
+
+<div class="mt-8">
+  <h2 class="mt-2 text-lg">Alle Termine im Überblick:</h2>
   <hr>
-  @foreach ($eventList as $eventItem)
-    <div class="mt-4 mb-2">
-      <p class="text-gray-600">{{ $eventItem->name }} in {{ $eventItem->location }}
-        {{ $eventItem->starts_on->lte(Carbon\Carbon::yesterday()) ? 'fand' : 'findet' }} statt am
-        {{ $eventItem->starts_on->format('d.m.Y') }}</p>
-    </div>
+
+  @foreach($eventList as $eventItem)
+  <div class="flex flex-row items-center justify-between px-4 py-8">
+    <p class="text-gray-500"><span class="text-gray-900">{{$eventItem->name}}</span> erstellt am {{ $eventItem->created_at->format('d.m.Y H:i:s') }} zuletzt bearbeitet am: {{$eventItem->updated_at->format('d.m.Y H:i:s')}}</p>
+    <span class="flex flex-row items-center justify-between gap-2 leading-none list-actions">
+      <form action="{{route('subpage.delete')}}" method="POST">
+        @csrf
+        @method('delete')
+        <input name="id" type="text" hidden value="{{$eventItem->id}}">
+        <button class="text-red-900 hover:text-red-600">
+          <x-bi-trash-fill class="w-6 h-6" />
+        </button>
+      </form>
+    </span>
+  </div>
+  <hr>
   @endforeach
 </div>

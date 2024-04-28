@@ -52,13 +52,33 @@
   <h3>Veröffentlichte Beiträge</h3>
   <hr>
   @foreach ($blogpostList as $blogpostItem)
-    <div class="relative mt-2">
+    <div class="relative flex flex-row items-center justify-between w-full p-4 mt-2 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       <span
-        class="block w-full py-4 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        id="update-album" name="name" readonly required type="text">
+        class="block">
         {{ $blogpostItem->title }} <small class="text-neutral-500">veröffentlicht am:</small>
         {{ $blogpostItem->created_at->format('d.m.Y H:i:s') }} <small class="text-neutral-500">von:</small>
         {{ $blogpostItem->author }}
+        @if($blogpostItem->archived)
+          <small>(Archiviert)</small>
+        @endif
+      </span>
+      <span class="flex flex-row gap-2 leading-none list-actions">
+        <form action="{{route('blogpost.archive')}}" method="POST">
+          @csrf
+          @method('post')
+          <input name="id" type="text" value="{{$blogpostItem->id}}" hidden>
+          <button class="text-gray-800 hover:text-gray-500">
+            <x-bi-archive-fill class="w-6 h-6" />
+          </button>
+        </form>
+        <form action="{{route('blogpost.delete')}}" method="POST">
+          @csrf
+          @method('delete')
+          <input name="id" type="text" value="{{$blogpostItem->id}}" hidden>
+          <button class="text-red-900 hover:text-red-600">
+            <x-bi-trash-fill class="w-6 h-6" />
+          </button>
+        </form>
       </span>
     </div>
   @endforeach

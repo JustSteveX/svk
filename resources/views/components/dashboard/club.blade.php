@@ -13,7 +13,7 @@
 
 		<div class="mb-4">
 				<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="parentpage-select">Elternseite
-						auswählen</label>
+						auswählen (wenn keine Seite gewählt wird, wird die Vereins - Startseite editiert)</label>
 				<select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="parentpage-select" name="parent_id">
 						<option selected value="">Keine Seite auswählen</option>
 						@foreach ($subpageList as $subpageItem)
@@ -35,8 +35,22 @@
   <hr>
 
   @foreach($subpageList as $subpageItem)
-  <div class="flex flex-row justify-between px-4 py-8">
-    <p>{{$subpageItem->title}} erstellt am {{ $subpageItem->created_at->format('d.m.Y H:i:s') }} zuletzt bearbeitet am: {{$subpageItem->updated_at->format('d.m.Y H:i:s')}}</p> <a class="text-slate-600 hover:text-blue-700" target="_blank" href="{{$subpageItem->getUrlPath()}}">Link</a>
+  <div class="flex flex-row items-center justify-between px-4 py-8">
+    <p class="text-gray-500"><span class="text-gray-900">{{$subpageItem->title}}</span> erstellt am {{ $subpageItem->created_at->format('d.m.Y H:i:s') }} zuletzt bearbeitet am: {{$subpageItem->updated_at->format('d.m.Y H:i:s')}}</p>
+    <span class="flex flex-row items-center justify-between gap-2 leading-none list-actions">
+      <a class="text-slate-600 hover:text-blue-700" target="_blank" href="{{$subpageItem->getUrlPath()}}">Link</a>
+      @if($subpageItem->id !== 1)
+      <span class="select-none">|</span>
+      <form action="{{route('subpage.delete')}}" method="POST">
+        @csrf
+        @method('delete')
+        <input name="id" type="text" hidden value="{{$subpageItem->id}}">
+        <button class="text-red-900 hover:text-red-600">
+          <x-bi-trash-fill class="w-6 h-6" />
+        </button>
+      </form>
+      @endif
+    </span>
   </div>
   <hr>
   @endforeach

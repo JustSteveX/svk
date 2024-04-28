@@ -48,8 +48,9 @@ Route::middleware([DevelopmentMiddleware::class])->get('/debug', function () {
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::post('blogpost', [BlogpostController::class, 'store'])->name('blogpost.create');
-    Route::delete('blogpost', [BlogpostController::class, 'destroy'])->name('blogpost.delete');
+    Route::post('/blogpost', [BlogpostController::class, 'store'])->name('blogpost.create');
+    Route::delete('/blogpost', [BlogpostController::class, 'destroy'])->name('blogpost.delete');
+    Route::post('/blogpost/archive', [BlogpostController::class, 'archive'])->name('blogpost.archive');
 
     Route::post('/media', [MediaController::class, 'store'])->name('media.create');
     Route::delete('/media', [MediaController::class, 'destroy'])->name('media.delete');

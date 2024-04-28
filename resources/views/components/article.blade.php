@@ -26,7 +26,7 @@
       @if(count($blogpost->album->media->filter->isImage())>0)
         <x-image-showcase :mediaList="$blogpost->album->media->filter->isImage()"></x-image-showcase>
       @else
-      <div>
+      <div class="flex flex-row flex-wrap justify-end gap-2">
         @foreach($blogpost->album->media->reject->isImage() as $mediaItem)
 
           <x-button-download :media="$mediaItem"></x-button-download>

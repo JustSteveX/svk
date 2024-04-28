@@ -52,12 +52,13 @@
         </label>
       </div>
     @else
-      <form action="{{ route('album.update') }}" class="mt-2 " method="POST">
+    <div class="flex flex-row items-center justify-center w-full gap-2">
+      <form action="{{ route('album.update') }}" method="POST" class="w-full">
         @csrf
         @method('patch')
 
         <div class="relative">
-          <input class="hidden" name="id" type="text" value="{{ $albumItem->id }}">
+          <input hidden name="id" type="text" value="{{ $albumItem->id }}">
           <input
             class="block w-full py-4 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             id="update-album" name="name" required type="text" value="{{ $albumItem->name }}">
@@ -66,6 +67,15 @@
             type="submit">Name ändern</button>
         </div>
       </form>
+      <form action="{{route('album.delete')}}" method="POST">
+        @csrf
+        @method('delete')
+        <input type="text" hidden name="id" type="text" value="{{$albumItem->id}}">
+        <x-danger-button
+              class="mr-4 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="submit">Album löschen</x-danger-button>
+      </form>
+    </div>
     @endif
   @endforeach
 </div>

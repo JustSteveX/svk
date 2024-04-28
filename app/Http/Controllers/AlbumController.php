@@ -36,7 +36,7 @@ class AlbumController extends Controller
         ]);
 
         if (Str::upper($request->name) === 'HIGHLIGHTS') {
-            return redirect()->back()->with(['error', 'Der Name highlights ist reserviert.']);
+            return redirect()->back()->with('error', 'Der Name Highlights ist reserviert.');
         }
 
         $album = new Album;
@@ -44,7 +44,7 @@ class AlbumController extends Controller
 
         $album->save();
 
-        return redirect()->back()->with(['success', 'Album erfolgreich erstellt.']);
+        return redirect()->back()->with('success', 'Album erfolgreich erstellt.');
     }
 
     public function update(Request $request)
@@ -57,14 +57,14 @@ class AlbumController extends Controller
         $album = Album::find($request->id);
 
         if (Str::upper($album->name) === 'HIGHLIGHTS') {
-            return redirect()->back()->with(['error', 'Dieses Album ist nicht editierbar.']);
+            return redirect()->back()->with('error', 'Dieses Album ist nicht editierbar.');
         }
 
         $album->update([
             'name' => $request->name,
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->back()->with('success', 'Das Album wurd erfolgreich editiert');
     }
 
     public function destroy(Request $request)
@@ -76,11 +76,11 @@ class AlbumController extends Controller
         $album = Album::find($request->id);
 
         if (Str::upper($album->name) === 'HIGHLIGHTS') {
-            return redirect()->back()->with(['error', 'Dieses Album ist nicht löschbar.']);
+            return redirect()->back()->with('error', 'Dieses Album ist nicht löschbar.');
         }
 
-        Album::destroy($request->id);
+        $album->delete();
 
-        return redirect()->back()->with(['success', 'Album wurde erfolgreich gelöscht']);
+        return redirect()->back()->with('success', 'Album erfolgreich gelöscht.');
     }
 }
