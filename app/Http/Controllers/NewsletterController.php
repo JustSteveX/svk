@@ -2,19 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\NewsletterMail;
-use App\Models\Blogpost;
+use App\Mail\VerifyNewsletter;
+use App\Models\Subscriber;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class NewsletterController extends Controller
 {
-    public function store(Request $request)
+    public function unsubscribe($email, $token): RedirectResponse
     {
-        $request->validate(['email' => 'email']);
+        $validator = Validator::make(
+            ['email' => $email, 'token' => $token],
+            ['email' => 'required|email|exists:subscribers,email', 'token' => 'required|string|exists:subscribers,token']
+        );
 
-        $blogpost = Blogpost::latest()->first();
+        $subscriber = Subscriber::where('email', '=', $email);
 
-        Mail::to($request->get('email'))->send(new NewsletterMail($blogpost->content, $blogpost->title, $blogpost->author, $blogpost->created_at));
+        if ($validator->fails() || ! $subscriber) {
+            return redirect()->route('startseite')->with('error', 'Ihre Abmeldung zum Newsletter ist fehlgeschlagen.');
+        }
+
+        $subscriber->delete();
+
+        return redirect()->route('startseite')->with('success', 'Ihre Abmeldung zum Newsletter wurde bestätigt.');
+    }
+
+    public function subscribe(Request $request)
+    {
+        $request->validate(['email' => 'required|email|unique:subscribers,email']);
+
+        $token = Str::random(60);
+
+        Subscriber::create([
+            'email' => $request->email,
+            'token' => $token,
+        ]);
+
+        Mail::to($request->email)->send(new VerifyNewsletter($token));
+
+        return redirect()->back()->with('success', 'Vielen Dank für Ihre Anmeldung! Bitte überprüfen Sie Ihre E-Mail, um Ihre Anmeldung abzuschließen.');
+    }
+
+    public function verifySubscription($token)
+    {
+        $subscriber = Subscriber::where('token', $token)->firstOrFail();
+
+        $subscriber->update([
+            'email_verified_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Ihre Anmeldung zum Newsletter wurde bestätigt.');
+    }
+
+    public function resend($email)
+    {
+
     }
 }

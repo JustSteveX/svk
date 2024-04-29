@@ -72,7 +72,7 @@
 						</div>
 						<div aria-labelledby="email-tab" class="hidden p-4 rounded-lg " id="email" role="tabpanel">
 
-								<x-dashboard.subscriber></x-dashboard.subscriber>
+								<x-dashboard.subscriber :subscriberList="$subscriberList"></x-dashboard.subscriber>
 
 						</div>
 

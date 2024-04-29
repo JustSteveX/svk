@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Media;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AlbumController extends Controller
@@ -77,6 +79,12 @@ class AlbumController extends Controller
 
         if (Str::upper($album->name) === 'HIGHLIGHTS') {
             return redirect()->back()->with('error', 'Dieses Album ist nicht löschbar.');
+        }
+
+        $mediaList = Media::where('album_id', '=', $album->id)->get();
+        foreach ($mediaList as $mediaItem) {
+            Storage::delete('media/'.$mediaItem->name);
+            $mediaItem->delete();
         }
 
         $album->delete();

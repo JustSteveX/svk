@@ -8,32 +8,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewsletterMail extends Mailable
+class VerifyNewsletter extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $content;
-
-    public $title;
-
-    public $created_at;
-
-    public $author;
-
-    public $email;
 
     public $token;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($content, $title, $author, $created_at, $email, $token)
+    public function __construct(string $token)
     {
-        $this->content = $content;
-        $this->title = $title;
-        $this->created_at = $created_at;
-        $this->author = $author;
-        $this->email = $email;
         $this->token = $token;
     }
 
@@ -43,13 +28,13 @@ class NewsletterMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Newsletter Mail',
+            subject: 'Verify Newsletter',
         );
     }
 
     public function build()
     {
-        return $this->view('emails.newsletter');
+        return $this->view('emails.verify-newsletter');
     }
 
     /**
@@ -58,7 +43,7 @@ class NewsletterMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.newsletter',
+            view: 'emails.verify-newsletter',
         );
     }
 

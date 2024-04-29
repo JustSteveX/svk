@@ -3,7 +3,7 @@
 				<p class="text-white">Du möchtest alle Neuigkeiten per Mail erhalten?<br> Dann abonniere jetzt, kostenlos,
 						unseren
 						Newsletter!</p>
-				<form action="{{ route('newsletter.store') }}" method="POST" class="flex flex-row pt-2">
+				<form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex flex-row pt-2">
 						@csrf
 						@method('post')
 						<x-input id="email" class="rounded-none" type="email" name="email" :value="old('email')" required
@@ -21,7 +21,7 @@
                   <a class="text-gray-300 hover:text-gray-500 hover:underline" href="#">Datenschutz</a>
               </div>
 				<p>Copyright © {{ date('Y') }} Schützenverein Kommern e.V. Alle Rechte vorbehalten.</p>
-				
+
 				v{{ app()->version() }}
 				@if (!Auth::check())
 						<a class="text-gray-300 border-b border-gray-500 hover:border-gray-300 hover:text-gray-500"

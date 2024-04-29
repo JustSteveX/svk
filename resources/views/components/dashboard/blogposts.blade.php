@@ -33,11 +33,11 @@
           </select>
         </div>
         <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="mediaselection">Datei
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="mediaselection">Bild
             auswählen</label>
           <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="mediaselection" name="media">
             <option selected value="">Keine Datei</option>
-            @foreach ($mediaList as $mediaItem)
+            @foreach ($mediaList->filter->isImage() as $mediaItem)
               <option value="{{ $mediaItem->id }}">{{ $mediaItem->name }}</option>
             @endforeach
           </select>
