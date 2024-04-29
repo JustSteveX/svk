@@ -57,8 +57,16 @@ class NewsletterController extends Controller
         return redirect()->back()->with('success', 'Ihre Anmeldung zum Newsletter wurde bestätigt.');
     }
 
-    public function resend($email)
+    public function resend($email): RedirectResponse
     {
+        $subscriber = Subscriber::where('email', '=', $email)->firstOrFail();
 
+        if (! $subscriber || isset($subscriber->email_verified_at)) {
+            return redirect()->route('startseite')->with('error', 'Die Bestätigungsmail konnte nicht versendet werden!');
+        }
+
+        Mail::to($subscriber->email)->send(new VerifyNewsletter($subscriber->token));
+
+        return redirect()->route('startseite')->with('success', 'Die Bestätigungsmail wurde erneut versendet!');
     }
 }

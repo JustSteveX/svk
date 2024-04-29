@@ -48,7 +48,7 @@ Route::middleware([DevelopmentMiddleware::class])->get('/debug', function () {
 Route::get('newsletter/unsubscribe/{email}/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 Route::post('newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 Route::get('newsletter/verify/{token}', [NewsletterController::class, 'verifySubscription'])->name('newsletter.verify');
-Route::get('newsletter/verify/{email}', [NewsletterController::class, 'resend'])->name('newsletter.resend');
+Route::get('newsletter/send-verification/{email}', [NewsletterController::class, 'resend'])->name('newsletter.resend');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/blogpost', [BlogpostController::class, 'store'])->name('blogpost.create');
