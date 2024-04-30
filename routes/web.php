@@ -50,6 +50,13 @@ Route::post('newsletter/subscribe', [NewsletterController::class, 'subscribe'])-
 Route::get('newsletter/verify/{token}', [NewsletterController::class, 'verifySubscription'])->name('newsletter.verify');
 Route::get('newsletter/send-verification/{email}', [NewsletterController::class, 'resend'])->name('newsletter.resend');
 
+Route::get('impressum', function () {
+    return view('components.content.imprint');
+})->name('impressum');
+Route::get('datenschutz', function () {
+    return view('components.content.privacy');
+})->name('datenschutz');
+
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/blogpost', [BlogpostController::class, 'store'])->name('blogpost.create');
     Route::delete('/blogpost', [BlogpostController::class, 'destroy'])->name('blogpost.delete');

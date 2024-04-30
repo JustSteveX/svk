@@ -15,7 +15,9 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albumList = Album::all();
+        $albumList = Album::orderByRaw("name = 'Highlights' desc")
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('components.content.gallery', compact('albumList'));
     }

@@ -1,6 +1,6 @@
 <footer class="flex flex-col justify-between w-full bg-gray-800 h-72">
 		<div id="newsletter-container" class="max-w-6xl pt-10 mx-auto text-center">
-				<p class="text-white">Du möchtest alle Neuigkeiten per Mail erhalten?<br> Dann abonniere jetzt, kostenlos,
+				<p class="text-white">Du möchtest alle neuen Beiträge per Mail erhalten?<br> Dann abonniere jetzt, kostenlos,
 						unseren
 						Newsletter!</p>
 				<form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex flex-row pt-2">
@@ -17,8 +17,8 @@
 				<p>Erstellt von <a href="mailto:kontakt@steve-designs.de" class="hover:underline hover:text-gray-400">Stefan
 								von Drehle</a></p>
                 <div>
-                  <a class="text-gray-300 hover:text-gray-500 hover:underline" href="#">Impressum</a> |
-                  <a class="text-gray-300 hover:text-gray-500 hover:underline" href="#">Datenschutz</a>
+                  <a class="text-gray-300 hover:text-gray-500 hover:underline" href="{{ route('impressum') }}">Impressum</a> |
+                  <a class="text-gray-300 hover:text-gray-500 hover:underline" href="{{ route('datenschutz') }}">Datenschutz</a>
               </div>
 				<p>Copyright © {{ date('Y') }} Schützenverein Kommern e.V. Alle Rechte vorbehalten.</p>
 
