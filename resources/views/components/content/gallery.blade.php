@@ -30,7 +30,7 @@
             <div class="relative h-64 bg-gray-300">
               <a href="{{ Str::lower('galerie/' . $albumItem->name) }}">
                 @if ($albumItem->thumbnail)
-                  <img alt="" class="h-auto max-w-full" src="{{ asset($albumItem->thumbnail) }}">
+                  <img alt="{{$albumItem->name}}" class="h-auto max-w-full" src="{{ Storage::url('media/' . $albumItem->thumbnail->name) }}">
                 @else
                   <div class="flex items-center justify-center w-full h-full hover:bg-gray-600 hover:text-gray-100">
                     <h4 class="text-xl text-center ">{{ $albumItem->name }}</h4>
@@ -44,7 +44,7 @@
       @isset($mediaList)
         @forelse ($mediaList->filter->isImage() as $mediaItem)
           <div class="w-full px-4 mb-4 sm:w-1/2 md:w-1/3 lg:w-1/4">
-              <img alt="" class="w-full h-auto" src="{{ Storage::url('media/' . $mediaItem->name) }}">
+              <img alt="{{$mediaItem->name}}" class="w-full h-auto" src="{{ Storage::url('media/' . $mediaItem->name) }}">
           </div>
         @empty
           <p>Hier wurde noch nichts veröffentlicht...</p>
