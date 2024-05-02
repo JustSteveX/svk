@@ -2,24 +2,6 @@
 <div class="relative w-full max-w-2xl mx-auto" data-carousel="slide" id="animation-carousel">
   <!-- Carousel wrapper -->
   <div class="relative h-56 overflow-hidden md:h-96">
-    <!--div class="hidden ease-in-out duration-2000" data-carousel-item>
-      <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg">
-    </div>
-    <div class="hidden ease-in-out duration-2000" data-carousel-item>
-      <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg">
-    </div>
-    <div class="hidden ease-in-out duration-2000" data-carousel-item>
-      <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg">
-    </div>
-    <div class="hidden ease-in-out duration-2000" data-carousel-item="active">
-      <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg">
-    </div>
-    <div class="hidden ease-in-out duration-2000" data-carousel-item>
-      <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg">
-    </div>
-    <div class="hidden ease-in-out duration-2000" data-carousel-item>
-      <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg">
-    </div-->
     @foreach ($mediaList->filter->isImage() as $mediaItem)
       <div class="hidden ease-in-out duration-2000" data-carousel-item="{{ $loop->first ? 'active' : '' }}">
         <img alt="..." class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
