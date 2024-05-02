@@ -30,6 +30,7 @@
 				</main>
 		</div>
     @include('components.alert')
+    @include('components.modals.image')
 		@include('components.footer')
 </body>
 
