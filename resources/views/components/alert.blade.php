@@ -1,4 +1,4 @@
-<div class="fixed z-50 bottom-8 border rounded-lg border-slate-800 left-1/2 translate-x-[-50%]" id="alert">
+<div class="fixed z-40 bottom-8 border rounded-lg border-slate-800 left-1/2 translate-x-[-50%]" id="alert">
   @if(session()->has('error'))
   <div id="alert-1" class="flex items-center p-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
     <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

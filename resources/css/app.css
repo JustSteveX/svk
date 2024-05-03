@@ -1,3 +1,29 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@font-face {
+	font-family: 'SedanSC';
+	src: url('/resources/fonts/SedanSC-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	src: url('/resources/fonts/NunitoSans.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'UbuntuSans';
+	src: url('/resources/fonts/UbuntuSans.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.text-highlight {
+	/*text-shadow: 1px 1px 2px grey, 0 0 1px grey, 0 0 0.2px grey;*/
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8), 1px 1px 3px rgba(0, 0, 0, 0.8);
+}

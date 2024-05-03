@@ -1,6 +1,6 @@
 <x-app-layout>
-
-		<div class="min-h-screen mx-auto bg-slate-300 max-w-7xl">
+  <div class="w-full pt-20">
+		<div class="min-h-screen mx-auto bg-accent-50 max-w-7xl">
 				<nav aria-label="Breadcrumb" class="flex pt-4">
 						<ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
 
@@ -32,7 +32,7 @@
 						</ol>
 				</nav>
 
-				<hr class="my-4">
+				<hr class="my-4 border-accent-200">
 				<div class="px-4 pb-4">
 						<div class="min-w-full prose">
 								{{ new Illuminate\Support\HtmlString(Str::of($subpage->content)->markdown(['html_input' => 'escape', 'allow_unsafe_links' => true])) }}
@@ -40,5 +40,5 @@
 				</div>
 
 		</div>
-
+  </div>
 </x-app-layout>

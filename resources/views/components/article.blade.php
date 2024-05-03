@@ -1,4 +1,4 @@
-<article class="flex flex-col p-8 my-4 bg-gray-300">
+<article class="flex flex-col p-8 my-4 bg-accent-50">
   <header>
     <h1 class="text-lg font-bold">{{ $blogpost->title }}</h1>
     <address class="text-gray-600">Autor: <span>{{ $blogpost->author }}</span></address>

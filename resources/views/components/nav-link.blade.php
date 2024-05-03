@@ -3,11 +3,11 @@
 @php
   $classes =
       $active ?? false
-          ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-lg font-medium leading-5 text-gray-900
-focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
-          : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-500
-hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition
-duration-150 ease-in-out';
+          ? 'font-ubuntu-sans font-bold text-2xl inline-flex items-center px-1 pt-1 border-b-2 border-accent text-primary
+focus:outline-none focus:border-accent-900 transition duration-150 ease-in-out text-highlight'
+          : 'font-ubuntu-sans text-2xl inline-flex items-center px-1 pt-1 border-b-2 border-accent-50 text-accent-50
+hover:text-primary hover:border-gray-300 focus:outline-none transition
+duration-150 ease-in-out text-highlight font-bold';
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>

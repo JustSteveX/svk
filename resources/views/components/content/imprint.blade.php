@@ -1,27 +1,27 @@
 <x-app-layout>
-  <div class="px-4 py-2 mx-auto bg-gray-300 max-w-7xl">
+  <div class="pt-20">
+  <div class="px-4 py-2 mx-auto bg-accent-50 max-w-7xl">
     <h1 class="text-lg font-bold">Impressum</h2>
-    <hr>
+    <hr class="border-accent-200">
     <address class="my-4">
       Verantwortlich: <br>
       St. Seb. Schützenbruderschaft e.V. Kommern<br>
       Schützenweg<br>
       53894 Mechernich / Kommern<br>
-      Telefon: <a class="text-blue-700 hover:underline" href="tel:024437489">02443/7489</a><br>
+      Telefon: <a class="text-accent hover:text-accent-200 hover:underline" href="tel:024437489">02443/7489</a><br>
       Vereinslokal:<br>
       Schützenhaus Kommern<br>
       Gründungsjahr: 1859<br>
-      Präsident:<br>
-      Thomas Bank<br>
-      E-Mail: <a class="text-blue-700 hover:underline" href="mailto:praesident@schuetzenverein-kommern.de">praesident@schuetzenverein-kommern.de</a>
+      Präsident: Thomas Bank<br>
+      E-Mail: <a class="text-accent hover:text-accent-200 hover:underline" href="mailto:praesident@schuetzenverein-kommern.de">praesident@schuetzenverein-kommern.de</a>
     </address>
 
-    <hr>
+    <hr class="border-accent-200">
 
     <h2 class="my-2 text-lg font-bold">Haftungsausschluss</h2>
     <x-privacy-part>
       <x-slot:partHeader>Disclaimer</x-slot>
-      <x-slot:partContent><p>Quelle: eRecht24.de - Internetrecht von > <a class="text-blue-700 hover:underline" href="https://www.e-recht24.de/">Rechtsanwalt Sören Siebert</a><br>
+      <x-slot:partContent><p>Quelle: eRecht24.de - Internetrecht von > <a class="text-accent hover:text-accent-200 hover:underline" href="https://www.e-recht24.de/">Rechtsanwalt Sören Siebert</a><br>
         Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p></x-slot>
     </x-privacy-part>
 
@@ -45,4 +45,5 @@
       <x-slot:partContent><p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder eMail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben. Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich. Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-Mails, vor.</p></x-slot:partContent>
     </x-privacy-part>
   </div>
+</div>
 </x-app-layout>

@@ -1,5 +1,6 @@
 <x-app-layout>
-  <div class="max-w-6xl pt-4 mx-auto my-4">
+  <div class="pt-20">
+  <div class="min-h-screen px-4 pt-4 mx-auto bg-accent-50 max-w-7xl">
     @forelse ($eventList as $index => $eventItem)
       <div class="flex flex-row h-32 my-4 bg-gray-900 bg-opacity-80">
         <div class="bg-gray-900 h-full grow-0 min-w-[8rem] text-white text-center pt-3">
@@ -17,10 +18,12 @@
               <x-entypo-facebook class="w-8 h-8 text-white" />
             </a>
           @endif
+          <!--
           <button class="mx-auto rounded" data-tooltip-style="light"
             data-tooltip-target="tooltip-calender-{{ $index }}">
             <x-bi-calendar-plus class="w-8 h-8 text-white" />
           </button>
+        -->
           @if ($eventItem->gmap_link)
             <a href="{{ $eventItem->gmap_link }}" target="_blank" class="mx-auto rounded" data-tooltip-style="light"
               data-tooltip-target="tooltip-gmaps-{{ $index }}">
@@ -53,4 +56,5 @@
       <p>Derzeit sind keine Veranstaltungen geplant...</p>
     @endforelse
   </div>
+</div>
 </x-app-layout>

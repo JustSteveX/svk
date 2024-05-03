@@ -1,11 +1,6 @@
 <x-app-layout>
-		<x-slot name="header">
-				<h2 class="text-xl font-semibold leading-tight text-gray-800">
-						{{ __('Dashboard') }}
-				</h2>
-		</x-slot>
-
-		<div class="m-auto max-w-7xl">
+  <div class="pt-20">
+		<div class="min-h-screen m-auto max-w-7xl bg-accent-50">
 				<div class="mb-4 border-b border-gray-200 dark:border-gray-700">
 						<ul class="flex flex-wrap -mb-px text-sm font-medium text-center" data-tabs-toggle="#default-tab-content"
 								id="default-tab" role="tablist">
@@ -45,7 +40,7 @@
 								</li>
 						</ul>
 				</div>
-				<div id="default-tab-content" class="mb-12 bg-gray-300">
+				<div id="default-tab-content">
 						<div aria-labelledby="home-tab" class="hidden p-4 rounded-lg" id="home" role="tabpanel">
 								<p class="text-sm text-gray-500 dark:text-gray-400">Dashboard:Startseite -> Work in progress...</p>
 						</div>
@@ -83,4 +78,5 @@
 						</div>
 				</div>
 		</div>
+  </div>
 </x-app-layout>

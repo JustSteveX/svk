@@ -31,19 +31,11 @@ class EventController extends Controller
         Event::create(['name' => $request->get('eventname'),
             'location' => $request->get('location'),
             'starts_on' => $request->get('starts_on'),
-            'gmap_link' => $request->get('fblink'),
-            'fb_link' => $request->get('gmap-link'),
+            'fb_link' => $request->get('fblink'),
+            'gmap_link' => $request->get('gmap-link'),
         ]);
 
-        return redirect()->back()->with('success', 'File uploaded successfully.');
-
-        /**
-         * eventname
-          location
-          starts_on // date
-          fblink
-          gmap-link
-         */
+        return redirect()->back()->with('success', 'Termine wurde erfolgreich angelegt.');
     }
 
     public function destroy(Request $request)
