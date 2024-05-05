@@ -67,6 +67,9 @@ module.exports = {
 					800: '#ffffff',
 					900: '#ffffff',
 				},
+				blackish: {
+					DEFAULT: 'rgba(0, 0, 0, 0.7)',
+				},
 			},
 		},
 	},

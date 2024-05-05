@@ -2,6 +2,7 @@
   <div class="pt-20">
   <div class="min-h-screen px-4 pt-4 mx-auto bg-accent-50 max-w-7xl">
     @forelse ($eventList as $index => $eventItem)
+      <h1>Alle bevorstehenden Termine in der Übersicht: </h1>
       <div class="flex flex-row h-32 my-4 bg-gray-900 bg-opacity-80">
         <div class="bg-gray-900 h-full grow-0 min-w-[8rem] text-white text-center pt-3">
           <span
@@ -15,7 +16,7 @@
           @if ($eventItem->fb_link)
             <a href="{{ $eventItem->fb_link }}" target="_blank" class="mx-auto rounded" data-tooltip-style="light"
               data-tooltip-target="tooltip-facebook-{{ $index }}">
-              <x-entypo-facebook class="w-8 h-8 text-white" />
+              <x-entypo-facebook class="w-8 h-8 text-white hover:text-blue-600" />
             </a>
           @endif
           <!--
@@ -27,7 +28,7 @@
           @if ($eventItem->gmap_link)
             <a href="{{ $eventItem->gmap_link }}" target="_blank" class="mx-auto rounded" data-tooltip-style="light"
               data-tooltip-target="tooltip-gmaps-{{ $index }}">
-              <x-si-googlemaps class="w-8 h-8 text-white" />
+              <x-si-googlemaps class="w-8 h-8 text-white hover:text-red-500" />
             </a>
           @endif
         </div>
