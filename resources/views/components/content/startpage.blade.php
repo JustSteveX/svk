@@ -11,7 +11,7 @@
       </p>
     </div>
   </div>
-  <div class="min-h-screen pt-20 pb-40 mx-auto bg-white">
+  <div class="pt-20 pb-40 mx-auto bg-white">
     <h1 class="mb-16 text-2xl font-bold text-center">Aktuelle Highlights</h1>
     <x-image-showcase :mediaList="$mediaList"></x-image-showcase>
   </div>
