@@ -1,31 +1,34 @@
+<h1 class="mb-4">Neuen Beitrag hinzufügen</h1>
 <form action="{{ route('blogpost.create') }}" method="POST">
   @csrf
   @method('post')
   <div>
-    <div class="flex flex-row justify-between gap-14" id="blogpost-header">
-      <div class="w-1/2">
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="title">Title</label>
+    <!--  flex-row  gap-14 -->
+    <div class="flex flex-col justify-between" id="blogpost-header">
+      <div class="">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="title">Title</label>
         <input
-          class="block w-full p-2 mb-4 text-xs font-medium text-gray-900 border border-gray-300 md:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="block w-full p-2 mb-4 text-xs font-medium text-gray-900 border border-gray-300 md:text-sm focus:ring-blue-500 focus:border-blue-500"
           id="title" name="title" type="text">
       </div>
-      <div class="w-1/2">
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="author">Author</label>
+      <div class="">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="author">Author</label>
         <input
-          class="block w-full p-2 mb-4 text-xs font-medium text-gray-900 border border-gray-300 md:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="block w-full p-2 mb-4 text-xs font-medium text-gray-900 border border-gray-300 md:text-sm focus:ring-blue-500 focus:border-blue-500"
           id="author" name="author" type="text">
       </div>
     </div>
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="content">Beitrag</label>
-    <textarea class="w-full p-2 mb-8 text-sm font-medium text-gray-900 border border-gray-300 dark:text-white"
+    <label class="block mb-2 text-sm font-medium text-gray-900" for="content">Beitrag</label>
+    <textarea class="w-full p-2 mb-8 text-sm font-medium text-gray-900 border border-gray-300"
       id="content" name="content" rows="8"></textarea>
 
-    <div class="flex flex-row items-end justify-between">
+      <!--  flex-row -->
+    <div class="flex flex-col justify-between gap-2">
       <div class="flex flex-col gap-2">
         <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="albumselection">Album
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="albumselection">Album
             auswählen</label>
-          <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="albumselection" name="album">
+          <select class="w-full text-sm font-medium text-gray-900" id="albumselection" name="album">
             <option selected value="">Kein Album</option>
             @foreach ($albumList as $albumItem)
               <option value="{{ $albumItem->id }}">{{ $albumItem->name }}</option>
@@ -33,9 +36,9 @@
           </select>
         </div>
         <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="mediaselection">Bild
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="mediaselection">Bild
             auswählen</label>
-          <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="mediaselection" name="media">
+          <select class="w-full text-sm font-medium text-gray-900" id="mediaselection" name="media">
             <option selected value="">Keine Datei</option>
             @foreach ($mediaList->filter->isImage() as $mediaItem)
               <option value="{{ $mediaItem->id }}">{{ $mediaItem->name }}</option>
@@ -43,7 +46,7 @@
           </select>
         </div>
       </div>
-      <x-primary-button>Beitrag erstellen</x-primary-button>
+      <x-primary-button class="w-fit">Beitrag erstellen</x-primary-button>
     </div>
   </div>
 </form>
@@ -52,16 +55,18 @@
   <h3>Veröffentlichte Beiträge</h3>
   <hr>
   @foreach ($blogpostList as $blogpostItem)
-    <div class="relative flex flex-row items-center justify-between w-full p-4 mt-2 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      <span
-        class="block">
-        {{ $blogpostItem->title }} <small class="text-neutral-500">veröffentlicht am:</small>
-        {{ $blogpostItem->created_at->format('d.m.Y H:i:s') }} <small class="text-neutral-500">von:</small>
-        {{ $blogpostItem->author }}
-        @if($blogpostItem->archived)
-          <small>(Archiviert)</small>
-        @endif
-      </span>
+  <div class="flex flex-col gap-1 px-4 py-2 mt-2 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+    <div class="relative flex flex-row items-center justify-between w-full gap-4 md:gap-0">
+      <p>
+        {{ $blogpostItem->title }}
+        <span class="hidden md:block">
+          <small class="text-neutral-500">veröffentlicht am: {{ $blogpostItem->created_at->format('d.m.Y') }}</small>
+          <small class="text-neutral-500">von: {{ $blogpostItem->author }}</small>
+          @if($blogpostItem->archived)
+            <small class="text-warning">(Archiviert)</small>
+          @endif
+        </span>
+      </p>
       <span class="flex flex-row gap-2 leading-none list-actions">
         <form action="{{route('blogpost.archive')}}" method="POST">
           @csrf
@@ -81,5 +86,13 @@
         </form>
       </span>
     </div>
+    <p class="flex flex-col pb-2 text-xs text-gray-500 md:hidden">
+      <span>veröffentlicht am: {{ $blogpostItem->created_at->format('d.m.Y H:i:s') }}</span>
+      <span>von: {{ $blogpostItem->author }}</span>
+      @if($blogpostItem->archived)
+        <span class="text-warning">(Archiviert)</span>
+      @endif
+    </p>
+  </div>
   @endforeach
 </div>

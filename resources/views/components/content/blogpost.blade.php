@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="pt-20 pb-4 mx-auto max-w-7xl">
+    <div class="px-4 pt-20 pb-4 mx-auto max-w-7xl">
       @foreach ($groupedBlogposts as $year => $blogpostYearList)
         @foreach ($blogpostYearList as $blogpostItem)
           <x-article :blogpost="$blogpostItem"></x-article>

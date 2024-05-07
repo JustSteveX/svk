@@ -1,5 +1,5 @@
 <x-app-layout>
-  <div class="pt-20">
+  <div class="px-4 pt-20">
     <div class="px-4 py-2 mx-auto bg-accent-50 max-w-7xl">
       <h2 class="text-lg font-bold">Datenschutz</h2>
       <hr class="border-accent-200">

@@ -1,5 +1,5 @@
 <x-app-layout>
-  <div class="w-full pt-20">
+  <div class="w-full px-4 pt-20">
 		<div class="min-h-screen mx-auto bg-accent-50 max-w-7xl">
 				<nav aria-label="Breadcrumb" class="flex pt-4">
 						<ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">

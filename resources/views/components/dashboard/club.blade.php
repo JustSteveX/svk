@@ -32,13 +32,17 @@
 
 <div class="mt-8">
   <h2 class="mt-2 text-lg">Alle Seiten im Überblick:</h2>
-  <hr>
+  <hr class="mb-4 border-accent-200">
 
   @foreach($subpageList as $subpageItem)
-  <div class="flex flex-row items-center justify-between px-4 py-8">
-    <p class="text-gray-500"><span class="text-gray-900">{{$subpageItem->title}}</span> erstellt am {{ $subpageItem->created_at->format('d.m.Y H:i:s') }} zuletzt bearbeitet am: {{$subpageItem->updated_at->format('d.m.Y H:i:s')}}</p>
+  <div class="flex flex-row items-center justify-between text-sm">
+    <p class="flex flex-col text-xs text-gray-500 md:text-sm">
+      <span class="pb-2 text-gray-900">{{$subpageItem->title}}</span>
+      <span>erstellt am: {{ $subpageItem->created_at->format('d.m.Y') }}</span>
+      <span>zuletzt bearbeitet am: {{$subpageItem->updated_at->format('d.m.Y')}}</span>
+    </p>
     <span class="flex flex-row items-center justify-between gap-2 leading-none list-actions">
-      <a class="text-slate-600 hover:text-blue-700" target="_blank" href="{{$subpageItem->getUrlPath()}}">Link</a>
+      <a class="text-accent hover:text-accent-200 hover:underline" target="_blank" href="{{$subpageItem->getUrlPath()}}">Link</a>
       @if($subpageItem->id !== 1)
       <span class="select-none">|</span>
       <form action="{{route('subpage.delete')}}" method="POST">

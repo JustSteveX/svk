@@ -1,11 +1,11 @@
-<nav class="fixed z-50 w-full bg-fixed bg-center bg-schuetzenhaus" x-data="{ open: false }">
+<nav class="fixed z-50 w-full duration-150 ease-in-out bg-fixed bg-center" :class="{'bg-none bg-accent-50': open, 'bg-transparent bg-schuetzenhaus': !open}" x-data="{ open: false }">
 		<!-- Primary Navigation Menu -->
 		<div class="mx-auto max-w-7xl">
 				<div class="flex justify-between h-20">
 						<div class="flex w-full">
 
 								<!-- Navigation Links -->
-								<div class="justify-between hidden w-full text-lg sm:flex">
+								<div class="justify-between hidden w-full text-lg xl:flex">
 										<x-nav-link :active="request()->routeIs('startseite')" :href="route('startseite')">
 												Startseite
 										</x-nav-link>
@@ -33,7 +33,7 @@
 						</div>
 
 						<!-- Hamburger -->
-						<div class="flex items-center mr-3 sm:hidden">
+						<div class="flex items-center mr-3 xl:hidden">
 								<button @click="open = ! open"
 										class="inline-flex items-center justify-center p-2 transition duration-150 ease-in-out rounded-md bg-blackish text-accent-50 hover:text-primary hover:bg-accent-50">
 										<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,34 +48,38 @@
 		</div>
 
 		<!-- Responsive Navigation Menu -->
-		<div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-				@auth
-
-						<div class="pt-2 pb-3 space-y-1">
-								<x-responsive-nav-link :active="request()->routeIs('dashboard')" :href="route('dashboard')">
-										{{ __('Dashboard') }}
-								</x-responsive-nav-link>
-						</div>
-						<!-- Responsive Settings Options -->
-						<div class="pt-4 pb-1 border-t border-gray-200">
-								<div class="px-4">
-										<div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
-										<div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
-								</div>
-
-								<div class="mt-3 space-y-1">
-										<!-- Authentication -->
-										<form action="{{ route('logout') }}" method="POST">
-												@csrf
-
-												<x-responsive-nav-link :href="route('logout')"
-														onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-														{{ __('Abmelden') }}
-												</x-responsive-nav-link>
-										</form>
-								</div>
-						</div>
-						@endif
-				</div>
-		</nav>
+		<div :class="{ 'block': open, 'hidden': !open }" class="hidden duration-150 ease-in-out xl:hidden bg-accent-50">
+      <div class="pt-2 pb-3 space-y-1">
+        <x-responsive-nav-link :active="request()->routeIs('startseite')" :href="route('startseite')">
+            {{ __('Startseite') }}
+        </x-responsive-nav-link>
+      </div>
+      <div class="pt-2 pb-3 space-y-1">
+        <x-responsive-nav-link :active="request()->routeIs('aktuelles')" :href="route('aktuelles')">
+            {{ __('Aktuelles') }}
+        </x-responsive-nav-link>
+      </div>
+      <div class="pt-2 pb-3 space-y-1">
+        <x-responsive-nav-link :active="Str::startsWith(request()->path(), 'galerie')" :href="route('galerie')">
+            {{ __('Galerie') }}
+        </x-responsive-nav-link>
+      </div>
+      <div class="pt-2 pb-3 space-y-1">
+        <x-responsive-nav-link :active="request()->routeIs('termine')" :href="route('termine')">
+            {{ __('Termine') }}
+        </x-responsive-nav-link>
+      </div>
+      <div class="pt-2 pb-3 space-y-1">
+        <x-responsive-nav-link :active="request()->routeIs('kontakt')" :href="route('kontakt')">
+            {{ __('Kontakt') }}
+        </x-responsive-nav-link>
+      </div>
+      @auth
+        <div class="pt-2 pb-3 space-y-1">
+          <x-responsive-nav-link :active="request()->routeIs('dashboard')" :href="route('dashboard')">
+              {{ __('Dashboard') }}
+          </x-responsive-nav-link>
+        </div>
+      @endauth
+		</div>
+</nav>
