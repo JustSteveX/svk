@@ -10,10 +10,11 @@
 		][$maxWidth];
 @endphp
 
-<div class="fixed inset-0 z-40 px-4 py-6 overflow-y-auto sm:px-0" style="display: {{ $show ? 'block' : 'none' }};"
+<div class="fixed inset-0 z-50 px-4 py-6 overflow-y-auto sm:px-0" style="display: {{ $show ? 'block' : 'none' }};"
 		x-ref="modal" x-data="{
     show: @js($show),
     selectedData: [],
+    inputData: {},
     focusables() {
         // All focusable element types...
         let selector = 'a, button, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
@@ -58,15 +59,20 @@
 								x-on:click="show = false; selectedData.length = 0"><x-eos-close /></button>
 
 				</div>
-				<hr class="border-gray-300">
+				<hr class="border-accent">
+
 				<div class="p-4 text-sm">{{ $slot }}</div>
 
-				<hr class="border-gray-300">
+				<hr class="border-accent">
 
-				<div class="flex flex-row justify-end gap-4 px-4 py-2 modal-actions">
-						<button
-								class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-800 border border-transparent rounded-md dark:bg-gray-200 dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-								x-on:click="show = false; $dispatch('modal-data-returned', [...selectedData]); selectedData.length = 0;">Speichern</button>
-				</div>
+        <div class="flex flex-row justify-end gap-4 px-4 py-2 modal-actions">
+        @if(!isset($action) || $action->isEmpty())
+            <button
+                class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-800 border border-transparent rounded-md dark:bg-gray-200 dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                x-on:click="show = false; $dispatch('modal-data-returned', [...selectedData]); selectedData.length = 0;">Speichern</button>
+        @else
+          {{$action}}
+        @endif
+        </div>
 		</div>
 </div>

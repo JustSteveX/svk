@@ -10,7 +10,7 @@
     <div class="inline-block w-full h-full text-sm md:text-base">
       @if ($blogpost->media && $blogpost->media->isImage())
         <figure class="float-right max-w-sm ml-4">
-          <img alt="" src="{{ Storage::url('media/' . $blogpost->media->name) }}">
+          <x-image :media="$blogpost->media"></x-image>
           @if ($blogpost->media->caption)
             <figcaption>{{ $blogpost->media->caption }}</figcaption>
           @endif

@@ -29,7 +29,7 @@
     @if(session()->has('error') || session()->has('success'))
       @include('components.alert')
     @endif
-    @include('components.modals.image')
+    @include('components.modals.imageview')
 		@include('components.footer')
 </body>
 

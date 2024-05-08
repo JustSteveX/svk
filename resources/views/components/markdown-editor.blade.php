@@ -72,7 +72,7 @@
     const menu = originalMenu.cloneNode(true);
     originalMenu.remove();
     simplemde.toolbarElements.subpageSelection.appendChild(menu);
-    simplemde.gui.toolbar.style.zIndex = 9001;
+    simplemde.gui.toolbar.style.zIndex = 30;
 
 
 		function openMediaSelection(editor) {

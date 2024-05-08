@@ -19,9 +19,9 @@
 
 				<p>© {{ date('Y') }} Schützenverein Kommern e.V. Alle Rechte vorbehalten.</p>
 
-        <ul class="flex list-['|'] justify-between">
-          <li class="hidden list-none md:block"><p>v{{ app()->version() }}</p></li>
-          <li class="list-none md:list-['|']"><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('impressum') }}">Impressum</a></li>
+        <ul class="flex justify-between">
+          <li class="hidden md:block"><p>v{{ app()->version() }}</p></li>
+          <li class=""><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('impressum') }}">Impressum</a></li>
           <li class=""><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('datenschutz') }}">Datenschutz</a></li>
           <li class="">
             @if (!Auth::check())
