@@ -5,7 +5,7 @@
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li>
             <div class="flex items-center">
-              <a class="text-sm font-medium text-gray-700 ms-1 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+              <a class="text-sm font-medium text-gray-700 ms-1 hover:text-accent hover:underline md:ms-2"
                 href="/galerie">Galerie</a>
             </div>
           </li>
@@ -17,7 +17,7 @@
                   <path d="m1 9 4-4-4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     stroke="currentColor" />
                 </svg>
-                <span class="text-sm font-medium text-gray-500 ms-1 md:ms-2 dark:text-gray-400">{{ $album->name }}</span>
+                <span class="text-sm font-medium text-gray-500 ms-1 md:ms-2">{{ $album->name }}</span>
               </div>
             </li>
           @endisset
@@ -33,7 +33,7 @@
                   @if ($albumItem->thumbnail)
                     <img alt="{{$albumItem->name}}" class="h-auto max-w-full" src="{{ Storage::url('media/' . $albumItem->thumbnail->name) }}">
                   @else
-                    <div class="flex items-center justify-center w-full h-full hover:bg-gray-600 hover:text-gray-100">
+                    <div class="flex items-center justify-center w-full h-full duration-150 ease-linear hover:bg-accent-900 hover:text-gray-100">
                       <h4 class="text-xl text-center ">{{ $albumItem->name }}</h4>
                     </div>
                   @endif
