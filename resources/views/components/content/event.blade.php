@@ -3,8 +3,7 @@
   <div class="min-h-screen px-4 pt-4 mx-auto bg-accent-50 max-w-7xl">
     <h1>Alle bevorstehenden Termine in der Übersicht: </h1>
     @forelse ($eventList as $index => $eventItem)
-      <!-- Grid Layout datumsbox und textbox nebeneinander in der mobile version kommen die buttons drunter und in der größeren version daneben  -->
-      <div class="grid grid-cols-2 grid-rows-2 my-4 bg-gray-900 md:grid-cols-4 md:grid-rows-1 bg-opacity-80">
+      <div class="grid max-w-xl grid-cols-2 grid-rows-2 mx-auto my-4 bg-gray-900 md:grid-cols-4 md:grid-rows-1 bg-opacity-80">
         <div class="order-1 py-2 text-center text-white bg-gray-900">
           <span
             class="text-6xl">{{ $eventItem->starts_on->format('j') }}</span><br><span>{{ $eventItem->starts_on->format('F') }}</span><br><span>{{ $eventItem->starts_on->format('Y') }}</span>

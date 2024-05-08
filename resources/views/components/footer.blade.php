@@ -28,7 +28,6 @@
               <a class="text-accent-200 hover:underline hover:text-accent-50"
                   href="/login">{{ __('navigation.tologin') }}</a>
             @else
-                <!-- Authentication -->
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf
                   @method('post')

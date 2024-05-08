@@ -1,14 +1,10 @@
 @props(['compName' => '', 'subpageList' => []])
 <div id="md-wrapper" class="min-w-full prose">
-		<!-- Always remember that you are absolutely unique. Just like everyone else. - Margaret Mead -->
 		<textarea id="md-editor" name="{{ $compName }}"></textarea>
 </div>
 
 <div x-data="{ selectIsOpen: false }" x-on:openselectmenu.window="selectIsOpen = !selectIsOpen" class="relative not-prose" id="custom-menu">
-  <!-- HTML-Element zum Öffnen des Select-Menüs -->
-  <!--button @click="isOpen = !isOpen" type="button" class="p-4 text-white bg-slate-800 hover:text-gray-200 hover:bg-slate-600">Testbutton</button-->
-<!-- w-full h-full max-w-xs overflow-x-hidden overflow-y-scroll max-h-96->
-  <!-- Select-Menü -->
+
   <ul x-show="selectIsOpen" class="absolute w-48 p-0 py-1 m-0 overflow-x-hidden overflow-y-scroll text-gray-200 list-none bg-slate-700 max-h-80" @click.away="selectIsOpen = false">
     @foreach($subpageList as $subpageItem)
       <li x-on:click="selectIsOpen = false; $dispatch('menu-item-selected', {'title': '{{$subpageItem->title}}', 'path': '{{$subpageItem->getUrlPath()}}'});" class="px-4 py-2 cursor-pointer hover:bg-slate-500 z-[9999]">

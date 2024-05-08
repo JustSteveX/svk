@@ -14,7 +14,6 @@
         <p>E-Mail: <a class="text-accent hover:text-accent-200 hover:underline"
             href="mailto:praesident@schuetzenverein-kommern.de">praesident@schuetzenverein-kommern.de</a></p>
       </section>
-      <!-- w-1/2 -->
       <section class="md:w-full">
         <iframe width="100%" height="400px"
           src="https://www.openstreetmap.org/export/embed.html?bbox=6.644631028175355%2C50.606229475621554%2C6.648171544075013%2C50.60790786867022&amp;layer=mapnik&amp;marker=50.60706867962972%2C6.646401286125183"
