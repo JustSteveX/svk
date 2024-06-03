@@ -3,12 +3,12 @@
   <div class="min-h-screen px-4 pt-4 mx-auto bg-accent-50 max-w-7xl">
     <h1>Alle bevorstehenden Termine in der Übersicht: </h1>
     @forelse ($eventList as $index => $eventItem)
-      <div class="grid max-w-xl grid-cols-2 grid-rows-2 mx-auto my-4 bg-accent-900 md:grid-cols-4 md:grid-rows-1 bg-opacity-80">
+      <div class="grid max-w-xl grid-cols-2 grid-rows-2 mx-auto my-4 md:max-w-none md:mx-0 bg-accent-900 md:grid-cols-6 md:grid-rows-1 bg-opacity-80">
         <div class="order-1 py-2 text-center text-accent-50 bg-accent-900">
           <span
             class="text-6xl">{{ $eventItem->starts_on->format('j') }}</span><br><span>{{ $eventItem->starts_on->format('F') }}</span><br><span>{{ $eventItem->starts_on->format('Y') }}</span>
         </div>
-        <div class="order-3 col-span-2 p-2 bg-transparent text-accent-50 md:order-2">
+        <div class="order-3 col-span-2 p-2 bg-transparent md:col-span-4 text-accent-50 md:order-2">
           <h3 class="text-base md:text-xl">{{ $eventItem->name }}</h3>
           <p class="text-sm md:text-base">{{ $eventItem->location }}</p>
         </div>
@@ -19,12 +19,10 @@
               <x-entypo-facebook class="w-8 h-8 text-white hover:text-blue-600" />
             </a>
           @endif
-          <!--
           <button class="mx-auto rounded" data-tooltip-style="light"
             data-tooltip-target="tooltip-calender-{{ $index }}">
             <x-bi-calendar-plus class="w-8 h-8 text-white" />
           </button>
-        -->
           @if ($eventItem->gmap_link)
             <a href="{{ $eventItem->gmap_link }}" target="_blank" class="mx-auto rounded" data-tooltip-style="light"
               data-tooltip-target="tooltip-gmaps-{{ $index }}">
