@@ -20,13 +20,16 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'eventname' => ['string', 'required'],
-            'location' => ['string', 'required'],
-            'starts_on' => ['required', 'date_format:d.m.Y'],
-            'fblink' => ['nullable', 'url'],
-            'gmap-link' => ['nullable', 'url'],
-        ]);
+        if (
+            ! $request->validate([
+                'eventname' => ['string', 'required'],
+                'location' => ['string', 'required'],
+                'starts_on' => ['required', 'date_format:d.m.Y'],
+                'fblink' => ['nullable', 'url'],
+                'gmap-link' => ['nullable', 'url'],
+            ])) {
+            return redirect()->back()->with('error', 'Termin konnte nicht angelegt werden.');
+        }
 
         Event::create(['name' => $request->get('eventname'),
             'location' => $request->get('location'),
@@ -35,7 +38,7 @@ class EventController extends Controller
             'gmap_link' => $request->get('gmap-link'),
         ]);
 
-        return redirect()->back()->with('success', 'Termine wurde erfolgreich angelegt.');
+        return redirect()->back()->with('success', 'Termin wurde erfolgreich angelegt.');
     }
 
     public function destroy(Request $request)

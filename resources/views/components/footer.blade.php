@@ -13,17 +13,16 @@
 						</x-button>
 				</form>
 		</div>
-		<div class="max-w-sm pb-2 mx-auto text-xs font-extrabold text-left text-white md:text-sm">
+		<div class="max-w-sm pb-2 mx-auto text-xs font-extrabold text-left text-accent-50 md:text-sm">
 				<p>Erstellt von <a href="mailto:kontakt@steve-designs.de" class="text-accent-200 hover:underline hover:text-accent-50">Stefan
 								von Drehle</a></p>
 
-				<p>© {{ date('Y') }} Schützenverein Kommern e.V. Alle Rechte vorbehalten.</p>
 
+        <p>© {{ date('Y') }} Schützenverein Kommern e.V. Alle Rechte vorbehalten.</p>
         <ul class="flex justify-between">
-          <li class="hidden md:block"><p>v{{ app()->version() }}</p></li>
-          <li class=""><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('impressum') }}">Impressum</a></li>
-          <li class=""><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('datenschutz') }}">Datenschutz</a></li>
-          <li class="">
+          <li><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('impressum') }}">Impressum</a></li>
+          <li><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('datenschutz') }}">Datenschutz</a></li>
+          <li>
             @if (!Auth::check())
               <a class="text-accent-200 hover:underline hover:text-accent-50"
                   href="/login">{{ __('navigation.tologin') }}</a>
@@ -36,6 +35,7 @@
             @endif
           </li>
         </ul>
+
 
 
 		</div>

@@ -42,17 +42,18 @@ module.exports = {
 					900: '#357960',
 				},
 				accent: {
-					DEFAULT: '#32739b',
-					50: '#e0f1ff', // sehr helles blau
+					DEFAULT: '#155993',
+					50: '#e9e9df', // sehr helles blau
 					//100: '#ffffff',
 					200: '#6ca7d2',
 					//300: '#ffffff',
 					//400: '#ffffff',
-					500: '#32739b', // blauton
+					500: '#155993', // blauton
 					//600: '#ffffff',
 					//700: '#ffffff',
 					//800: '#ffffff',
-					900: '#1d1d35', // blaugrau
+					900: '#002c00',
+					//900: '#1d1d35', // blaugrau
 				},
 				warning: {
 					DEFAULT: '#f59e0b',
