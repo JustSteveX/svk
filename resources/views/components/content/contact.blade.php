@@ -5,7 +5,7 @@
       <div class="flex flex-col gap-8 mb-4 md:flex-row">
         <!--  w-1/2 -->
         <section class="md:max-w-[50%] md:w-full text-sm md:text-base flex flex-col h-fit gap-4 justify-evenly mt-2">
-          <h1 class="text-xl">Anfahrt</h1>
+          <h1 class="text-xl">Adresse</h1>
           <hr class="border-accent-900">
           <p>St. Seb. Schützenbruderschaft e.V. Kommern</p>
           <p>Straße: Schützenweg</p>
