@@ -1,4 +1,4 @@
-<nav class="fixed z-40 w-full duration-150 ease-in-out bg-fixed bg-center" :class="{'bg-none bg-accent-50': open, 'bg-transparent bg-schuetzenhaus': !open}" x-data="{ open: false }">
+<nav class="fixed z-40 w-full duration-150 ease-in-out bg-fixed bg-center bg-accent-50" x-data="{ open: false }">
 		<!-- Primary Navigation Menu -->
 		<div class="mx-auto max-w-7xl">
 				<div class="flex justify-between h-20">

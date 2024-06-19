@@ -19,10 +19,10 @@
               <x-entypo-facebook class="w-8 h-8 text-white hover:text-blue-600" />
             </a>
           @endif
-          <button class="mx-auto rounded" data-tooltip-style="light"
+          <!--button class="mx-auto rounded" data-tooltip-style="light"
             data-tooltip-target="tooltip-calender-{{ $index }}">
             <x-bi-calendar-plus class="w-8 h-8 text-white" />
-          </button>
+          </button-->
           @if ($eventItem->gmap_link)
             <a href="{{ $eventItem->gmap_link }}" target="_blank" class="mx-auto rounded" data-tooltip-style="light"
               data-tooltip-target="tooltip-gmaps-{{ $index }}">
@@ -38,12 +38,12 @@
         Zur Facebook Veranstaltung weiterleiten
         <div class="tooltip-arrow" data-popper-arrow></div>
       </div>
-      <div
+      <!--div
         class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-all border border-gray-200 rounded-lg shadow-sm opacity-0 bg-accent-50 tooltip"
         id="tooltip-calender-{{ $index }}" role="tooltip">
         In den lokalen Kalender importieren
         <div class="tooltip-arrow" data-popper-arrow></div>
-      </div>
+      </div-->
       <div
         class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 transition-all border border-gray-200 rounded-lg shadow-sm opacity-0 bg-accent-50 tooltip"
         id="tooltip-gmaps-{{ $index }}" role="tooltip">

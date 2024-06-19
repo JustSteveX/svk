@@ -33,7 +33,7 @@
                   @if ($albumItem->thumbnail)
                     <img alt="{{$albumItem->name}}" class="h-auto max-w-full" src="{{ Storage::url('media/' . $albumItem->thumbnail->name) }}">
                   @else
-                    <div class="flex items-center justify-center w-full h-full duration-150 ease-linear hover:bg-accent-900 hover:text-gray-100">
+                    <div class="flex items-center justify-center w-full h-full duration-150 ease-linear hover:bg-primary hover:text-gray-100">
                       <h4 class="text-xl text-center ">{{ $albumItem->name }}</h4>
                     </div>
                   @endif

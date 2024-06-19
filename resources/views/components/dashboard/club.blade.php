@@ -35,27 +35,32 @@
   <hr class="mb-4 border-accent-200">
 
   @foreach($subpageList as $subpageItem)
-  <div class="flex flex-row items-center justify-between text-sm">
-    <p class="flex flex-col text-xs text-gray-500 md:text-sm">
-      <span class="pb-2 text-gray-900">{{$subpageItem->title}}</span>
-      <span>erstellt am: {{ $subpageItem->created_at->format('d.m.Y') }}</span>
-      <span>zuletzt bearbeitet am: {{$subpageItem->updated_at->format('d.m.Y')}}</span>
-    </p>
-    <span class="flex flex-row items-center justify-between gap-2 leading-none list-actions">
-      <a class="text-accent hover:text-accent-200 hover:underline" target="_blank" href="{{$subpageItem->getUrlPath()}}">Link</a>
-      @if($subpageItem->id !== 1)
-      <span class="select-none">|</span>
-      <form action="{{route('subpage.delete')}}" method="POST">
-        @csrf
-        @method('delete')
-        <input name="id" type="text" hidden value="{{$subpageItem->id}}">
-        <button class="text-red-900 hover:text-red-600">
-          <x-bi-trash-fill class="w-6 h-6" />
-        </button>
-      </form>
-      @endif
-    </span>
+  <div class="flex flex-col gap-1 px-4 py-2 mt-2 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+    <div class="relative flex flex-row items-center justify-between w-full gap-4 md:gap-0">
+      <p>
+        <span class="text-gray-900">{{$subpageItem->title}}</span>
+        <span class="hidden md:block">
+          <small class="text-neutral-500">erstellt am: {{ $subpageItem->created_at->format('d.m.Y') }}</small>
+          <small class="text-neutral-500">zuletzt bearbeitet am: {{$subpageItem->updated_at->format('d.m.Y')}}</small>
+        </span>
+      </p>
+
+      <span class="flex flex-row gap-2 leading-none list-actions">
+        <a class="text-accent hover:text-accent-200 hover:underline" target="_blank" href="{{$subpageItem->getUrlPath()}}">Link</a>
+        @if($subpageItem->id !== 1)
+        <span class="select-none">|</span>
+        <form action="{{route('subpage.delete')}}" method="POST">
+          @csrf
+          @method('delete')
+          <input name="id" type="text" hidden value="{{$subpageItem->id}}">
+          <button class="text-red-900 hover:text-red-600">
+            <x-bi-trash-fill class="w-6 h-6" />
+          </button>
+        </form>
+        @endif
+      </span>
+
+    </div>
   </div>
-  <hr>
   @endforeach
 </div>

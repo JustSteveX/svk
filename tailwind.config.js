@@ -29,7 +29,8 @@ module.exports = {
 					// 500: '#418e3f',
 				},
 				primary: {
-					DEFAULT: '#2c943e',
+					// DEFAULT: '#2c943e',
+					DEFAULT: '#286027', // leicht abgeändert von #418e3f
 					// 50: '#ffffff',
 					// 100: '#ffffff',
 					// 200: '#ffffff',
@@ -50,23 +51,23 @@ module.exports = {
 					//400: '#ffffff',
 					500: '#155993', // blauton
 					//600: '#ffffff',
-					//700: '#ffffff',
+					700: '#c6a937', // gelb
 					//800: '#ffffff',
 					900: '#002c00',
 					//900: '#1d1d35', // blaugrau
 				},
 				warning: {
-					DEFAULT: '#f59e0b',
-					50: '#ffffff',
-					100: '#ffffff',
-					200: '#ffffff',
-					300: '#ffffff',
-					400: '#ffffff',
-					500: '#f59e0b', // Standardfarbe für warning
-					600: '#ffffff',
-					700: '#ffffff',
-					800: '#ffffff',
-					900: '#ffffff',
+					DEFAULT: '#cc2424',
+					//50: '#ffffff',
+					//100: '#ffffff',
+					//200: '#ffffff',
+					//300: '#ffffff',
+					//400: '#ffffff',
+					500: '#f59e0b',
+					//600: '#ffffff',
+					//700: '#ffffff',
+					//800: '#ffffff',
+					//900: '#ffffff',
 				},
 				blackish: {
 					DEFAULT: 'rgba(0, 0, 0, 0.7)',
