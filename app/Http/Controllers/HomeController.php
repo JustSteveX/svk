@@ -11,7 +11,7 @@ class HomeController extends Controller
         // Highlight Album laden
         $albumItem = Album::where('name', 'highlights')->first();
 
-        $mediaList = $albumItem->media;
+        $mediaList = $albumItem?->media;
 
         return view('components.content.startpage', compact('albumItem', 'mediaList'));
     }

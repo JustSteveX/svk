@@ -1,4 +1,4 @@
-@if(count($mediaList->filter->isImage()) > 0)
+@if($mediaList?->filter?->isImage() !== null && count($mediaList?->filter?->isImage()) > 0)
   <div class="relative w-full max-w-2xl mx-auto" data-carousel="slide" id="animation-carousel">
     <!-- Carousel wrapper -->
     <div class="relative h-56 overflow-hidden md:h-96">
