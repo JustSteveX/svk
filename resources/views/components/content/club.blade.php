@@ -1,8 +1,10 @@
 <x-app-layout>
   <div class="w-full px-4 pt-20">
 		<div class="min-h-screen mx-auto bg-accent-50 max-w-7xl">
+      @if($subpage)
 				<nav aria-label="Breadcrumb" class="flex pt-4">
 						<ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+
 
 								@foreach ($subpage->allParentPages(true) as $parentPage)
 										@if ($parentPage->parent_id === null)
@@ -29,6 +31,7 @@
 												</li>
 										@endif
 								@endforeach
+
 						</ol>
 				</nav>
 
@@ -38,6 +41,7 @@
 								{{ new Illuminate\Support\HtmlString(Str::of($subpage->content)->markdown(['html_input' => 'escape', 'allow_unsafe_links' => true])) }}
 						</div>
 				</div>
+        @endif
 
 		</div>
   </div>

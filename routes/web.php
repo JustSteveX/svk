@@ -6,6 +6,7 @@ use App\Http\Controllers\ClubController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Middleware\DevelopmentMiddleware;
@@ -57,6 +58,8 @@ Route::get('datenschutz', function () {
     return view('components.content.privacy');
 })->name('datenschutz');
 
+// Registrierung
+
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/blogpost', [BlogpostController::class, 'store'])->name('blogpost.create');
     Route::delete('/blogpost', [BlogpostController::class, 'destroy'])->name('blogpost.delete');
@@ -76,6 +79,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/subpage', [ClubController::class, 'store'])->name('subpage.create');
     Route::patch('/subpage', [ClubController::class, 'update'])->name('subpage.update');
     Route::delete('/subpage', [ClubController::class, 'destroy'])->name('subpage.delete');
+
+    // Userverwaltung
+    // User - Einladung
+    Route::post('invitations', [InvitationController::class, 'store'])->name('storeInvitation');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

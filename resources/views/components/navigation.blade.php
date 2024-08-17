@@ -24,7 +24,7 @@
 										<x-nav-link :active="request()->routeIs('kontakt')" :href="route('kontakt')">
 												Kontakt
 										</x-nav-link>
-										@if (Auth::check())
+										@if (Auth::check() && Auth::user()->isAdmin())
 												<x-nav-link :active="request()->routeIs('dashboard')" :href="route('dashboard')">
 														Dashboard
 												</x-nav-link>
