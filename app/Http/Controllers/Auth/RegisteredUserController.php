@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invitation;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +46,8 @@ class RegisteredUserController extends Controller
         ]);
 
         $invitation = Invitation::where('invitation_token', $request->invitation_token)->firstOrFail();
+        $invitation->registered_at = Carbon::now();
+        $invitation->save();
 
         $user = User::create([
             'name' => $request->name,

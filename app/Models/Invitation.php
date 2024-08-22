@@ -14,4 +14,14 @@ class Invitation extends Model
     {
         $this->invitation_token = substr(md5(rand(0, 9).$this->email.time()), 0, 32);
     }
+
+    public function isNotRegistered()
+    {
+        return $this->registered_at === null;
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

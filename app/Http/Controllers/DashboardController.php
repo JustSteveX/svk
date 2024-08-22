@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Album;
 use App\Models\Blogpost;
 use App\Models\Event;
+use App\Models\Invitation;
 use App\Models\Media;
 use App\Models\Role;
 use App\Models\Subpage;
 use App\Models\Subscriber;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -21,7 +23,19 @@ class DashboardController extends Controller
         $subpageList = Subpage::all();
         $subscriberList = Subscriber::all();
         $roleList = Role::all();
+        $invitationList = Invitation::all();
+        $userList = User::all();
 
-        return view('dashboard', compact('albumList', 'mediaList', 'blogpostList', 'eventList', 'subpageList', 'subscriberList', 'roleList'));
+        return view('dashboard', compact(
+            'albumList',
+            'mediaList',
+            'blogpostList',
+            'eventList',
+            'subpageList',
+            'subscriberList',
+            'roleList',
+            'invitationList',
+            'userList'
+        ));
     }
 }

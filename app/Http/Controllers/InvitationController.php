@@ -46,9 +46,11 @@ class InvitationController extends Controller
                 },
             ],
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()->with('error', 'Die Email existiert bereits im System.');
         }
+
         $invitation = new Invitation($request->all());
         $invitation->generateInvitationToken();
         $invitation->save();
@@ -79,11 +81,27 @@ class InvitationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Sendet eine erneute Email
      */
     public function update(Request $request, Invitation $invitation)
     {
-        //
+        if (
+            ! $request->validate(['email' => 'required|string', 'reinvite' => 'required', 'token' => 'required|exists:invitations,invitation_token'])) {
+            return redirect()->back()->with('error', 'Wichtige Informationen fehlen!');
+        }
+
+        $invitation = Invitation::where('invitation_token', '=', $request->token)->where('email', '=', $request->email)->firstOrFail();
+
+        if ($invitation !== null) {
+            Mail::to($invitation->email)->send(
+                new InvitationMail(
+                    $invitation->invitation_token
+                ));
+
+            return redirect()->back()->with('success', 'Mail wurde erneut versendet.');
+        }
+
+        return redirect()->back()->with('error', 'Mail konnte nicht zugestellt werden.');
     }
 
     /**

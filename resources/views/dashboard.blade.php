@@ -28,16 +28,20 @@
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#event" id="event-tab" role="tab" type="button">Termine</button>
 								</li>
+                @if(Auth::user()->isSuperAdmin())
 								<li role="presentation">
 										<button aria-controls="email" aria-selected="false"
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#email" id="email-tab" role="tab" type="button">Abonennten</button>
 								</li>
+                @endif
+                @if(Auth::user()->isSuperAdmin())
 								<li role="presentation">
 										<button aria-controls="users" aria-selected="false"
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#users" id="users-tab" role="tab" type="button">Benutzer</button>
 								</li>
+                @endif
 						</ul>
 				</div>
 				<div id="default-tab-content">
@@ -65,17 +69,20 @@
 								<x-dashboard.events :eventList="$eventList"></x-dashboard.events>
 
 						</div>
+            @if(Auth::user()->isSuperAdmin())
 						<div aria-labelledby="email-tab" class="hidden p-4 rounded-lg " id="email" role="tabpanel">
 
 								<x-dashboard.subscriber :subscriberList="$subscriberList"></x-dashboard.subscriber>
 
 						</div>
-
+            @endif
+            @if(Auth::user()->isSuperAdmin())
 						<div aria-labelledby="users-tab" class="hidden p-4 rounded-lg " id="users" role="tabpanel">
 
-								<x-dashboard.users :roleList="$roleList"></x-dashboard.users>
+								<x-dashboard.users :roleList="$roleList" :invitationList="$invitationList" :userList="$userList"></x-dashboard.users>
 
 						</div>
+            @endif
 				</div>
 		</div>
   </div>
