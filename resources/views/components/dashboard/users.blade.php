@@ -1,3 +1,4 @@
+@props(['roleList' => []])
 <h1 class="mb-8">Neuen Benutzer einladen</h1>
 <form action="{{route('storeInvitation')}}" method="POST" class="flex flex-col gap-4">
   @csrf
@@ -7,10 +8,10 @@
   </div>
   <div>
     <label for="roles">Rolle:</label>
-    <select name="roles" id="roles">
-      <option value="superadmin">Superadmin</option>
-      <option value="admin">Admin</option>
-      <option value="user">Nutzer</option>
+    <select name="role_id" id="roles">
+      @foreach($roleList as $roleItem)
+        <option value="{{$roleItem->id}}">{{$roleItem->rolename}}</option>
+      @endforeach
     </select>
   </div>
 

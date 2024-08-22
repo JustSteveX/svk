@@ -73,7 +73,7 @@
 
 						<div aria-labelledby="users-tab" class="hidden p-4 rounded-lg " id="users" role="tabpanel">
 
-								<x-dashboard.users></x-dashboard.users>
+								<x-dashboard.users :roleList="$roleList"></x-dashboard.users>
 
 						</div>
 				</div>

@@ -82,7 +82,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Userverwaltung
     // User - Einladung
-    Route::post('invitations', [InvitationController::class, 'store'])->name('storeInvitation');
+    Route::post('/invitations', [InvitationController::class, 'store'])->name('storeInvitation');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

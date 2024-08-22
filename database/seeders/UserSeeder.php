@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'name' => Str::random(10),
             'email' => $email,
             'password' => Hash::make($password),
-            'role' => 'superadmin',
+            'role_id' => 1,
         ]);
         error_log('Benutzer wurde angelegt: '.$email.' / '.$password, 4);
     }

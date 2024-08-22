@@ -20,7 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role_id',
     ];
 
     /**
@@ -44,11 +44,16 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return in_array($this->role, ['superadmin', 'admin']);
+        return in_array($this->role->rolename, ['superadmin', 'admin']);
     }
 
     public function isSuperAdmin(): bool
     {
-        return $this->role === 'superadmin';
+        return $this->role->rolename === 'superadmin';
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

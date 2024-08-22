@@ -8,33 +8,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewsletterMail extends Mailable
+class InvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $content;
-
-    public $title;
-
-    public $created_at;
-
-    public $author;
-
-    public $email;
-
-    public $token;
+    public $invitation_token;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($content, $title, $author, $created_at, $email, $token)
+    public function __construct($token)
     {
-        $this->content = $content;
-        $this->title = $title;
-        $this->created_at = $created_at;
-        $this->author = $author;
-        $this->email = $email;
-        $this->token = $token;
+        $this->invitation_token = $token;
     }
 
     /**
@@ -43,13 +28,13 @@ class NewsletterMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'SVK Newsletter',
+            subject: 'SVK Einladung',
         );
     }
 
     public function build()
     {
-        return $this->view('emails.newsletter');
+        return $this->view('emails.invitation');
     }
 
     /**
@@ -58,7 +43,7 @@ class NewsletterMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.newsletter',
+            view: 'emails.invitation',
         );
     }
 

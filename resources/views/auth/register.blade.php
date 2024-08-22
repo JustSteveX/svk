@@ -12,7 +12,7 @@
     <form method="POST" action="{{ route('register') }}">
       @csrf
 
-      <input type="text" value="{{$invitation}}" id="token" hidden disabled>
+      <input type="password" value="{{$invitation->invitation_token}}" id="invitation_token" name="invitation_token" hidden />
 
       <!-- Name -->
       <div>
@@ -26,7 +26,7 @@
       <div class="mt-4">
         <x-label for="email" :value="__('Email')" />
 
-        <x-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required />
+        <x-input id="email" class="block w-full mt-1 font-bold text-gray-500 cursor-not-allowed" type="email" name="email" :value="$invitation->email" required readonly/>
       </div>
 
       <!-- Password -->

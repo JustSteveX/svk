@@ -23,9 +23,9 @@ class RegisteredUserController extends Controller
     {
         $invitation_token = $request->get('invitation_token');
         $invitation = Invitation::where('invitation_token', $invitation_token)->firstOrFail();
-        $email = $invitation->email;
+        //$email = $invitation->email;
 
-        return view('auth.register', compact('email', 'invitation'));
+        return view('auth.register', compact('invitation'));
     }
 
     /**
@@ -41,13 +41,16 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'invitation' => ['required', 'exists:invitations,invitation_token'],
+            'invitation_token' => ['required', 'exists:invitations,invitation_token'],
         ]);
+
+        $invitation = Invitation::where('invitation_token', $request->invitation_token)->firstOrFail();
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => $invitation->role_id,
         ]);
 
         event(new Registered($user));
