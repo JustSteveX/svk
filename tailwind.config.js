@@ -17,7 +17,7 @@ module.exports = {
 				'ubuntu-sans': ['UbuntuSans', ...defaultTheme.fontFamily.sans],
 			},
 			backgroundImage: {
-				schuetzenhaus: "url('../images/schuetzenhaus.jpg')",
+				schuetzenhaus: "url('/images/schuetzenhaus.jpg')",
 			},
 			gap: {
 				6: '1.4rem',

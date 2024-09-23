@@ -10,7 +10,7 @@
 		<title>{{ config('app.name', 'Laravel') }}</title>
 
 		<!-- vite assets --->
-		@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/svk.js'])
+		@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 		<!-- Scripts -->
 		<link href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" rel="stylesheet">

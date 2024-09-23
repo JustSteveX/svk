@@ -4,21 +4,21 @@
 
 @font-face {
 	font-family: 'SedanSC';
-	src: url('/resources/fonts/SedanSC-Regular.ttf');
+	src: url('../fonts/SedanSC-Regular.ttf');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Nunito';
-	src: url('/resources/fonts/NunitoSans.ttf');
+	src: url('../fonts/NunitoSans.ttf');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'UbuntuSans';
-	src: url('/resources/fonts/UbuntuSans.ttf');
+	src: url('../fonts/UbuntuSans.ttf');
 	font-weight: normal;
 	font-style: normal;
 }
