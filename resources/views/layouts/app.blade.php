@@ -18,7 +18,7 @@
 </head>
 
 <body class="font-sans antialiased">
-		<div class="min-h-screen bg-fixed bg-center bg-no-repeat bg-auto bg-schuetzenhaus">
+		<div class="min-h-screen bg-fixed bg-center bg-no-repeat bg-auto" style="background-image: url({{ asset('images/schuetzenhaus.jpg') }})">
 				@include('components.navigation')
 
 				<!-- Page Content -->
