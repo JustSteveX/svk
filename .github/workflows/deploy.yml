@@ -50,7 +50,7 @@ jobs:
                   username: ${{ secrets.SFTP_USERNAME }}
                   password: ${{ secrets.SFTP_PASSWORD }}
                   local-dir: ./ # The root directory of your project
-                  server-dir: ~/httpdocs # Destination directory on your server
+                  server-dir: ~/httpdocs/ # Destination directory on your server
 
             # 5. Run Laravel migrations via SSH
             - name: Run Laravel migrations
