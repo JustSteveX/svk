@@ -14,6 +14,12 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
+              # Install PHP and set the version
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.3' # Verwende die PHP-Version, die mit deiner lokalen Umgebung übereinstimmt
+
             # 2. Install PHP dependencies with Composer
             - name: Install PHP dependencies
               run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
