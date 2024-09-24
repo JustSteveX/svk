@@ -81,3 +81,4 @@ jobs:
                       php artisan storage:link
                       php artisan up
                       rm -rf ~/httpdocs/deployment
+                      rm -f ~/httpdocs/public/hot
