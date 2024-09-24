@@ -45,32 +45,34 @@ jobs:
                   host: web152.alfahosting-server.de
                   username: ${{ secrets.SSH_USERNAME }}
                   password: ${{ secrets.SSH_PASSWORD }}
-                  port: 22 # Falls notwendig, passe den SSH-Port an
+                  port: 22
                   script: |
                       cd ~/httpdocs
                       php artisan down --with-secret
+                      mkdir -p ~/httpdocs/tmp
 
-            # 7. Deploy zip to server via SFTP
-            - name: Deploy to Server
-              uses: SamKirkland/FTP-Deploy-Action@4.3.0
+            # 8. Upload build.zip to the server via SCP
+            - name: Upload ZIP to Server via SCP
+              uses: appleboy/scp-action@master
               with:
-                  server: web152.alfahosting-server.de
-                  username: ${{ secrets.SFTP_USERNAME }}
-                  password: ${{ secrets.SFTP_PASSWORD }}
-                  local-dir: ./build.zip # The root directory of your project
-                  server-dir: ~/httpdocs/ # Destination directory on your server
+                  host: web152.alfahosting-server.de
+                  username: ${{ secrets.SSH_USERNAME }}
+                  password: ${{ secrets.SSH_PASSWORD }}
+                  port: 22
+                  source: build.zip
+                  target: ~/httpdocs/tmp/build.zip # Zielverzeichnis auf dem Server
 
-            # 8. Run Laravel migrations via SSH
-            - name: Run Laravel migrations
+            # 9. Run Laravel migrations and unpack the zip
+            - name: Unzip and complete deployment
               uses: appleboy/ssh-action@v0.1.8
               with:
                   host: web152.alfahosting-server.de
                   username: ${{ secrets.SSH_USERNAME }}
                   password: ${{ secrets.SSH_PASSWORD }}
-                  port: 22 # Falls notwendig, passe den SSH-Port an
+                  port: 22
                   script: |
-                      cd ~/httpdocs
-                      unzip build.zip
+                      cd ~/httpdocs/tmp/
+                      unzip build.zip -d ~/httpdocs/
                       rm build.zip
                       php artisan migrate --force
                       php artisan config:cache
@@ -79,3 +81,4 @@ jobs:
                       php artisan view:cache
                       php artisan storage:link
                       php artisan up
+                      rm -rf ~/httpdocs/tmp
