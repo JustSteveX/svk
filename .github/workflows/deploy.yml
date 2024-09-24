@@ -81,4 +81,3 @@ jobs:
                       php artisan view:cache
                       php artisan storage:link
                       php artisan up
-                      rm -rf ~/httpdocs/tmp
