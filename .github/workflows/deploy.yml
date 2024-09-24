@@ -14,23 +14,31 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
-              # Install PHP and set the version
+            # 2. Install PHP and set the version
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
                   php-version: '8.3' # Verwende die PHP-Version, die mit deiner lokalen Umgebung übereinstimmt
 
-            # 2. Install PHP dependencies with Composer
+            # 3. Install PHP dependencies with Composer
             - name: Install PHP dependencies
               run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-            # 3. Install Node.js dependencies and build assets
+            # 4. Install Node.js dependencies and build assets
             - name: Install Node.js dependencies and build assets
               run: |
                   npm install
                   npm run build
 
-            # 4. Enable maintenance mode
+            # 5. Remove node_modules after build
+            - name: Remove node_modules
+              run: rm -rf node_modules
+
+            # 6. Zip the build files
+            - name: Create zip file
+              run: zip -r build.zip ./*
+
+            # 7. Enable maintenance mode
             - name: Run Laravel migrations
               uses: appleboy/ssh-action@v0.1.8
               with:
@@ -42,17 +50,17 @@ jobs:
                       cd ~/httpdocs
                       php artisan down --with-secret
 
-            # 4. Deploy to server via SFTP
+            # 7. Deploy zip to server via SFTP
             - name: Deploy to Server
               uses: SamKirkland/FTP-Deploy-Action@4.3.0
               with:
                   server: web152.alfahosting-server.de
                   username: ${{ secrets.SFTP_USERNAME }}
                   password: ${{ secrets.SFTP_PASSWORD }}
-                  local-dir: ./ # The root directory of your project
+                  local-dir: ./build.zip # The root directory of your project
                   server-dir: ~/httpdocs/ # Destination directory on your server
 
-            # 5. Run Laravel migrations via SSH
+            # 8. Run Laravel migrations via SSH
             - name: Run Laravel migrations
               uses: appleboy/ssh-action@v0.1.8
               with:
@@ -62,9 +70,12 @@ jobs:
                   port: 22 # Falls notwendig, passe den SSH-Port an
                   script: |
                       cd ~/httpdocs
+                      unzip build.zip
+                      rm build.zip
                       php artisan migrate --force
                       php artisan config:cache
                       php artisan event:cache
                       php artisan route:cache
                       php artisan view:cache
+                      php artisan storage:link
                       php artisan up
