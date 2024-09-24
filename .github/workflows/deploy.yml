@@ -60,7 +60,7 @@ jobs:
                   password: ${{ secrets.SSH_PASSWORD }}
                   port: 22
                   source: build.zip
-                  target: ~/httpdocs/tmp/build.zip # Zielverzeichnis auf dem Server
+                  target: ~/httpdocs/tmp/ # Zielverzeichnis auf dem Server
 
             # 9. Run Laravel migrations and unpack the zip
             - name: Unzip and complete deployment
