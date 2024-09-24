@@ -39,7 +39,7 @@ jobs:
                   password: ${{ secrets.SSH_PASSWORD }}
                   port: 22 # Falls notwendig, passe den SSH-Port an
                   script: |
-                      cd /httpdocs
+                      cd ~/httpdocs
                       php artisan down --with-secret
 
             # 4. Deploy to server via SFTP
@@ -50,7 +50,7 @@ jobs:
                   username: ${{ secrets.SFTP_USERNAME }}
                   password: ${{ secrets.SFTP_PASSWORD }}
                   local-dir: ./ # The root directory of your project
-                  server-dir: /httpdocs # Destination directory on your server
+                  server-dir: ~/httpdocs # Destination directory on your server
 
             # 5. Run Laravel migrations via SSH
             - name: Run Laravel migrations
@@ -61,7 +61,7 @@ jobs:
                   password: ${{ secrets.SSH_PASSWORD }}
                   port: 22 # Falls notwendig, passe den SSH-Port an
                   script: |
-                      cd /httpdocs
+                      cd ~/httpdocs
                       php artisan migrate --force
                       php artisan config:cache
                       php artisan event:cache
