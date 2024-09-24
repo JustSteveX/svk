@@ -1,0 +1,64 @@
+name: Deploy to Server
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            # 1. Check-out your code
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            # 2. Install PHP dependencies with Composer
+            - name: Install PHP dependencies
+              run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+            # 3. Install Node.js dependencies and build assets
+            - name: Install Node.js dependencies and build assets
+              run: |
+                  npm install
+                  npm run build
+
+            # 4. Enable maintenance mode
+            - name: Run Laravel migrations
+              uses: appleboy/ssh-action@v0.1.8
+              with:
+                  host: web152.alfahosting-server.de
+                  username: ${{ secrets.SSH_USERNAME }}
+                  password: ${{ secrets.SSH_PASSWORD }}
+                  port: 22 # Falls notwendig, passe den SSH-Port an
+                  script: |
+                      cd /httpdocs
+                      php artisan down --with-secret
+
+            # 4. Deploy to server via SFTP
+            - name: Deploy to Server
+              uses: SamKirkland/FTP-Deploy-Action@4.3.0
+              with:
+                  server: sftp://web152.alfahosting-server.de
+                  username: ${{ secrets.SFTP_USERNAME }}
+                  password: ${{ secrets.SFTP_PASSWORD }}
+                  local-dir: ./ # The root directory of your project
+                  server-dir: /httpdocs # Destination directory on your server
+
+            # 5. Run Laravel migrations via SSH
+            - name: Run Laravel migrations
+              uses: appleboy/ssh-action@v0.1.8
+              with:
+                  host: web152.alfahosting-server.de
+                  username: ${{ secrets.SSH_USERNAME }}
+                  password: ${{ secrets.SSH_PASSWORD }}
+                  port: 22 # Falls notwendig, passe den SSH-Port an
+                  script: |
+                      cd /httpdocs
+                      php artisan migrate --force
+                      php artisan config:cache
+                      php artisan event:cache
+                      php artisan route:cache
+                      php artisan view:cache
+                      php artisan up
