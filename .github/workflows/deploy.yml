@@ -71,8 +71,8 @@ jobs:
                   password: ${{ secrets.SSH_PASSWORD }}
                   port: 22
                   script: |
-                      cd ~/httpdocs/deployment/
-                      unzip -o build.zip -d ~/httpdocs/
+                      cd ~/httpdocs/
+                      unzip -o ./deployment/build.zip -d ~/httpdocs/
                       php artisan migrate --force
                       php artisan config:cache
                       php artisan event:cache
@@ -80,4 +80,4 @@ jobs:
                       php artisan view:cache
                       php artisan storage:link
                       php artisan up
-                      rm -rf ~/httpdocs/tmp
+                      rm -rf ~/httpdocs/deployment
