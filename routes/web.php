@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\BlogpostController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
@@ -35,9 +36,7 @@ Route::get('/galerie/{albumName}', [AlbumController::class, 'show'])->name('gale
 
 Route::get('/termine', [EventController::class, 'index'])->name('termine');
 
-Route::get('/kontakt', function () {
-    return view('components.content.contact');
-})->name('kontakt');
+Route::get('/kontakt', [ContactController::class, 'index'])->name('kontakt');
 
 Route::middleware([DevelopmentMiddleware::class])->group(function () {
     Route::get('/debug', function () {
