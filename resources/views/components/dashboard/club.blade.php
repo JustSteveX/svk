@@ -3,7 +3,7 @@
 <hr>
 <form action="{{ route('subpage.create') }}" method="POST">
 		@csrf
-		@method('POST')
+		@method('post')
 
 		<div class="my-2 ">
 				<label for="title" class="block text-sm font-medium text-gray-900 dark:text-white">Titel angeben</label>
