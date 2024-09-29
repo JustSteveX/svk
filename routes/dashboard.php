@@ -31,6 +31,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/subpage', [ClubController::class, 'destroy'])->name('subpage.delete');
 
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.create');
+    Route::patch('/contact', [ContactController::class, 'update'])->name('contact.update');
     Route::delete('/contact', [ContactController::class, 'destroy'])->name('contact.delete');
 
     // Userverwaltung

@@ -58,8 +58,7 @@ class ClubController extends Controller
             return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen '.implode(', ', $validator->errors()->keys()));
         }
 
-        $content = str_replace("\n", '
-', $request->content);
+        $content = str_replace("\n", '', $request->content);
 
         if ($request->parent_id) {
             Subpage::create(['title' => $request->title, 'content' => $content, 'parent_id' => $request->parent_id]);

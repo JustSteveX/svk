@@ -16,7 +16,7 @@ class DevelopmentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (App::isLocal()) {
+        if (App::isLocal() === true) {
             return $next($request);
         }
 
