@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\BlogpostController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\InvitationController;
@@ -28,6 +29,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/subpage', [ClubController::class, 'store'])->name('subpage.create');
     Route::patch('/subpage', [ClubController::class, 'update'])->name('subpage.update');
     Route::delete('/subpage', [ClubController::class, 'destroy'])->name('subpage.delete');
+
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.create');
+    Route::patch('/contact', [ContactController::class, 'update'])->name('contact.update');
+    Route::delete('/contact', [ContactController::class, 'destroy'])->name('contact.delete');
 
     // Userverwaltung
     // User - Einladung
