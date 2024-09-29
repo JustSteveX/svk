@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    use HasFactory;
+    protected $table = 'contacts';
 
-    protected $fillable = ['title', 'firstname', 'lastname', 'email', 'phonenumber'];
+    protected $fillable = ['title', 'firstname', 'lastname', 'email', 'phonenumber', 'sort_order'];
 }

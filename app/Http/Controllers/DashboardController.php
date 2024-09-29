@@ -26,7 +26,7 @@ class DashboardController extends Controller
         $roleList = Role::all();
         $invitationList = Invitation::all();
         $userList = User::all();
-        $contactList = Contact::orderBy('created_at', 'asc')->get();
+        $contactList = Contact::orderBy('sort_order', 'asc')->get();
 
         return view('dashboard', compact(
             'albumList',

@@ -1,7 +1,6 @@
 @props(['contactList' => []])
 <div>
   <h1>Kontaktverwaltung</h1>
-  <small>(Die Kontakte werden einfach nur nach Eintragungsdatum sortiert!)</small>
   <hr class="my-4 border-gray-400">
   <form action="{{ route('contact.create') }}" method="POST">
     @csrf
@@ -40,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-              @foreach($contactList as $contactItem)
+              @foreach($contactList as $index => $contactItem)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       {{$contactItem->title}}
@@ -52,12 +51,32 @@
                       {{$contactItem->firstname}}
                     </td>
                     <td class="px-6 py-4">
-                      <form action="{{route('contact.delete')}}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <input type="text" hidden name="id" value="{{$contactItem->id}}">
-                        <x-primary-button>Entfernen</x-primary-button>
-                      </form>
+                      <div class="flex flex-row flex-wrap gap-2">
+                        <form action="{{route('contact.delete')}}" method="POST">
+                          @csrf
+                          @method('delete')
+                          <input type="text" hidden name="id" value="{{$contactItem->id}}">
+                          <x-primary-button>Entfernen</x-primary-button>
+                        </form>
+                        @if($index > 0)
+                          <form action="{{route('contact.update')}}" method="POST">
+                            @csrf
+                            @method('patch')
+                            <input type="text" hidden name="id" value="{{$contactItem->id}}">
+                            <input type="text" hidden name="direction" value="up">
+                            <x-primary-button>Hochsortieren</x-primary-button>
+                          </form>
+                        @endif
+                        @if($index !== count($contactList) - 1)
+                          <form action="{{route('contact.update')}}" method="POST">
+                            @csrf
+                            @method('patch')
+                            <input type="text" hidden name="id" value="{{$contactItem->id}}">
+                            <input type="text" hidden name="direction" value="down">
+                            <x-primary-button>Runtersortieren</x-primary-button>
+                          </form>
+                        @endif
+                      </div>
                     </td>
                 </tr>
               @endforeach

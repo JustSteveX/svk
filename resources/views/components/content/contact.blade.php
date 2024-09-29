@@ -1,5 +1,3 @@
-@props(['contactList' => []])
-
 <x-app-layout>
   <div class="px-4 pt-20">
     <!--  flex-row -->
@@ -26,18 +24,18 @@
       <h1 class="text-xl">Kontaktmöglichkeiten</h1>
       <hr class="border-accent-900">
       <div class="flex flex-col gap-8 py-8">
-          @foreach ($contactList as $contactItem)
+        @isset($contactList)
+          @forelse($contactList as $contactItem)
             <address>
               <h2 class="text-lg">{{$contactItem->title}}</h2>
               <b>{{$contactItem->firstname}} {{$contactItem->lastname}}</b><br>
               Tel.: <a class="text-accent hover:text-accent-200 hover:underline" href="tel:{{$contactItem->phonenumber}}">{{$contactItem->phonenumber}}</a><br>
-              Email: <a class="text-accent hover:text-accent-200 hover:underline" href="mailto:{{$contactItem->email}}">{{$contactItem->email}}</a>
+              E-Mail: <a class="text-accent hover:text-accent-200 hover:underline" href="mailto:{{$contactItem->email}}">{{$contactItem->email}}</a>
             </address>
-          @endforeach
-          @if(count($contactList) < 1)
+          @empty
             <p>Aktuell gibt es keine Kontaktmöglichkeiten. Bitte in dringenden Fällen die Kontaktdaten aus dem Impressum verwenden.</p>
-          @endif
-
+          @endforelse
+        @endisset
       </div>
     </div>
   </div>
