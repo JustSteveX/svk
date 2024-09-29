@@ -42,6 +42,11 @@
 												data-tabs-target="#users" id="users-tab" role="tab" type="button">Benutzer</button>
 								</li>
                 @endif
+                <li role="presentation">
+                  <button aria-controls="contact" aria-selected="false"
+                      class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                      data-tabs-target="#contact" id="contact-tab" role="tab" type="button">Kontakte</button>
+              </li>
 						</ul>
 				</div>
 				<div id="default-tab-content">
@@ -83,6 +88,11 @@
 
 						</div>
             @endif
+            <div aria-labelledby="contacts-tab" class="hidden p-4 rounded-lg " id="contact" role="tabpanel">
+
+              <x-dashboard.contacts :contactList="$contactList"></x-dashboard.contacts>
+
+          </div>
 				</div>
 		</div>
   </div>

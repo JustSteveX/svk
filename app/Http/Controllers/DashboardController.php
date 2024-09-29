@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Blogpost;
+use App\Models\Contact;
 use App\Models\Event;
 use App\Models\Invitation;
 use App\Models\Media;
@@ -25,6 +26,7 @@ class DashboardController extends Controller
         $roleList = Role::all();
         $invitationList = Invitation::all();
         $userList = User::all();
+        $contactList = Contact::orderBy('sort_order', 'asc')->get();
 
         return view('dashboard', compact(
             'albumList',
@@ -35,7 +37,8 @@ class DashboardController extends Controller
             'subscriberList',
             'roleList',
             'invitationList',
-            'userList'
+            'userList',
+            'contactList'
         ));
     }
 }
