@@ -38,7 +38,7 @@
 				<hr class="my-4 border-accent-200">
 				<div class="px-4 pb-4">
 						<div class="min-w-full prose">
-								{{ new Illuminate\Support\HtmlString(Str::of($subpage->content)->markdown(['html_input' => 'escape', 'allow_unsafe_links' => true])) }}
+								{!! nl2br(new Illuminate\Support\HtmlString(Str::of($subpage->content)->markdown(['html_input' => 'escape', 'allow_unsafe_links' => true]))) !!}
 						</div>
 				</div>
         @endif
