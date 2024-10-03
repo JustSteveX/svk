@@ -60,7 +60,7 @@ class ClubController extends Controller
 
         $content = str_replace("\n", '', $request->content);
 
-        if ($request->parent_id) {
+        if ($request->parent_id || ! Subpage::exists()) {
             Subpage::create(['title' => $request->title, 'content' => $content, 'parent_id' => $request->parent_id]);
         } else {
             $subpage = Subpage::whereNull('parent_id')->first();
