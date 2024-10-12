@@ -5,7 +5,7 @@
 						<ul class="flex flex-wrap -mb-px text-sm font-medium text-center" data-tabs-toggle="#default-tab-content"
 								id="default-tab" role="tablist">
 								<li class="me-2" role="presentation">
-										<button aria-controls="home" aria-selected="false" class="inline-block p-4 border-b-2 rounded-t-lg"
+										<button aria-controls="home" aria-selected="true" class="inline-block p-4 border-b-2 rounded-t-lg"
 												data-tabs-target="#home" id="home-tab" role="tab" type="button">Startseite</button>
 								</li>
 								<li class="me-2" role="presentation">

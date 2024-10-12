@@ -15,103 +15,97 @@
 </div>
 
 <script defer>
-		const simplemde = new SimpleMDE({
+  window.addEventListener('packages-initialized', (event) => {
+    const mde = new window.EasyMDE({
 				element: document.getElementById('md-editor'),
         spellChecker: false,
-				toolbar: [
-						"bold",
-						"italic",
-						"strikethrough",
-						"|",
-						"heading",
-						"heading-smaller",
-						"heading-bigger",
-						"|",
-						"heading-1",
-						"heading-2",
-						"heading-3",
-						"|",
-						"code",
-						"|",
-						"quote",
-						"unordered-list",
-						"ordered-list",
-						"clean-block",
-						"|",
-						"link",
-						"image",
-						{
-								name: 'mediaSelection',
-								action: openMediaSelection,
-								className: 'fa fa-bold',
-								title: "Opens the media selection"
-						},
-            {
+				/*toolbar: [
+					"bold",
+          "italic",
+          "strikethrough",
+          "heading",
+          "code",
+          "quote",
+          "|",
+          "unordered-list",
+          "ordered-list",
+          "clean-block",
+          "|",
+          "link",
+          "image",
+          /*{
+              name: 'mediaSelection',
+              action: openMediaSelection,
+              className: 'fa fa-bold',
+              title: "Opens the media selection"
+          },
+          {
               name: 'subpageSelection',
               action: addSubpageSelection,
               className: 'fa fa-bold',
               title: "Opens the subpage selection"
-            },
-						"|",
-						"table",
-						"horizontal-rule",
-						"|",
-						"preview",
-						"side-by-side",
-						"fullscreen",
-						"guide"
-				]
+          },
+          "|",
+          "table",
+          "horizontal-rule",
+          "|",
+          "preview",
+          "side-by-side",
+          "guide"
+				]*/
 		});
 
+    mde.value('');
+
     // Hack um das menü einzubinden
-    const originalMenu = document.getElementById('custom-menu');
-    const menu = originalMenu.cloneNode(true);
-    originalMenu.remove();
-    simplemde.toolbarElements.subpageSelection.appendChild(menu);
-    simplemde.gui.toolbar.style.zIndex = 30;
+    //const originalMenu = document.getElementById('custom-menu');
+    //const menu = originalMenu.cloneNode(true);
+    //originalMenu.remove();
+    //mde.toolbarElements.subpageSelection.appendChild(menu);
+    //mde.gui.toolbar.style.zIndex = 30;
 
-
-		function openMediaSelection(editor) {
-				const cm = editor.codemirror;
-				const selectedText = cm.getSelection();
-				const text = selectedText || 'Text';
-				openModal('mediaSelection', (event) => {
-						if (!event.detail) {
-								return;
-						}
-						const images = [];
-						const docs = [];
-						const imageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/svg+xml'];
-						event.detail.forEach(media => {
-								if (media.name.endsWith('.exe')) return;
-								if (imageTypes.includes(media.mime_type)) images.push(media.name);
-								else docs.push(media.name);
-						});
-
-						let output = '';
-						output += images.map(image =>
-								`![${text}](<${window.location.origin}/storage/media/${image}>)`
-						);
-            output += docs.map(doc => `[Download ${doc}](<${window.location.origin}/storage/media/${doc}>)`);
-
-						cm.replaceSelection(output);
-				});
-		}
-
-    //window.addEventListener('openselectmenu', (event)=> console.log(event));
+    window.mde = mde;
 
     window.addEventListener('menu-item-selected', event => handleItemSelection(event));
+  })
 
-    function addSubpageSelection(editor){
-      window.dispatchEvent(new CustomEvent('openselectmenu'));
-      window.editor = editor;
-    }
-
-    function handleItemSelection(event) {
-      const editor = window.editor;
+  function openMediaSelection(editor) {
       const cm = editor.codemirror;
       const selectedText = cm.getSelection();
-      const output = `[${event.detail.title}](<${event.detail.path}>)`;
-      cm.replaceSelection(output);
-    }
+      const text = selectedText || 'Text';
+      openModal('mediaSelection', (event) => {
+          if (!event.detail) {
+              return;
+          }
+          const images = [];
+          const docs = [];
+          const imageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/svg+xml'];
+          event.detail.forEach(media => {
+              if (media.name.endsWith('.exe')) return;
+              if (imageTypes.includes(media.mime_type)) images.push(media.name);
+              else docs.push(media.name);
+          });
+
+          let output = '';
+          output += images.map(image =>
+              `![${text}](<${window.location.origin}/storage/media/${image}>)`
+          );
+          output += docs.map(doc => `[Download ${doc}](<${window.location.origin}/storage/media/${doc}>)`);
+
+          cm.replaceSelection(output);
+      });
+  }
+
+  function addSubpageSelection(editor){
+    window.dispatchEvent(new CustomEvent('openselectmenu'));
+    window.editor = editor;
+  }
+
+  function handleItemSelection(event) {
+    const editor = window.editor;
+    const cm = editor.codemirror;
+    const selectedText = cm.getSelection();
+    const output = `[${event.detail.title}](<${event.detail.path}>)`;
+    cm.replaceSelection(output);
+  }
 </script>
