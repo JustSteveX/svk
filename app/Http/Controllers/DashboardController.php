@@ -12,10 +12,11 @@ use App\Models\Role;
 use App\Models\Subpage;
 use App\Models\Subscriber;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $albumList = Album::all();
         $mediaList = Media::all();
@@ -38,7 +39,7 @@ class DashboardController extends Controller
             'roleList',
             'invitationList',
             'userList',
-            'contactList'
+            'contactList',
         ));
     }
 }

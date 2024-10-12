@@ -18,8 +18,8 @@
 		"vite": "^4.0.0"
 	},
 	"dependencies": {
+		"easymde": "^2.18.0",
 		"flowbite": "^2.2.1",
-		"flowbite-datepicker": "^1.2.6",
-		"simplemde": "^1.11.2"
+		"flowbite-datepicker": "^1.2.6"
 	}
 }
