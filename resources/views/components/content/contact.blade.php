@@ -28,9 +28,13 @@
           @forelse($contactList as $contactItem)
             <address>
               <h2 class="text-lg">{{$contactItem->title}}</h2>
-              <b>{{$contactItem->firstname}} {{$contactItem->lastname}}</b><br>
-              Tel.: <a class="text-accent hover:text-accent-200 hover:underline" href="tel:{{$contactItem->phonenumber}}">{{$contactItem->phonenumber}}</a><br>
-              E-Mail: <a class="text-accent hover:text-accent-200 hover:underline" href="mailto:{{$contactItem->email}}">{{$contactItem->email}}</a>
+              <p><b>{{$contactItem->firstname}} {{$contactItem->lastname}}</b></p>
+              @if($contactItem->phonenumber)
+                <p>Tel.: <a class="text-accent hover:text-accent-200 hover:underline" href="tel:{{$contactItem->phonenumber}}">{{$contactItem->phonenumber}}</a></p>
+              @endif
+              @if($contactItem->email)
+                <p>E-Mail: <a class="text-accent hover:text-accent-200 hover:underline" href="mailto:{{$contactItem->email}}">{{$contactItem->email}}</a></p>
+              @endif
             </address>
           @empty
             <p>Aktuell gibt es keine Kontaktmöglichkeiten. Bitte in dringenden Fällen die Kontaktdaten aus dem Impressum verwenden.</p>
