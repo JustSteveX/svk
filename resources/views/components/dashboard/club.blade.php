@@ -1,24 +1,58 @@
 @props(['subpageList' => [], 'mediaList' => []])
 
-<div x-data="postEditor()" x-init="init()">
+<div x-data="{
+    subpage: {
+      id: null,
+      title: null,
+      content: '',
+      parent_id: null
+    },
+    isEditMode: false,
+    updateValue(newValue) {
+      console.log(newValue);
+      if (window.easyMDE) {
+        window.easyMDE.value(newValue); // Setze den neuen Wert
+      }
+    },
+    setSubpage(subpage){
+      this.subpage = subpage;
+      console.log(subpage);
+
+      this.updateValue(subpage.content);
+      this.isEditMode = true;
+    },
+    cancelEdit(){
+      this.subpage = {
+        id: null,
+        title: null,
+        content: '',
+        parent_id: null
+      };
+      this.updateValue(this.subpage.content);
+      this.isEditMode = false;
+    }
+  }">
   <h2>Jetzt eine neue Seite für den Teil "Verein" anlegen</h2>
   <hr>
   <form action="{{ route('subpage.create') }}" method="POST">
       @csrf
       @method('post')
 
-      <input type="text" hidden name="id" x-model="id">
+      <input type="text" hidden name="id" x-model="subpage.id">
 
       <div class="my-2 ">
           <label for="title" class="block text-sm font-medium text-gray-900 dark:text-white">Titel angeben</label>
-          <input type="text" name="title" id="title" required class="w-full" maxlength="255" x-model="title">
+          <input type="text" name="title" id="title" required class="w-full" maxlength="255" x-model="subpage.title">
       </div>
-      <x-markdown-editor :compName="'content'" :subpageList="$subpageList"></x-markdown-editor>
+
+      <div>
+        <x-easy-mde name="content" x-model="subpage.content"></x-easy-mde>
+      </div>
 
       <div class="mb-4">
           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="parentpage-select">Elternseite
               auswählen (wenn keine Seite gewählt wird, wird die Vereins - Startseite editiert)</label>
-          <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="parentpage-select" name="parent_id" x-model="parent_id">
+          <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="parentpage-select" name="parent_id" x-model="subpage.parent_id">
               <option selected value="">Keine Seite auswählen</option>
               @foreach ($subpageList as $subpageItem)
                   <option value="{{ $subpageItem->id }}">{{ $subpageItem->title }}</option>
@@ -26,9 +60,11 @@
           </select>
       </div>
 
+    <!-- -->
       <x-primary-button x-text="isEditMode ? 'Änderungen speichern' : 'Neue Seite anlegen'"></x-primary-button>
 
-      <x-accent-button x-show="isEditMode" type="button" @click.prevent="editPost({})">Bearbeiten abbrechen</x-accent-button>
+    <!-- -->
+      <x-accent-button x-show="isEditMode" type="button" @click="cancelEdit()">Bearbeiten abbrechen</x-accent-button>
 
   </form>
 
@@ -65,13 +101,7 @@
             </form>
           @endif
           <span class="select-none">|</span>
-          <a href="#" @click.prevent="editPost({{ json_encode([
-            'id' => $subpageItem->id,
-            'parent_id' => $subpageItem->parent_id,
-            'content' => $subpageItem->content,
-            'title' => $subpageItem->title,
-            'isEditMode' => true
-        ]) }})" class="text-accent hover:text-accent-200 hover:underline">Bearbeiten</a>
+          <a href="#" class="text-accent hover:text-accent-200 hover:underline" @click="setSubpage({{ json_encode(['id' => $subpageItem->id, 'title' => $subpageItem->title, 'content' => $subpageItem->content, 'parent_id' => $subpageItem->parent_id]) }})">Bearbeiten</a>
         </span>
 
       </div>
@@ -79,34 +109,3 @@
     @endforeach
   </div>
 </div>
-
-<script>
-  function postEditor(subpageList) {
-    return {
-      id: '',
-      title: '',
-      content: '',
-      parent_id: '',
-      isEditMode: false,
-      editorInstance: null,
-
-      init() {
-        this.editorInstance = window.mde;
-      },
-
-      editPost(subpageItem) {
-        this.isEditMode = subpageItem.isEditMode ?? false;
-
-        // Setze die Daten des Beitrags in die Formularfelder
-        this.id = subpageItem.id;
-        this.title = subpageItem.title;
-        this.editorInstance.value(subpageItem.content || ''); // Falls content leer ist, benutze leeren String
-        this.parent_id = subpageItem.parent_id || ''; // Falls parent_id leer ist
-
-        if (this.editorInstance.value() !== subpageItem.content) {
-          this.editorInstance.value(subpageItem.content || ''); // Falls content leer ist, benutze leeren String
-        }
-      }
-    }
-  }
-</script>

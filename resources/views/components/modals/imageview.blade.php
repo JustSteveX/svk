@@ -1,6 +1,6 @@
 <x-modal focusable name="imageModal" title="Bildansicht">
   <div class="flex items-center justify-center">
-    <img :src="inputData.imageUrl" class="min-h-[200px] max-h-screen" :alt="inputData.name">
+    <img :src="inputData.imageUrl" class="min-h-[200px] max-h-[80vh]" :alt="inputData.name">
   </div>
 
   <x-slot:action>

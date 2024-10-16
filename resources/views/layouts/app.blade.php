@@ -9,6 +9,7 @@
 
 		<title>{{ config('app.name', 'Laravel') }}</title>
 
+    @bukStyles(true)
 		<!-- vite assets --->
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -27,6 +28,7 @@
     @endif
     @include('components.modals.imageview')
 		@include('components.footer')
+    @bukScripts(true)
 </body>
 
 </html>

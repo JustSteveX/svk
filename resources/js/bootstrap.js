@@ -31,8 +31,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     enabledTransports: ['ws', 'wss'],
 // });
 
-import EasyMDE from 'easymde';
-import 'easymde/dist/easymde.min.css';
-window.EasyMDE = EasyMDE;
-
 window.dispatchEvent(new CustomEvent('packages-initialized'));
