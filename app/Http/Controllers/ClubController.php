@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use App\Models\Subpage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -49,6 +50,7 @@ class ClubController extends Controller
             return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen '.($request->parent_id ?? 'null'));
         }*/
         $validator = Validator::make($request->all(), [
+            'id' => 'nullable|exists:subpages,id',
             'title' => 'required|string',
             'content' => 'required|string',
             'parent_id' => 'nullable|exists:subpages,id',
@@ -60,17 +62,28 @@ class ClubController extends Controller
 
         $content = str_replace("\n", '', $request->content);
 
-        if ($request->parent_id || ! Subpage::exists()) {
-            Subpage::create(['title' => $request->title, 'content' => $content, 'parent_id' => $request->parent_id]);
-        } else {
+        // Sicherstellen dass es nur eine Subpage gibt die keine parent_id hat
+        // damit, auf der vereinsseite auch immer die korrekte Seite angezeigt wird
+        if (Subpage::exists()) {
             $subpage = Subpage::whereNull('parent_id')->first();
+            if (($subpage->id !== ((int) $request->id)) && $request->parent_id === null) {
+                return redirect()->back()->with('error', 'Bitte wähle eine Elternseite aus!');
+            }
+        }
+
+        if ($request->id) {
+            $subpage = Subpage::find($request->id);
             $subpage->title = $request->title;
             $subpage->content = $content;
+            $subpage->parent_id = $request->parent_id;
             $subpage->save();
+        } else {
+            Subpage::create(['title' => $request->title, 'content' => $content, 'parent_id' => $request->parent_id]);
         }
-        // Subpage::updateOrCreate(['parent_id' => null], ['title' => $request->title, 'content' => $request->content]);
 
-        return redirect()->route('dashboard')->with('success', 'Die Seite wurde erfolgreich angelegt');
+        $responseText = $request->id ? 'Die Seite wurde erfolgreich editiert' : 'Die Seite wurde erfolgreich angelegt';
+
+        return redirect()->route('dashboard')->with('success', $responseText);
     }
 
     public function destroy(Request $request): RedirectResponse
