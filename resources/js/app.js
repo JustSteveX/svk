@@ -10,8 +10,6 @@ window.Alpine = Alpine;
 
 import.meta.glob(['../images/**', '../fonts/**']);
 
-Alpine.start();
-
 window.openModal = function (
 	name,
 	callback = null,

@@ -9,12 +9,9 @@
 
 		<title>{{ config('app.name', 'Laravel') }}</title>
 
+    @bukStyles(true)
 		<!-- vite assets --->
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
-
-		<!-- Scripts -->
-		<link href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" rel="stylesheet">
-		<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -31,6 +28,7 @@
     @endif
     @include('components.modals.imageview')
 		@include('components.footer')
+    @bukScripts(true)
 </body>
 
 </html>
