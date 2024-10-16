@@ -15,60 +15,6 @@
 </div>
 
 <script defer>
-  window.addEventListener('packages-initialized', (event) => {
-    const mde = new window.EasyMDE({
-				element: document.getElementById('md-editor'),
-        spellChecker: false,
-				/*toolbar: [
-					"bold",
-          "italic",
-          "strikethrough",
-          "heading",
-          "code",
-          "quote",
-          "|",
-          "unordered-list",
-          "ordered-list",
-          "clean-block",
-          "|",
-          "link",
-          "image",
-          /*{
-              name: 'mediaSelection',
-              action: openMediaSelection,
-              className: 'fa fa-bold',
-              title: "Opens the media selection"
-          },
-          {
-              name: 'subpageSelection',
-              action: addSubpageSelection,
-              className: 'fa fa-bold',
-              title: "Opens the subpage selection"
-          },
-          "|",
-          "table",
-          "horizontal-rule",
-          "|",
-          "preview",
-          "side-by-side",
-          "guide"
-				]*/
-		});
-
-    mde.value('');
-
-    // Hack um das menü einzubinden
-    //const originalMenu = document.getElementById('custom-menu');
-    //const menu = originalMenu.cloneNode(true);
-    //originalMenu.remove();
-    //mde.toolbarElements.subpageSelection.appendChild(menu);
-    //mde.gui.toolbar.style.zIndex = 30;
-
-    window.mde = mde;
-
-    window.addEventListener('menu-item-selected', event => handleItemSelection(event));
-  })
-
   function openMediaSelection(editor) {
       const cm = editor.codemirror;
       const selectedText = cm.getSelection();

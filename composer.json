@@ -9,7 +9,8 @@
 	"license": "MIT",
 	"require": {
 		"php": "^8.1",
-		"blade-ui-kit/blade-ui-kit": "^0.4.0",
+		"blade-ui-kit/blade-icons": "^1.7",
+		"blade-ui-kit/blade-ui-kit": "^0.6.2",
 		"codeat3/blade-eos-icons": "^1.13",
 		"codeat3/blade-simple-icons": "^2.4",
 		"davidhsianturi/blade-bootstrap-icons": "^1.4",
