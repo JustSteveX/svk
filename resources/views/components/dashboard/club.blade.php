@@ -4,7 +4,7 @@
     subpage: {
       id: null,
       title: null,
-      content: '',
+      details: '',
       parent_id: null
     },
     isEditMode: false,
@@ -18,17 +18,17 @@
       this.subpage = subpage;
       console.log(subpage);
 
-      this.updateValue(subpage.content);
+      this.updateValue(subpage.details);
       this.isEditMode = true;
     },
     cancelEdit(){
       this.subpage = {
         id: null,
         title: null,
-        content: '',
+        details: '',
         parent_id: null
       };
-      this.updateValue(this.subpage.content);
+      this.updateValue(this.subpage.details);
       this.isEditMode = false;
     }
   }">
@@ -46,7 +46,7 @@
       </div>
 
       <div>
-        <x-easy-mde name="content" x-model="subpage.content"></x-easy-mde>
+        <x-easy-mde name="markdown_details" x-model="subpage.details"></x-easy-mde>
       </div>
 
       <div class="mb-4">
@@ -101,7 +101,7 @@
             </form>
           @endif
           <span class="select-none">|</span>
-          <a href="#" class="text-accent hover:text-accent-200 hover:underline" @click="setSubpage({{ json_encode(['id' => $subpageItem->id, 'title' => $subpageItem->title, 'content' => $subpageItem->content, 'parent_id' => $subpageItem->parent_id]) }})">Bearbeiten</a>
+          <a href="#" class="text-accent hover:text-accent-200 hover:underline" @click="setSubpage({{ json_encode(['id' => $subpageItem->id, 'title' => $subpageItem->title, 'details' => $subpageItem->parseMarkdown(), 'parent_id' => $subpageItem->parent_id]) }})">Bearbeiten</a>
         </span>
 
       </div>
