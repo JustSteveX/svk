@@ -52,4 +52,19 @@ class Subpage extends Model
 
         return $path;
     }
+
+    public function parseMarkdown(): string
+    {
+
+        $parsedContent = preg_replace([
+            '/<span class="tab"><\/span>/',
+            '/<br\s*\/?>/',  // RegEx für <br> oder <br />
+        ], [
+            "\t",
+            "\n",
+        ], $this->content);
+
+        // Gib den umgewandelten Text zurück
+        return $parsedContent;
+    }
 }
