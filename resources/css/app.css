@@ -22,3 +22,8 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
+.tab {
+	display: inline-block;
+	width: 2em;
+}

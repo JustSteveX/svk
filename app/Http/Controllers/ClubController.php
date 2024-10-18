@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Media;
 use App\Models\Subpage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ClubController extends Controller
 {
+    // Gibt die Vereinsstartseite zurück (parent_id === null)
     public function index(): View
     {
         $subpage = Subpage::where('parent_id', '=', null)->get()->first();
@@ -18,6 +18,7 @@ class ClubController extends Controller
         return view('components.content.club', compact('subpage'));
     }
 
+    // Gibt eine Vereinsseite zurück die eine parent_id enthält
     public function show(string $path): View
     {
         $subpageTitles = array_map(function ($step) {
@@ -32,27 +33,15 @@ class ClubController extends Controller
             }
         }
 
-        //$album = Album::where('name', $albumName)->firstOrFail();
-        //$mediaList = $album->media;
-
-        //return view('components.content.gallery', compact('album', 'mediaList'));
-
         return view('components.content.club', compact('subpage'));
     }
 
     public function store(Request $request): RedirectResponse
     {
-        /*if ($request->validate([
-            'title' => ['string', 'required'],
-            'content' => ['string', 'required'],
-            'parent_id' => ['nullable', 'exists:subpages,id'],
-        ])) {
-            return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen '.($request->parent_id ?? 'null'));
-        }*/
         $validator = Validator::make($request->all(), [
             'id' => 'nullable|exists:subpages,id',
             'title' => 'required|string',
-            'content' => 'required|string',
+            'markdown_details' => 'required|string',
             'parent_id' => 'nullable|exists:subpages,id',
         ]);
 
@@ -60,7 +49,10 @@ class ClubController extends Controller
             return redirect()->route('dashboard')->with('error', 'Fehlgeschlagen '.implode(', ', $validator->errors()->keys()));
         }
 
-        $content = str_replace("\n", '', $request->content);
+        // Neue Zeilen durch ein br Tag ersetzen
+        $markdown_details = preg_replace('/\r\n|\r|\n/', '<br>', $request->markdown_details);
+        // Tabs durch ein span mit class tab ersetzen
+        $markdown_details = str_replace("\t", '<span class="tab"></span>', $markdown_details);
 
         // Sicherstellen dass es nur eine Subpage gibt die keine parent_id hat
         // damit, auf der vereinsseite auch immer die korrekte Seite angezeigt wird
@@ -74,11 +66,11 @@ class ClubController extends Controller
         if ($request->id) {
             $subpage = Subpage::find($request->id);
             $subpage->title = $request->title;
-            $subpage->content = $content;
+            $subpage->content = $markdown_details;
             $subpage->parent_id = $request->parent_id;
             $subpage->save();
         } else {
-            Subpage::create(['title' => $request->title, 'content' => $content, 'parent_id' => $request->parent_id]);
+            Subpage::create(['title' => $request->title, 'content' => $markdown_details, 'parent_id' => $request->parent_id]);
         }
 
         $responseText = $request->id ? 'Die Seite wurde erfolgreich editiert' : 'Die Seite wurde erfolgreich angelegt';
