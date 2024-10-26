@@ -60,6 +60,11 @@
         </x-responsive-nav-link>
       </div>
       <div class="pt-2 pb-3 space-y-1">
+        <x-responsive-nav-link :active="request()->routeIs('verein')" :href="route('verein')">
+            {{ __('Verein') }}
+        </x-responsive-nav-link>
+      </div>
+      <div class="pt-2 pb-3 space-y-1">
         <x-responsive-nav-link :active="Str::startsWith(request()->path(), 'galerie')" :href="route('galerie')">
             {{ __('Galerie') }}
         </x-responsive-nav-link>
