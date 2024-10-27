@@ -24,4 +24,12 @@ class Invitation extends Model
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function regenerateToken()
+    {
+        $this->generateInvitationToken();
+        $this->save();
+
+        return $this->token;
+    }
 }

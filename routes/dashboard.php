@@ -38,6 +38,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // User - Einladung
     Route::post('/invitations', [InvitationController::class, 'store'])->name('invitation.create');
     Route::patch('/invitations', [InvitationController::class, 'update'])->name('invitation.update');
+    Route::delete('/invitations', [InvitationController::class, 'destroy'])->name('invitation.delete');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
