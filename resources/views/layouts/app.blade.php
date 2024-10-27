@@ -23,7 +23,7 @@
 						{{ $slot }}
 				</main>
 		</div>
-    @if(session()->has('error') || session()->has('success'))
+    @if(session()->has('error') || $errors->any() || session()->has('success'))
       @include('components.alert')
     @endif
     @include('components.modals.imageview')

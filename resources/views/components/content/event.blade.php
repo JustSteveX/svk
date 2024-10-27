@@ -11,6 +11,11 @@
         <div class="order-3 col-span-2 p-2 bg-transparent md:col-span-4 text-accent-50 md:order-2">
           <h3 class="text-base md:text-xl">{{ $eventItem->name }}</h3>
           <p class="text-sm md:text-base">{{ $eventItem->location }}</p>
+          <p class="text-sm md:text-base">{{$eventItem->starts_on->format('d.m.Y')}}
+            @if($eventItem->ends_on)
+             - {{$eventItem->ends_on->format('d.m.Y')}}
+            @endif
+          </p>
         </div>
         <div class="flex flex-col justify-center order-2 gap-2 bg-accent-900 md:order-3">
           @if ($eventItem->fb_link)

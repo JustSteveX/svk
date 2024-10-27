@@ -20,20 +20,32 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        if (
-            ! $request->validate([
-                'eventname' => ['string', 'required'],
-                'location' => ['string', 'required'],
-                'starts_on' => ['required', 'date_format:d.m.Y'],
-                'fblink' => ['nullable', 'url'],
-                'gmap-link' => ['nullable', 'url'],
-            ])) {
-            return redirect()->back()->with('error', 'Termin konnte nicht angelegt werden.');
-        }
+        $request->validate([
+            'eventname' => ['string', 'required'],
+            'location' => ['string', 'required'],
+            'starts_on' => [
+                'required',               // Pflichtfeld
+                'date',                   // Muss ein Datum sein
+            ],
+            'ends_on' => [
+                'nullable',               // Optionales Feld
+                'date',                   // Muss ein Datum sein, falls gesetzt
+                'after_or_equal:starts_on',
+            ],
+            'fblink' => ['nullable', 'url'],
+            'gmap-link' => ['nullable', 'url'],
+        ], [
+            // Benutzerdefinierte Fehlermeldungen
+            'starts_on.required' => 'Das Startdatum ist erforderlich.',
+            'starts_on.date' => 'Das Startdatum muss ein gültiges Datum sein.',
+            'ends_on.after_or_equal' => 'Das Startdatum muss vor oder gleich dem Enddatum sein.',
+            'ends_on.date' => 'Das Enddatum muss ein gültiges Datum sein.',
+        ]);
 
         Event::create(['name' => $request->get('eventname'),
             'location' => $request->get('location'),
             'starts_on' => $request->get('starts_on'),
+            'ends_on' => $request->get('ends_on'),
             'fb_link' => $request->get('fblink'),
             'gmap_link' => $request->get('gmap-link'),
         ]);
