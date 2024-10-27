@@ -10,7 +10,18 @@ class EventController extends Controller
 {
     public function index()
     {
-        $eventList = Event::where('starts_on', '>=', Carbon::today())->orderBy('starts_on', 'desc')->get();
+        // Gibt alle Events mit starts_on dem Datum auf heute oder in der Zukunft gesetzt
+        // und nur wenn ends_on das Datum auf heute oder in der Zukunft gesetzt ist, kann das starts_on in der Vergangenheit liegen
+        $eventList = Event::where(function ($query) {
+            $query->where('starts_on', '>=', Carbon::today())
+                ->orWhere(function ($query) {
+                    $query->where('starts_on', '<=', Carbon::today())
+                        ->whereNotNull('ends_on')
+                        ->where('ends_on', '>=', Carbon::today());
+                });
+        })
+            ->orderBy('starts_on', 'desc')
+            ->get();
 
         return view('components.content.event', compact('eventList'));
     }
