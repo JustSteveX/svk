@@ -21,6 +21,10 @@
       <x-datepicker :requestName="'starts_on'" :required="true"></x-datepicker>
     </div>
     <div>
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="starts_on">Endet am (optional)</label>
+      <x-datepicker :requestName="'ends_on'" :required="false"></x-datepicker>
+    </div>
+    <div>
       <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="fblink">Facebook
         Veranstaltungslink (optional)</label>
       <input

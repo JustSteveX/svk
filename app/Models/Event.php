@@ -13,11 +13,13 @@ class Event extends Model
         'name',
         'location',
         'starts_on',
+        'ends_on',
         'gmap_link',
         'fb_link',
     ];
 
     protected $casts = [
         'starts_on' => 'date',
+        'ends_on' => 'date',
     ];
 }
