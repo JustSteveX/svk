@@ -107,8 +107,21 @@ class InvitationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invitation $invitation)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate(['email' => 'required|exists:invitations,email']);
+
+        $invitation = Invitation::where('email');
+
+        if ($invitation) {
+            // Eintrag löschen
+            $invitation->delete();
+
+            // Erfolgsnachricht und Umleitung
+            return redirect()->back()->with('success', 'Einladungslink ungültig gemacht.');
+        }
+
+        // Fehlermeldung und Umleitung, falls das Event nicht existiert
+        return redirect()->back()->with('error', 'Einladung nicht gefunden.');
     }
 }

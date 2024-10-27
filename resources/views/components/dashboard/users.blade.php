@@ -57,14 +57,22 @@
                       {{\Carbon\Carbon::parse($invitationItem->created_at)->format('d.m.Y')}}
                     </td>
                     <td class="px-6 py-4">
-                      <form action="{{route('invitation.update')}}" method="POST">
-                        @csrf
-                        @method('patch')
-                        <input type="text" hidden name="email" value="{{$invitationItem->email}}">
-                        <input type="text" hidden name="token" value="{{$invitationItem->invitation_token}}">
-                        <input type="text" hidden name="reinvite" value="true">
-                        <x-primary-button>Mail erneut senden</x-primary-button>
-                      </form>
+                      <div class="flex flex-row gap-2">
+                        <form action="{{route('invitation.update')}}" method="POST">
+                          @csrf
+                          @method('patch')
+                          <input type="text" hidden name="email" value="{{$invitationItem->email}}">
+                          <input type="text" hidden name="token" value="{{$invitationItem->invitation_token}}">
+                          <input type="text" hidden name="reinvite" value="true">
+                          <x-primary-button>Mail erneut senden</x-primary-button>
+                        </form>
+                        <form action="{{route('invitation.delete')}}" method="POST">
+                          @csrf
+                          @method('delete')
+                          <input type="text" hidden name="email" value="{{$invitationItem->email}}">
+                          <x-primary-button>Widerrufen</x-primary-button>
+                        </form>
+                      </div>
                     </td>
                 </tr>
               @endforeach
