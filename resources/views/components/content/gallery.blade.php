@@ -34,7 +34,7 @@
                     <img alt="{{$albumItem->name}}" class="h-auto max-w-full" src="{{ Storage::url('media/' . $albumItem->thumbnail->name) }}">
                   @else
                     <div class="flex items-center justify-center w-full h-full duration-150 ease-linear hover:bg-primary hover:text-gray-100">
-                      <h4 class="text-xl text-center ">{{ $albumItem->name }}</h4>
+                      <h4 class="text-xl text-center">{{ $albumItem->name }}</h4>
                     </div>
                   @endif
                 </a>
@@ -43,11 +43,15 @@
           @endforeach
         @endisset
         @isset($mediaList)
-          @forelse ($mediaList->filter->isImage() as $mediaItem)
-            <div class="w-full px-4 mb-4 sm:w-1/2 md:w-1/3 lg:w-1/4">
+          @forelse ($mediaList->filter(function($mediaItem) {
+              return $mediaItem->isImage() || $mediaItem->isVideo();
+          }) as $mediaItem)
+              @if($mediaItem->isImage())
                 <x-image :media="$mediaItem" class="w-full h-auto"></x-image>
-            </div>
-          @empty
+              @elseif($mediaItem->isVideo())
+                <x-video :media="$mediaItem" class="w-full h-auto"></x-video>
+              @endif
+            @empty
             <p>Hier wurde noch nichts veröffentlicht...</p>
           @endforelse
         @endisset
