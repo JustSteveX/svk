@@ -53,6 +53,10 @@ class Media extends Model
 
     public function shortenedName($withExtension = false): string
     {
+        if ($this->isVideo()) {
+            return $this->name;
+        }
+
         $fileParts = explode('_', $this->name, 2); // Aufteilen des Dateinamens nach dem ersten Unterstrich
 
         return $withExtension === true ? $fileParts[1] : pathinfo($fileParts[1], PATHINFO_FILENAME); // Entfernen der Dateierweiterung
