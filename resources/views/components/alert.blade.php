@@ -1,4 +1,10 @@
-<div class="fixed z-50 bottom-8 border rounded-lg border-slate-800 left-1/2 translate-x-[-50%]" id="alert">
+<div class="fixed z-50 bottom-8 border rounded-lg border-slate-800 left-1/2 translate-x-[-50%]" id="alert" x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" x-transition:enter="transition ease-out duration-300"
+  x-transition:enter-start="opacity-0 transform translate-y-2"
+  x-transition:enter-end="opacity-100 transform translate-y-0"
+  x-transition:leave="transition ease-in duration-200"
+  x-transition:leave-start="opacity-100 transform translate-y-0"
+  x-transition:leave-end="opacity-0 transform translate-y-2"
+  class="alert alert-success">
   @if(session()->has('error') || $errors->any())
   <div id="alert-1" class="flex items-center p-4 rounded-lg text-warning bg-red-50" role="alert">
     <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

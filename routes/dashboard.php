@@ -17,6 +17,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/media', [MediaController::class, 'store'])->name('media.create');
     Route::delete('/media', [MediaController::class, 'destroy'])->name('media.delete');
+    Route::post('/sychronize', [MediaController::class, 'synchronize'])->name('media.synchronize');
 
     Route::post('/album', [AlbumController::class, 'store'])->name('album.create');
     Route::patch('/album', [AlbumController::class, 'update'])->name('album.update');

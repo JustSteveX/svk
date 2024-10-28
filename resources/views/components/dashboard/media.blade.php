@@ -37,6 +37,14 @@
     </form>
   </div>
 
+  <div>
+    <form action="{{route('media.synchronize')}}" method="POST">
+      @csrf
+      @method('post')
+      <x-primary-button>Videos synchronisieren</x-primary-button>
+    </form>
+  </div>
+
 </div>
 
 <div class="mt-8">
