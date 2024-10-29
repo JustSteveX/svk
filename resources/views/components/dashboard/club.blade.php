@@ -68,10 +68,6 @@
 
   </form>
 
-  <div x-init="''">
-      @include('components.modals.media-selection', ['mediaList' => $mediaList])
-  </div>
-
   <div class="mt-8">
     <h2 class="mt-2 text-lg">Alle Seiten im Überblick:</h2>
     <hr class="mb-4 border-accent-200">
