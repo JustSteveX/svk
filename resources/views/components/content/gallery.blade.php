@@ -24,14 +24,13 @@
         </ol>
       </nav>
 
-      <div class="flex flex-wrap my-8">
+      <div class="grid gap-4 px-2 py-4 sm:grid-cols-2 md:grid-cols-4">
         @isset($albumList)
           @foreach ($albumList as $albumItem)
-            <div class="w-full px-4 mb-4 sm:w-1/2 md:w-1/3 lg:w-1/4">
               <div class="relative h-64 bg-gray-300">
                 <a href="{{ Str::lower('galerie/' . $albumItem->name) }}">
                   @if ($albumItem->thumbnail)
-                    <img alt="{{$albumItem->name}}" class="h-auto max-w-full" src="{{ Storage::url('media/' . $albumItem->thumbnail->name) }}">
+                    <img alt="{{$albumItem->name}}" class="w-full h-auto" src="{{ Storage::url('media/' . $albumItem->thumbnail->name) }}">
                   @else
                     <div class="flex items-center justify-center w-full h-full duration-150 ease-linear hover:bg-primary hover:text-gray-100">
                       <h4 class="text-xl text-center">{{ $albumItem->name }}</h4>
@@ -39,7 +38,6 @@
                   @endif
                 </a>
               </div>
-            </div>
           @endforeach
         @endisset
         @isset($mediaList)
@@ -47,7 +45,7 @@
               return $mediaItem->isImage() || $mediaItem->isVideo();
           }) as $mediaItem)
               @if($mediaItem->isImage())
-                <x-image :media="$mediaItem" class="w-full h-auto"></x-image>
+                <x-image :media="$mediaItem" class="object-cover w-full h-auto border-2 border-transparent hover:border-accent"></x-image>
               @elseif($mediaItem->isVideo())
                 <x-video :media="$mediaItem" class="w-full h-auto"></x-video>
               @endif
