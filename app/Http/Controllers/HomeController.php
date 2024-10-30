@@ -9,10 +9,10 @@ class HomeController extends Controller
     public function index()
     {
         // Highlight Album laden
-        $albumItem = Album::where('name', 'highlights')->first();
+        //$albumItem = Album::where('name', 'highlights')->first();
 
-        $mediaList = $albumItem?->media;
+        //$mediaList = $albumItem?->media;
 
-        return view('components.content.startpage', compact('albumItem', 'mediaList'));
+        return view('components.content.startpage');
     }
 }

@@ -28,6 +28,7 @@
     prevFocusable() { return this.focusables()[this.prevFocusableIndex()] || this.lastFocusable() },
     nextFocusableIndex() { return (this.focusables().indexOf(document.activeElement) + 1) % (this.focusables().length + 1) },
     prevFocusableIndex() { return Math.max(0, this.focusables().indexOf(document.activeElement)) - 1 },
+    reset() {this.inputData = {}}
 }" x-init="$watch('show', value => {
     if (value) {
         document.body.classList.add('overflow-y-hidden');
@@ -35,11 +36,16 @@
     } else {
         document.body.classList.remove('overflow-y-hidden');
     }
-})" x-on:close-all-modals.window="show = false; selectedData.length = 0;"
-		x-on:close.stop="show = false; selectedData.length = 0;" x-on:keydown.escape.window="show = false; selectedData.length = 0"
+})" x-on:close-all-modals.window="show = false; selectedData.length = 0; reset()"
+		x-on:close.stop="show = false; selectedData.length = 0; reset()" x-on:keydown.escape.window="show = false; selectedData.length = 0; reset()"
 		x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
 		x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
-		x-on:open-modal.window="$event.detail == '{{ $name }}' ? show = true : null" x-show="show">
+		x-on:open-modal.window="
+        if ($event.detail.name === '{{ $name }}') {
+            inputData = $event.detail.inputData || {};
+            show = true;
+        }
+    " x-show="show">
 		<div class="fixed inset-0 transition-all transform" x-on:click="show = false; selectedData.length = 0" x-show="show"
 				x-transition:enter-end="opacity-100" x-transition:enter-start="opacity-0" x-transition:enter="ease-out duration-300"
 				x-transition:leave-end="opacity-0" x-transition:leave-start="opacity-100" x-transition:leave="ease-in duration-200">
@@ -63,16 +69,18 @@
 
 				<div class="p-4 text-sm">{{ $slot }}</div>
 
-				<hr class="border-accent">
-
-        <div class="flex flex-row justify-end gap-4 px-4 py-2 modal-actions">
-        @if(!isset($action) || $action->isEmpty())
+        <!--
+          @if(!isset($action) || $action->isEmpty())
             <button
                 class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-800 border border-transparent rounded-md dark:bg-gray-200 dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                 x-on:click="show = false; $dispatch('modal-data-returned', [...selectedData]); selectedData.length = 0;">Speichern</button>
         @else
           {{$action}}
         @endif
+        -->
+        @isset($action)
+          {{$action}}
+        @endisset
         </div>
 		</div>
 </div>

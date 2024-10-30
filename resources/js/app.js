@@ -15,19 +15,29 @@ window.openModal = function (
 	callback = null,
 	options = { closeAll: true, inputData: {} }
 ) {
-	const modal = document.querySelector('[x-ref="modal"]'); // Select the modal component
+	const modal = document.querySelector('[x-ref="modal"]'); // Selektiere das Modal-Element
 	if (modal) {
-		const modalAlpineComp = modal._x_refs.modal._x_dataStack[0];
-		if (options.closeAll) {
-			modalAlpineComp.$dispatch('close-all-modals');
+		// Hole die Alpine.js-Komponente vom Modal
+		const modalAlpineComp = modal._x_dataStack.find(
+			(data) => data.show !== undefined
+		);
+
+		if (modalAlpineComp) {
+			// Schließe alle Modals, wenn `closeAll` aktiviert ist
+			if (options.closeAll) {
+				modalAlpineComp.$dispatch('close-all-modals');
+			}
+
+			// Öffne das spezifische Modal
+			modalAlpineComp.$dispatch('open-modal', {
+				name,
+				inputData: options.inputData,
+			});
 		}
-		if (!!options.inputData) {
-			modalAlpineComp.inputData = options.inputData;
-		}
-		modalAlpineComp.$dispatch('open-modal', name);
 	}
 
-	if (!!callback) {
+	// Callback, falls angegeben
+	if (callback) {
 		document.addEventListener(
 			'modal-data-returned',
 			function myListener(event) {

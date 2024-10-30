@@ -95,7 +95,25 @@ class MediaController extends Controller
      */
     public function update(Request $request, Media $media)
     {
-        //
+        // Anfrage validieren
+        $validated = $request->validate([
+            'medias' => 'required|array|min:1',
+            'medias.*' => 'integer|exists:media,id', // Überprüfen, ob jede Medien-ID in der media-Tabelle existiert
+            'album' => 'required|integer|exists:albums,id', // Überprüfen, ob die Album-ID in der albums-Tabelle existiert
+        ]);
+
+        // Album- und Medien-IDs aus den validierten Daten abrufen
+        $albumId = $validated['album'];
+        $mediaIds = $validated['medias'];
+
+        // Medien-Einträge aktualisieren
+        $updated = Media::whereIn('id', $mediaIds)->update(['album_id' => $albumId]);
+
+        if ($updated) {
+            return redirect()->back()->with('success', 'Medien erfolgreich verschoben');
+        }
+
+        return redirect()->back()->with('success', 'Fehler beim Verschieben der Medien');
     }
 
     /**
@@ -103,20 +121,31 @@ class MediaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $request->validate([
-            'id' => ['required', 'string'],
+        // Anfrage validieren
+        $validated = $request->validate([
+            'medias' => 'required|array|min:1',
+            'medias.*' => 'integer|exists:media,id', // Überprüfen, ob jede Medien-ID in der media-Tabelle existiert
         ]);
 
-        $mediaItem = Media::find($request->id);
-        if (isset($mediaItem)) {
-            Media::destroy($mediaItem->id);
+        // Medien-IDs aus den validierten Daten abrufen
+        $mediaIds = $validated['medias'];
+
+        // Medien-Einträge abrufen
+        $mediaItems = Media::whereIn('id', $mediaIds)->get();
+
+        // Dateien aus dem Storage löschen
+        foreach ($mediaItems as $mediaItem) {
             Storage::delete('media/'.$mediaItem->name);
-
-            return redirect()->back()->with('success', 'File successfully deleted.');
-
         }
 
-        return redirect()->back()->with('error', 'Datei wurde nicht gefunden');
+        // Medien-Einträge löschen
+        $deleted = Media::whereIn('id', $mediaIds)->delete();
+
+        if ($deleted) {
+            return redirect()->back()->with('success', 'Medien erfolgreich gelöscht');
+        }
+
+        return redirect()->back()->with('error', 'Fehler beim Löschen der Medien');
     }
 
     /**

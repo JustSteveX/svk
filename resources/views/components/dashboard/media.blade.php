@@ -47,69 +47,11 @@
 
 </div>
 
-<div class="mt-8">
-  <hr class="mb-4">
-  <h4>Alben verwalten</h4>
-  @foreach ($albumList as $albumItem)
-    @if ($albumItem->name === 'Highlights')
-      <div class="relative mt-2">
-        <label
-          class="flex flex-col w-full gap-1 py-4 text-sm text-gray-900 border border-gray-300 md:flex-row bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-          id="update-album" name="name" readonly required type="text">
-          <span>{{ $albumItem->name }}</span> <small class="text-gray-500">Dieses Album ist nicht editierbar</small>
-        </label>
-      </div>
-    @else
-    <div class="flex flex-row items-center justify-center w-full gap-2">
-      <form action="{{ route('album.update') }}" method="POST" class="w-full">
-        @csrf
-        @method('patch')
-
-        <div class="relative">
-          <input hidden name="id" type="text" value="{{ $albumItem->id }}">
-          <input
-            class="block w-full py-4 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-            id="update-album" name="name" required type="text" value="{{ $albumItem->name }}">
-          <button
-            class="disabled:bg-slate-800 text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-            type="submit">Name ändern</button>
-        </div>
-      </form>
-      <form action="{{route('album.delete')}}" method="POST">
-        @csrf
-        @method('delete')
-        <input type="text" hidden name="id" type="text" value="{{$albumItem->id}}">
-        <x-danger-button
-              class="mr-4 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
-              type="submit">Album löschen</x-danger-button>
-      </form>
-    </div>
-    @endif
-  @endforeach
-</div>
-
-@if (isset($mediaList) && count($mediaList) > 0)
-  <div class="mt-8">
-    <hr class="mb-4">
-    <h4>Medien verwalten</h4>
-    @foreach ($mediaList as $mediaItem)
-      <form action="{{ route('media.delete') }}" class="mt-2" method="POST">
-        @csrf
-        @method('delete')
-
-        <div
-          class="relative flex flex-col items-center justify-between w-full gap-2 px-4 py-2 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
-          <input class="hidden" name="id" readonly type="text" value="{{ $mediaItem->id }}">
-          <label class="w-full overflow-hidden text-sm text-ellipsis">{{ $mediaItem->name }}</label>
-
-          <div class="flex flex-col items-center justify-between gap-2 md:w-full md:flex-row md:gap-4">
-            <small class="text-gray-500">Aus dem Album: {{ $mediaItem->album->name }}</small>
-            <x-danger-button
-              class="text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-              type="submit">Datei löschen</x-danger-button>
-          </div>
-        </div>
-      </form>
+<div class="py-4 ">
+  <p>Zum Anpassen der Medien oder eines Albums, bitte das passende Album anklicken!</p>
+  <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+    @foreach($albumList as $albumItem)
+      <x-album :album="$albumItem" :albumList="$albumList"></x-album>
     @endforeach
   </div>
-@endif
+</div>
