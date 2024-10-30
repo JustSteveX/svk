@@ -22,6 +22,10 @@ class AlbumSeeder extends Seeder
                 'name' => 'Highlights',
                 'archived' => false, // Setze die entsprechenden Werte für andere Felder
             ]);
+            Album::create([
+                'name' => 'Videos',
+                'archived' => false, // Setze die entsprechenden Werte für andere Felder
+            ]);
         }
     }
 }
