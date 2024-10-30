@@ -13,8 +13,10 @@
     </div>
 
   </div>
-  <div class="pt-20 pb-40 mx-auto bg-accent-50">
-    <h1 class="mb-16 text-2xl font-bold text-center">Aktuelle Highlights</h1>
-    <x-image-showcase :mediaList="$mediaList"></x-image-showcase>
+  <div class="pt-20 pb-40 mx-auto bg-accent-50 min-h-[50vh]">
+    @isset($mediaList)
+      <h1 class="mb-16 text-2xl font-bold text-center">Aktuelle Highlights</h1>
+      <x-image-showcase :mediaList="$mediaList"></x-image-showcase>
+    @endisset
   </div>
 </x-app-layout>

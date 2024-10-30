@@ -27,17 +27,7 @@
       <div class="grid gap-4 px-2 py-4 sm:grid-cols-2 md:grid-cols-4">
         @isset($albumList)
           @foreach ($albumList as $albumItem)
-              <div class="relative h-64 bg-gray-300">
-                <a href="{{ Str::lower('galerie/' . $albumItem->name) }}">
-                  @if ($albumItem->thumbnail)
-                    <img alt="{{$albumItem->name}}" class="w-full h-auto" src="{{ Storage::url('media/' . $albumItem->thumbnail->name) }}">
-                  @else
-                    <div class="flex items-center justify-center w-full h-full duration-150 ease-linear hover:bg-primary hover:text-gray-100">
-                      <h4 class="text-xl text-center">{{ $albumItem->name }}</h4>
-                    </div>
-                  @endif
-                </a>
-              </div>
+              <x-album :album="$albumItem"></x-album>
           @endforeach
         @endisset
         @isset($mediaList)

@@ -27,6 +27,7 @@
       @include('components.alert')
     @endif
     @include('components.modals.imageview')
+    @include('components.modals.album')
 		@include('components.footer')
     @bukScripts(true)
 </body>
