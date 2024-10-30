@@ -55,17 +55,15 @@ class AlbumController extends Controller
     {
         $request->validate([
             'name' => ['string', 'required', 'max:255'],
+            'thumbnail_id' => 'nullable|exists:media,id',
             'id' => ['string', 'required'],
         ]);
 
         $album = Album::find($request->id);
 
-        if (Str::upper($album->name) === 'HIGHLIGHTS') {
-            return redirect()->back()->with('error', 'Dieses Album ist nicht editierbar.');
-        }
-
         $album->update([
             'name' => $request->name,
+            'thumbnail_id' => $request->thumbnail_id,
         ]);
 
         return redirect()->back()->with('success', 'Das Album wurd erfolgreich editiert');
@@ -78,10 +76,6 @@ class AlbumController extends Controller
         ]);
 
         $album = Album::find($request->id);
-
-        if (Str::upper($album->name) === 'HIGHLIGHTS') {
-            return redirect()->back()->with('error', 'Dieses Album ist nicht löschbar.');
-        }
 
         $mediaList = Media::where('album_id', '=', $album->id)->get();
         foreach ($mediaList as $mediaItem) {

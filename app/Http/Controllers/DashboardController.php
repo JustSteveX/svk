@@ -18,7 +18,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $albumList = Album::all();
+        $albumList = Album::where('name', '!=', 'Videos')->get();
         $mediaList = Media::all();
         $blogpostList = Blogpost::orderBy('created_at', 'desc')->get();
         $eventList = Event::orderBy('starts_on', 'desc')->get();
