@@ -28,7 +28,7 @@ class VerifyNewsletter extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verify Newsletter',
+            subject: 'E-Mail-Bestätigung: Schützenverein Kommern Newsletter',
         );
     }
 
