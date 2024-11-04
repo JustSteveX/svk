@@ -5,22 +5,23 @@
   <div>
     <!--  flex-row  gap-14 -->
     <div class="flex flex-col justify-between" id="blogpost-header">
-      <div class="">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="title">Title</label>
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="title">Titel</label>
         <input
           class="block w-full p-2 mb-4 text-xs font-medium text-gray-900 border border-gray-300 md:text-sm focus:ring-blue-500 focus:border-blue-500"
           id="title" name="title" type="text">
       </div>
-      <div class="">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="author">Author</label>
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="author">Autor</label>
         <input
           class="block w-full p-2 mb-4 text-xs font-medium text-gray-900 border border-gray-300 md:text-sm focus:ring-blue-500 focus:border-blue-500"
           id="author" name="author" type="text">
       </div>
     </div>
     <label class="block mb-2 text-sm font-medium text-gray-900" for="content">Beitrag</label>
-    <textarea class="w-full p-2 mb-8 text-sm font-medium text-gray-900 border border-gray-300"
-      id="content" name="content" rows="8"></textarea>
+    <div>
+      <x-easy-mde id="content" name="content" :options="['spellChecker'=> false]"></x-easy-mde>
+    </div>
 
       <!--  flex-row -->
     <div class="flex flex-col justify-between gap-2">

@@ -18,7 +18,7 @@
       @endif
 
       <p class="text-justify">
-        {{ $blogpost->content }}
+        {!! Illuminate\Support\Str::of($blogpost->content)->replace("\t", '&nbsp;')->markdown(['html_input'=>'strip', 'allow_unsafe_links' => true]) !!}
       </p>
     </div>
     @isset($blogpost->album)
