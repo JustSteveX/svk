@@ -5,45 +5,45 @@
 						<ul class="flex flex-wrap -mb-px text-sm font-medium text-center" data-tabs-toggle="#default-tab-content"
 								id="default-tab" role="tablist">
 								<li class="me-2" role="presentation">
-										<button aria-controls="home" aria-selected="true" class="inline-block p-4 border-b-2 rounded-t-lg"
+										<button aria-controls="home" aria-selected="{{ request()->get('tab') === 'home' || !!request()->get('tab') ? 'true' : 'false' }}" class="inline-block p-4 border-b-2 rounded-t-lg"
 												data-tabs-target="#home" id="home-tab" role="tab" type="button">Startseite</button>
 								</li>
 								<li class="me-2" role="presentation">
-										<button aria-controls="blogpost" aria-selected="false"
+										<button aria-controls="blogpost" aria-selected="{{ request()->get('tab') === 'blogpost' ? 'true' : 'false' }}"
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#blogpost" id="blogpost-tab" role="tab" type="button">Beiträge</button>
 								</li>
 								<li class="me-2" role="presentation">
-										<button aria-controls="club" aria-selected="false"
+										<button aria-controls="club" aria-selected="{{ request()->get('tab') === 'club' ? 'true' : 'false' }}"
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#club" id="club-tab" role="tab" type="button">Vereinsinfos</button>
 								</li>
 								<li role="presentation">
-										<button aria-controls="media" aria-selected="false"
+										<button aria-controls="media" aria-selected="{{ request()->get('tab') === 'media' ? 'true' : 'false' }}"
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#media" id="media-tab" role="tab" type="button">Medien / Dateien</button>
 								</li>
 								<li role="presentation">
-										<button aria-controls="event" aria-selected="false"
+										<button aria-controls="event" aria-selected="{{ request()->get('tab') === 'events' ? 'true' : 'false' }}"
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#event" id="event-tab" role="tab" type="button">Termine</button>
 								</li>
                 @if(Auth::user()->isSuperAdmin())
 								<li role="presentation">
-										<button aria-controls="email" aria-selected="false"
+										<button aria-controls="email" aria-selected="{{ request()->get('tab') === 'subscribers' ? 'true' : 'false' }}"
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#email" id="email-tab" role="tab" type="button">Abonennten</button>
 								</li>
                 @endif
                 @if(Auth::user()->isSuperAdmin())
 								<li role="presentation">
-										<button aria-controls="users" aria-selected="false"
+										<button aria-controls="users" aria-selected="{{ request()->get('tab') === 'users' ? 'true' : 'false' }}"
 												class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
 												data-tabs-target="#users" id="users-tab" role="tab" type="button">Benutzer</button>
 								</li>
                 @endif
                 <li role="presentation">
-                  <button aria-controls="contact" aria-selected="false"
+                  <button aria-controls="contact" aria-selected="{{ request()->get('tab') === 'contacts' ? 'true' : 'false' }}"
                       class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
                       data-tabs-target="#contact" id="contact-tab" role="tab" type="button">Kontakte</button>
               </li>
