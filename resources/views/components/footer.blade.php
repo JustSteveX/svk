@@ -1,42 +1,40 @@
-<footer class="flex flex-col justify-between w-full px-2 bg-primary h-72 text-accent-50">
-		<div id="newsletter-container" class="w-full max-w-sm pt-10 mx-auto text-center">
-				<p class="text-sm text-white md:text-base">Du möchtest alle neuen Beiträge per Mail erhalten?<br> Dann abonniere jetzt, kostenlos,
-						unseren
-						Newsletter!</p>
-				<form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex flex-row pt-2 text-sm">
-						@csrf
-						@method('post')
-						<x-input id="email" class="w-full px-2 py-1 text-sm rounded-none md:text-base md:py-2 md:px-3 bg-accent-50 text-accent-900" type="email" name="email" :value="old('email')" required
-								placeholder="E-Mail" />
-						<x-button class="box-content text-sm rounded-none md:text-base bg-accent place-content-center w-fit">
-								Anmelden
-						</x-button>
-				</form>
-		</div>
-		<div class="max-w-sm pb-2 mx-auto text-xs font-extrabold text-left text-accent-50 md:text-sm">
-				<p>Erstellt von <a href="mailto:kontakt@steve-designs.de" class="text-accent-200 hover:underline hover:text-accent-50">Stefan
-								von Drehle</a></p>
+<footer class="py-8 text-gray-100 bg-primary">
+  <div class="container px-4 mx-auto">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 
-
-        <p>© {{ date('Y') }} Schützenverein Kommern e.V. Alle Rechte vorbehalten.</p>
-        <ul class="flex justify-between">
-          <li><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('impressum') }}">Impressum</a></li>
-          <li><a class="text-accent-200 hover:text-accent-50 hover:underline" href="{{ route('datenschutz') }}">Datenschutz</a></li>
-          <li>
-            @if (!Auth::check())
-              <a class="text-accent-200 hover:underline hover:text-accent-50"
-                  href="/login">{{ __('navigation.tologin') }}</a>
-            @else
-                <form action="{{ route('logout') }}" method="POST">
+          <!-- Newsletter-Anmeldung -->
+          <div class="col-span-1 md:col-span-2">
+              <h3 class="mb-4 text-xl font-semibold">Newsletter Anmeldung</h3>
+              <p class="mb-4">Melden Sie sich zu unserem Newsletter an und bleiben Sie informiert!</p>
+              <form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex flex-col gap-2 md:flex-row">
                   @csrf
-                  @method('post')
-                  <a href="{{route('logout')}}" class="text-accent-200 hover:text-accent-50 hover:underline" onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Abmelden') }}</a>
+                  <input type="email" name="email" placeholder="Ihre E-Mail-Adresse" required
+                      class="flex-grow w-full p-2 text-slate-700 bg-accent-50 md:w-auto focus:outline-none focus:ring-2 focus:ring-accent">
+                      <x-accent-button type="submit" class="text-lg font-semibold rounded-none">Anmelden</x-accent-button>
               </form>
-            @endif
-          </li>
-        </ul>
+          </div>
 
+          <!-- Links -->
+          <div class="flex flex-col mt-8 space-y-2 md:mt-0">
+              <a href="{{ route('impressum') }}" class="hover:underline w-fit">Impressum</a>
+              <a href="{{ route('datenschutz') }}" class="hover:underline w-fit">Datenschutz</a>
 
+              @if (!Auth::check())
+                <a class="hover:underline w-fit" href="{{ route('login') }}">{{ __('navigation.tologin') }}</a>
+              @else
+                  <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    @method('post')
+                    <a href="{{route('logout')}}" class="hover:underline w-fit" onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Abmelden') }}</a>
+                </form>
+              @endif
+          </div>
+      </div>
 
-		</div>
+      <!-- Copyright -->
+      <div class="pt-8 mt-8 text-sm text-center border-t border-accent-700">
+          © {{ date('Y') }} Schützenverein Kommern e.V. Alle Rechte vorbehalten.<br>
+          Erstellt von <a href="mailto:kontakt@steve-designs.de" class="text-accent-200 hover:underline">Stefan von Drehle</a>
+      </div>
+  </div>
 </footer>
