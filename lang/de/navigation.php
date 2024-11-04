@@ -10,6 +10,6 @@ return [
     |
     */
 
-    'tologin' => 'Zur Anmeldung',
+    'tologin' => 'Login',
 
 ];

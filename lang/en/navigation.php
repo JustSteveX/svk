@@ -10,6 +10,6 @@ return [
     |
     */
 
-    'tologin' => 'Go to login!',
+    'tologin' => 'Login',
 
 ];
