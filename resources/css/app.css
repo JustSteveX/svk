@@ -23,7 +23,25 @@
 	font-style: normal;
 }
 
-.tab {
+:root {
+	--primary-color: #286027;
+	--accent-color: #155993;
+	--warn-color: #c6a937;
+}
+
+.custom-markdown .tab {
 	display: inline-block;
 	width: 2em;
+}
+
+.custom-markdown td {
+	text-align: center;
+}
+
+.custom-markdown li::marker {
+	color: var(--primary-color);
+}
+
+.custom-markdown p {
+	margin: 0 !important;
 }

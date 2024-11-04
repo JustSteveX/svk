@@ -4,8 +4,7 @@
     subpage: {
       id: null,
       title: null,
-      details: '',
-      parent_id: null
+      details: ''
     },
     isEditMode: false,
     updateValue(newValue) {
@@ -25,8 +24,7 @@
       this.subpage = {
         id: null,
         title: null,
-        details: '',
-        parent_id: null
+        details: ''
       };
       this.updateValue(this.subpage.details);
       this.isEditMode = false;
@@ -46,24 +44,11 @@
       </div>
 
       <div>
-        <x-easy-mde name="markdown_details" x-model="subpage.details"></x-easy-mde>
+        <x-easy-mde name="markdown_details" x-model="subpage.details" :options="['spellChecker'=> false]"></x-easy-mde>
       </div>
 
-      <div class="mb-4">
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="parentpage-select">Elternseite
-              auswählen (wenn keine Seite gewählt wird, wird die Vereins - Startseite editiert)</label>
-          <select class="w-full text-sm font-medium text-gray-900 dark:text-white" id="parentpage-select" name="parent_id" x-model="subpage.parent_id">
-              <option selected value="">Keine Seite auswählen</option>
-              @foreach ($subpageList as $subpageItem)
-                  <option value="{{ $subpageItem->id }}">{{ $subpageItem->title }}</option>
-              @endforeach
-          </select>
-      </div>
-
-    <!-- -->
       <x-primary-button x-text="isEditMode ? 'Änderungen speichern' : 'Neue Seite anlegen'"></x-primary-button>
 
-    <!-- -->
       <x-accent-button x-show="isEditMode" type="button" @click="cancelEdit()">Bearbeiten abbrechen</x-accent-button>
 
   </form>
@@ -84,7 +69,7 @@
         </p>
 
         <span class="flex flex-row gap-2 leading-none list-actions">
-          <a class="text-accent hover:text-accent-200 hover:underline" target="_blank" href="{{$subpageItem->getUrlPath()}}">Link</a>
+          <a class="text-accent hover:text-accent-200 hover:underline" target="_blank" href="{{route('verein/name', ['subpage' => $subpageItem->title])}}">Link</a>
           @if($subpageItem->id !== 1)
             <span class="select-none">|</span>
             <form action="{{route('subpage.delete')}}" method="POST">
@@ -97,7 +82,7 @@
             </form>
           @endif
           <span class="select-none">|</span>
-          <a href="#" class="text-accent hover:text-accent-200 hover:underline" @click="setSubpage({{ json_encode(['id' => $subpageItem->id, 'title' => $subpageItem->title, 'details' => $subpageItem->parseMarkdown(), 'parent_id' => $subpageItem->parent_id]) }})">Bearbeiten</a>
+          <a href="#" class="text-accent hover:text-accent-200 hover:underline" @click="setSubpage({{ json_encode(['id' => $subpageItem->id, 'title' => $subpageItem->title, 'details' => $subpageItem->parseMarkdown()]) }})">Bearbeiten</a>
         </span>
 
       </div>

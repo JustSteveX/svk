@@ -21,15 +21,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('startseite');
+Route::get('/', [HomeController::class, 'index'])
+    ->name('startseite');
 
-Route::get('/aktuelles', [BlogpostController::class, 'index'])->name('aktuelles');
+Route::get('/aktuelles', [BlogpostController::class, 'index'])
+    ->name('aktuelles');
 
-Route::get('/verein', [ClubController::class, 'index'])->name('verein');
+Route::get('/verein', [ClubController::class, 'index'])
+    ->name('verein');
 
-Route::get('/verein/{subpage?}', [ClubController::class, 'show'])->name('verein/name')->where('subpage', '.*');
+Route::get('/verein/{subpage?}', [ClubController::class, 'show'])
+    ->name('verein/name')
+    ->where('subpage', '.*');
 
-Route::get('/galerie', [AlbumController::class, 'index'])->name('galerie');
+Route::get('/galerie', [AlbumController::class, 'index'])
+    ->name('galerie');
 
 // Route für die Anzeige der Medien in einem Album
 Route::get('/galerie/{albumName}', [AlbumController::class, 'show'])->name('galerie/name');
