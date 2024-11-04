@@ -111,7 +111,7 @@ class InvitationController extends Controller
     {
         $request->validate(['email' => 'required|exists:invitations,email']);
 
-        $invitation = Invitation::where('email');
+        $invitation = Invitation::where('email', $request->email);
 
         if ($invitation) {
             // Eintrag löschen
