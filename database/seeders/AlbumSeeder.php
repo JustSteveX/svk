@@ -14,18 +14,15 @@ class AlbumSeeder extends Seeder
      */
     public function run()
     {
-        // Überprüfen, ob ein Album mit dem Namen 'Highlights' bereits existiert
-        $existingAlbum = Album::where('name', 'Highlights')->first();
-        if (! $existingAlbum) {
-            // Album mit dem Namen 'Highlights' erstellen, wenn es nicht existiert
+        $albumNames = ['Highlights', 'Videos'];
+
+        foreach($albumNames as $albumName){
+          if(!Album::where('name', $albumName)->first()){
             Album::create([
-                'name' => 'Highlights',
-                'archived' => false, // Setze die entsprechenden Werte für andere Felder
+              'name' => $albumName,
+              'archived' => false, // Setze die entsprechenden Werte für andere Felder
             ]);
-            Album::create([
-                'name' => 'Videos',
-                'archived' => false, // Setze die entsprechenden Werte für andere Felder
-            ]);
+          }
         }
     }
 }

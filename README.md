@@ -15,11 +15,8 @@ Es gibt auch eine Anleitung um einen shell alias zu setzen, somit ist die Pfad A
 
 ## Einrichtung
 
-- TO BE FILLED
 -   `(sail )php artisan migrate`
--   `(sail )php artisan seed --class=RoleSeeder`
--   `(sail )php artisan seed --class=UserSeeder`
--   `(sail )php artisan seed --class=AlbumSeeder`
+-   `(sail )php artisan db:seed`
 
 ## Docker Container verwalten
 
