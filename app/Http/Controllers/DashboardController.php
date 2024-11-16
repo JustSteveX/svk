@@ -24,6 +24,7 @@ class DashboardController extends Controller
         $eventList = Event::orderBy('starts_on', 'desc')->get();
         $subpageList = Subpage::all();
         $subscriberList = Subscriber::orderBy('email_verified_at', 'desc')
+                                    ->orderBy('created_at', 'desc')
                                     ->orderBy('email', 'asc')
                                     ->get();
         $roleList = Role::all();
