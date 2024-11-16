@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class NewsletterController extends Controller
 {
@@ -68,5 +69,15 @@ class NewsletterController extends Controller
         Mail::to($subscriber->email)->send(new VerifyNewsletter($subscriber->token));
 
         return redirect()->route('startseite')->with('success', 'Die Bestätigungsmail wurde erneut versendet!');
+    }
+
+    /** Entfernt alle unverifizierten Subscriber der letzten 30 Tage */
+    public function destroy(): RedirectResponse
+    {
+      $thirtyDaysAgo = Carbon::now()->subDays(30);
+      Subscriber::whereNull('email_verified_at')
+                ->where('created_at', '<', $thirtyDaysAgo)
+                ->delete();
+      return redirect()->back()->with('success', 'Alle Newsletter-Abonnenten, deren E-Mail-Verifizierung seit mehr als 30 Tagen aussteht, wurden erfolgreich entfernt.');
     }
 }
