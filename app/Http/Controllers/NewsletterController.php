@@ -6,9 +6,11 @@ use App\Mail\VerifyNewsletter;
 use App\Models\Subscriber;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\IpUtils;
 use Carbon\Carbon;
 
 class NewsletterController extends Controller
@@ -33,6 +35,18 @@ class NewsletterController extends Controller
 
     public function subscribe(Request $request)
     {
+        $response = Http::post('https://www.google.com/recaptcha/api/siteverify', [
+          'secret' => config('services.recaptcha.secret'),
+          'response' => $request->input('g-recaptcha-response'),
+          'remoteip' => IpUtils::anonymize($request->ip()),
+        ]);
+
+        $test = \Illuminate\Support\Facades\Request::fullUrl();
+
+        if (!$response->json()['success']) {
+            return back()->withErrors(['captcha' => 'Captcha failed']);
+        }
+
         $request->validate(['email' => 'required|email|unique:subscribers,email']);
 
         $token = Str::random(60);

@@ -8,9 +8,10 @@
               <p class="mb-4">Melden Sie sich zu unserem Newsletter an und bleiben Sie informiert!</p>
               <form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex flex-col gap-2 md:flex-row">
                   @csrf
+                  <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}" name="g-recaptcha-response"></div>
                   <input type="email" name="email" placeholder="Ihre E-Mail-Adresse" required
                       class="flex-grow w-full p-2 text-slate-700 bg-accent-50 md:w-auto focus:outline-none focus:ring-2 focus:ring-accent">
-                      <x-accent-button type="submit" class="text-lg font-semibold rounded-none">Anmelden</x-accent-button>
+                  <x-accent-button type="submit" class="text-lg font-semibold rounded-none">Anmelden</x-accent-button>
               </form>
           </div>
 

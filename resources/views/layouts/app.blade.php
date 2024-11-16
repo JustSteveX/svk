@@ -30,6 +30,8 @@
     @include('components.modals.album')
 		@include('components.footer')
     @bukScripts(true)
+
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
 </body>
 
 </html>
