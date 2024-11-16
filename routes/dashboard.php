@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -41,6 +42,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/invitations', [InvitationController::class, 'store'])->name('invitation.create');
     Route::patch('/invitations', [InvitationController::class, 'update'])->name('invitation.update');
     Route::delete('/invitations', [InvitationController::class, 'destroy'])->name('invitation.delete');
+
+    Route::delete('/newsletter', [NewsletterController::class, 'destroy'])->name('newsletter.clear');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
