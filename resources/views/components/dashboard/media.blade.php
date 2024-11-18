@@ -50,8 +50,11 @@
 <div class="py-4 ">
   <p>Zum Anpassen der Medien oder eines Albums, bitte das passende Album anklicken!</p>
   <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+    <div class='bg-gray-400 rounded-lg text-gray-300 px-0 cursor-pointer flex items-center justify-center'>
+      <x-bi-plus class="w-16 h-16" />
+    </div>
     @foreach($albumList as $albumItem)
-      <x-album :album="$albumItem" :albumList="$albumList"></x-album>
+      <x-album-preview :album="$albumItem"></x-album-preview>
     @endforeach
   </div>
 </div>

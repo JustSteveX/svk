@@ -56,13 +56,6 @@ class MediaController extends Controller
             // Datei im Storage speichern
             Storage::disk('public')->put('media/'.$fileName, file_get_contents($file));
 
-            // Datensatz für Media erzeugen
-            // $media = new Media;
-            // $media->name = $fileName;
-            // $media->mime_type = $file->getMimeType();
-            // $media->album_id = $request->album;
-            // $media->save();
-
             Media::create([
                 'name' => $fileName,
                 'mime_type' => $file->getMimeType(),

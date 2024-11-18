@@ -26,8 +26,7 @@
     @if(session()->has('error') || $errors->any() || session()->has('success'))
       @include('components.alert')
     @endif
-    @include('components.modals.imageview')
-    @include('components.modals.album')
+    @include('components.modal')
 		@include('components.footer')
     @bukScripts(true)
 </body>
