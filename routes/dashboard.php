@@ -17,7 +17,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/blogpost/archive', [BlogpostController::class, 'archive'])->name('blogpost.archive');
 
     Route::post('/media', [MediaController::class, 'store'])->name('media.create');
-    Route::patch('/media', [MediaController::class, 'update'])->name('media.update');
+    Route::patch('/media', [MediaController::class, 'move'])->name('media.move');
+    Route::put('/media', [MediaController::class, 'update'])->name('media.update');
     Route::delete('/media/delete', [MediaController::class, 'destroy'])->name('media.delete');
     Route::post('/sychronize', [MediaController::class, 'synchronize'])->name('media.synchronize');
 

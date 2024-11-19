@@ -86,7 +86,7 @@ class MediaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Media $media)
+    public function move(Request $request, Media $media)
     {
         // Anfrage validieren
         $validated = $request->validate([
@@ -106,7 +106,36 @@ class MediaController extends Controller
             return redirect()->back()->with('success', 'Medien erfolgreich verschoben');
         }
 
-        return redirect()->back()->with('success', 'Fehler beim Verschieben der Medien');
+        return redirect()->back()->with('error', 'Fehler beim Verschieben der Medien');
+    }
+
+    public function update(Request $request){
+      $request->validate([
+        'id' => 'required|exists:media,id',
+        'imagename' => 'required|string|max:255',
+        'imagecaption' => 'nullable|string|max:255'
+      ]);
+
+      $media = Media::find($request->id);
+      if(!$media){
+        return redirect()->back()-with('error', 'Media konnte nicht geändert werden.');
+      }
+
+      $fileName = $request->imagename.'.'.pathinfo($media->name, PATHINFO_EXTENSION);
+
+      $path = $media->isVideo() ? 'ftplink/' : 'media/';
+
+      if(Storage::exists($path.$fileName)){
+        return redirect()->back()->with('error', 'Dieser Dateiname ist bereits vergeben');
+      }
+
+      Storage::move($path.$media->name, $path.$fileName);
+
+      $media->name = $fileName;
+      $media->caption = $request->caption;
+      $media->save();
+
+      return redirect()->back()->with('success', 'Media erfolgreich umbenannt');
     }
 
     /**
