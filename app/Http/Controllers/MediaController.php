@@ -64,7 +64,7 @@ class MediaController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Datei erfolgreich hochgeladen.');
+        return redirect()->back()->with('success', 'Datei(en) erfolgreich hochgeladen.');
     }
 
     /**
