@@ -5,7 +5,7 @@
     onclick="window.openModal('globalModal', null, {
         title: 'Album editieren',
         content: `
-            <div class='flex flex-col gap-4' x-data='{ selectedMedias: [], thumbnail: @json($album->thumbnail ? $album->thumbnail->id : null), selectedMedia: {id: null, name: null, caption: null} }'>
+            <div class='flex flex-col gap-2' x-data='{ selectedMedias: [], thumbnail: @json($album->thumbnail ? $album->thumbnail->id : null), selectedMedia: {id: null, name: null, caption: null} }'>
               <form action='{{route('album.update')}}' method='POST' id='editAlbumForm'>
                 <input type='hidden' name='_token' value='{{ csrf_token() }}'>
                 <input type='hidden' name='_method' value='patch'>
@@ -30,22 +30,22 @@
               <div class='flex flex-col gap-1'>
                 <div class='flex flex-row gap-2'>
                   <div class='flex flex-row justify-between w-full max-w-[50%]'>
-                    <button class='bg-accent p-2 rounded-md disabled:bg-gray-500 disabled:text-gray-400 text-white' x-on:click='thumbnail= selectedMedias[0]' :disabled='selectedMedias.length !== 1'>als Vorschaubild setzen</button>
+                    <button class='bg-accent p-2 rounded-md disabled:bg-gray-500 disabled:text-gray-400 text-white h-full' x-on:click='thumbnail= selectedMedias[0]' :disabled='selectedMedias.length !== 1'>als Vorschaubild setzen</button>
                     <form action='{{route('media.delete')}}' method='POST'>
                       <input type='hidden' name='_token' value='{{ csrf_token() }}'>
                       <input type='hidden' name='_method' value='delete'>
                       <template x-for='mediaId in selectedMedias' :key='mediaId'>
                         <input type='hidden' name='medias[]' :value='mediaId'>
                       </template>
-                      <button type='submit' class='bg-warning p-2 rounded-md disabled:bg-gray-500 disabled:text-gray-400 text-white' :disabled='selectedMedias.length === 0'>Entfernen</button>
+                      <button type='submit' class='bg-warning p-2 rounded-md disabled:bg-gray-500 disabled:text-gray-400 text-white h-full' :disabled='selectedMedias.length === 0'>Entfernen</button>
                     </form>
                   </div>
                   <div class='flex flex-row justify-between w-full max-w-[50%]'>
                     <form action='{{route('media.move')}}' method='POST' class='w-full'>
                       <input type='hidden' name='_token' value='{{ csrf_token() }}'>
                       <input type='hidden' name='_method' value='patch'>
-                      <div class='flex flex-row-reverse justify-between'>
-                        <select name='album' :disabled='selectedMedias.length === 0' class='disabled:bg-gray-500 disabled:text-gray-400'>
+                      <div class='flex flex-row-reverse justify-between gap-1'>
+                        <select name='album' :disabled='selectedMedias.length === 0' class='disabled:bg-gray-500 disabled:text-gray-400 w-full'>
                           <option value='{{$album->id}}' selected>{{$album->name}}</option>
                           @foreach($albumList->reject(fn($albumItem) => $albumItem->id == $album->id) as $albumItem)
                             <option value='{{$albumItem->id}}'>{{$albumItem->name}}</option>
@@ -54,7 +54,7 @@
                         <template x-for='mediaId in selectedMedias' :key='mediaId'>
                           <input type='hidden' name='medias[]' :value='mediaId'>
                         </template>
-                        <button class='bg-warning-500 p-2 rounded-md disabled:bg-gray-500 disabled:text-gray-400 text-white' :disabled='selectedMedias.length === 0'>Verschieben nach</button>
+                        <button class='bg-warning-500 p-2 rounded-md disabled:bg-gray-500 disabled:text-gray-400 text-white h-full' :disabled='selectedMedias.length === 0'>Verschieben nach</button>
                       </div>
                     </form>
                   </div>
