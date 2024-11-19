@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use BladeUI\Icons\Svg;
 
 class Media extends Model
 {
@@ -76,4 +77,43 @@ class Media extends Model
 
         return false;
     }
+
+    /**
+     * $convertHtmlQuotes gibt an ob die HTML doubleQuotes in single quotes umgewandelt werden sollen
+     */
+    public function getIcon(bool $convertHtmlQuotes = false): string{
+      $icon = svg('bi-file-earmark-fill');
+      switch (true) {
+        case str_starts_with($this->mime_type, 'image/'):
+            $icon = svg('bi-image-fill');
+            break;
+        case str_starts_with($this->mime_type, 'video/'):
+            $icon = svg('bi-play-fill');
+            break;
+        case $this->mime_type === 'application/pdf':
+            $icon = svg('bi-file-earmark-pdf-fill');
+            break;
+        case $this->mime_type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+            $icon = svg('bi-file-earmark-word-fill');
+            break;
+        case $this->mime_type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            $icon = svg('bi-file-earmark-spreadsheet-fill');
+            break;
+        case $this->mime_type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+            $icon = svg('bi-file-earmark-slides-fill');
+            break;
+        case str_starts_with($this->mime_type, 'audio/'):
+            $icon = svg('bi-music-note-beamed');
+            break;
+        case str_starts_with($this->mime_type, 'text/'):
+            $icon = svg('bi-file-earmark-text-fill');
+            break;
+      }
+      $svg = (string) $icon->contents();
+      $cssClass = 'w-20 h-20 text-primary';
+
+      $svg = preg_replace('/<svg/', "<svg class=\"$cssClass\"", $svg, 1);
+      if($convertHtmlQuotes) $svg = str_replace('"', '\'', $svg);
+      return $svg;
+  }
 }
