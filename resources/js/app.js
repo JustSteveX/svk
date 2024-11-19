@@ -11,42 +11,40 @@ window.Alpine = Alpine;
 import.meta.glob(['../images/**', '../fonts/**']);
 
 window.openModal = function (
-	name,
-	callback = null,
-	options = { closeAll: true, inputData: {} }
+  name,
+  callback = null,
+  options = { closeAll: true, title: '', content: '', action: '', inputData: {} }
 ) {
-	const modal = document.querySelector('[x-ref="modal"]'); // Selektiere das Modal-Element
-	if (modal) {
-		// Hole die Alpine.js-Komponente vom Modal
-		const modalAlpineComp = modal._x_dataStack.find(
-			(data) => data.show !== undefined
-		);
+  const modal = document.querySelector(`[x-ref="modal"][data-modal-name="globalModal"]`);
+  if (modal) {
+      const modalAlpineComp = modal._x_dataStack.find((data) => data.show !== undefined);
 
-		if (modalAlpineComp) {
-			// Schließe alle Modals, wenn `closeAll` aktiviert ist
-			if (options.closeAll) {
-				modalAlpineComp.$dispatch('close-all-modals');
-			}
+      if (modalAlpineComp) {
+          if (options.closeAll) {
+              modalAlpineComp.$dispatch('close-all-modals');
+          }
 
-			// Öffne das spezifische Modal
-			modalAlpineComp.$dispatch('open-modal', {
-				name,
-				inputData: options.inputData,
-			});
-		}
-	}
+          modalAlpineComp.$dispatch('open-modal', {
+              name,
+              title: options.title,
+              content: options.content,
+              action: options.action,
+              inputData: options.inputData,
+          });
+      }
+  }
 
-	// Callback, falls angegeben
-	if (callback) {
-		document.addEventListener(
-			'modal-data-returned',
-			function myListener(event) {
-				callback(event);
-				document.removeEventListener('modal-data-returned', myListener);
-			}
-		);
-	}
+  if (callback) {
+      const listener = (event) => {
+          if (event.detail.name === name) {
+              callback(event.detail);
+              document.removeEventListener('modal-data-returned', listener);
+          }
+      };
+      document.addEventListener('modal-data-returned', listener);
+  }
 };
+
 
 /**
  * Verarbeitet eine Liste von Dateien und verkleinert Bilder, falls nötig.
@@ -86,6 +84,11 @@ window.processFiles = async function (inputElement) {
 
 	// Setze die verarbeiteten Dateien in das neue Input-Feld
 	inputElement.files = dataTransfer.files;
+
+  const fileUploadForm = document.getElementById('fileUploadForm');
+  if(!fileUploadForm) return;
+
+  fileUploadForm.submit();
 };
 
 /**
@@ -148,4 +151,12 @@ async function resizeImage(file) {
 		reader.onerror = reject;
 		reader.readAsDataURL(file); // Bild als DataURL lesen
 	});
+}
+
+window.uploadFiles = function(){
+  const fileUploadInput = document.getElementById('fileupload');
+  if(!fileUploadInput){
+    return;
+  }
+  fileUploadInput.click();
 }

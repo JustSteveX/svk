@@ -35,9 +35,9 @@
               return $mediaItem->isImage() || $mediaItem->isVideo();
           }) as $mediaItem)
               @if($mediaItem->isImage())
-                <x-image :media="$mediaItem" class="object-cover w-full h-auto border-2 border-transparent hover:border-accent"></x-image>
+                <x-image-preview :media="$mediaItem" class="object-cover w-full h-auto border-2 border-transparent hover:border-accent"></x-image-preview>
               @elseif($mediaItem->isVideo())
-                <x-video :media="$mediaItem" class="w-full h-auto"></x-video>
+                <x-video-preview :media="$mediaItem"></x-video-preview>
               @endif
             @empty
             <p>Hier wurde noch nichts veröffentlicht...</p>
