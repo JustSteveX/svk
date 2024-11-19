@@ -78,6 +78,10 @@ class Media extends Model
         return false;
     }
 
+    public function getFileName(): string{
+      return pathinfo($this->name, PATHINFO_FILENAME);
+    }
+
     /**
      * $convertHtmlQuotes gibt an ob die HTML doubleQuotes in single quotes umgewandelt werden sollen
      */
