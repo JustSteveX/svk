@@ -36,7 +36,7 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['string', 'required', 'max:255'],
+            'albumname' => ['string', 'required', 'max:255'],
         ]);
 
         if (Str::upper($request->name) === 'HIGHLIGHTS') {
@@ -44,7 +44,7 @@ class AlbumController extends Controller
         }
 
         $album = new Album;
-        $album->name = $request->name;
+        $album->name = $request->albumname;
 
         $album->save();
 
@@ -54,25 +54,25 @@ class AlbumController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => ['string', 'required', 'max:255'],
+            'albumname' => ['string', 'required', 'max:255'],
             'thumbnail_id' => 'nullable|exists:media,id',
-            'id' => ['string', 'required'],
+            'id' => ['string', 'required', 'exists:albums,id'],
         ]);
 
         $album = Album::find($request->id);
 
         $album->update([
-            'name' => $request->name,
+            'name' => $request->albumname,
             'thumbnail_id' => $request->thumbnail_id,
         ]);
 
-        return redirect()->back()->with('success', 'Das Album wurd erfolgreich editiert');
+        return redirect()->back()->with('success', 'Das Album wurde erfolgreich editiert');
     }
 
     public function destroy(Request $request)
     {
         $request->validate([
-            'id' => ['string', 'required'],
+            'id' => ['string', 'required', 'exists:albums,id'],
         ]);
 
         $album = Album::find($request->id);

@@ -84,6 +84,11 @@ window.processFiles = async function (inputElement) {
 
 	// Setze die verarbeiteten Dateien in das neue Input-Feld
 	inputElement.files = dataTransfer.files;
+
+  const fileUploadForm = document.getElementById('fileUploadForm');
+  if(!fileUploadForm) return;
+
+  fileUploadForm.submit();
 };
 
 /**
@@ -146,4 +151,12 @@ async function resizeImage(file) {
 		reader.onerror = reject;
 		reader.readAsDataURL(file); // Bild als DataURL lesen
 	});
+}
+
+window.uploadFiles = function(){
+  const fileUploadInput = document.getElementById('fileupload');
+  if(!fileUploadInput){
+    return;
+  }
+  fileUploadInput.click();
 }
