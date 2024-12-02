@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use BladeUI\Icons\Svg;
+use Illuminate\Support\Facades\Storage;
 
 class Media extends Model
 {
@@ -37,9 +38,9 @@ class Media extends Model
         return $this->belongsTo(Album::class);
     }
 
-    public function url()
+    public function url(): string
     {
-        return 'storage/media/'.$this->name;
+        return Storage::url('media/'.$this->name);
     }
 
     public function isImage(): bool
@@ -61,6 +62,15 @@ class Media extends Model
         $fileParts = explode('_', $this->name, 2); // Aufteilen des Dateinamens nach dem ersten Unterstrich
 
         return $withExtension === true ? $fileParts[1] : pathinfo($fileParts[1], PATHINFO_FILENAME); // Entfernen der Dateierweiterung
+    }
+
+    /**
+     * Gibt den gekürzten Namen zurück
+     */
+    public function getShortName(): string{
+      $fileParts = explode('_', $this->name, 2); // Aufteilen des Dateinamens nach dem ersten Unterstrich
+
+      return pathinfo($fileParts[1], PATHINFO_FILENAME); // Entfernen der Dateierweiterung
     }
 
     // TODO auslagern in einen Service

@@ -6,7 +6,7 @@
         content: `
             <div class='flex justify-center flex-col'>
               <video id='video' controls>
-                <source src='{{ Storage::url('ftplink/' . $media->name) }}' type='video/mp4'>
+                <source src='{{ $media->url() }}' type='video/mp4'>
               </video>
               @isset($media->caption)
                 <small class='text-gray-500 font-bold pt-4'>{{$media->caption}}</small>

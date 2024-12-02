@@ -48,10 +48,8 @@ class MediaController extends Controller
 
         foreach ($request->file('files') as $file) {
             $timestamp = time();
-            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $extension = strtolower($file->getClientOriginalExtension());
 
-            $fileName = $timestamp.'_'.$originalName.'.'.$extension;
+            $fileName = $this->createMediaName($file->getClientOriginalName(), $timestamp);
 
             // Datei im Storage speichern
             Storage::disk('public')->put('media/'.$fileName, file_get_contents($file));
@@ -61,6 +59,7 @@ class MediaController extends Controller
                 'mime_type' => $file->getMimeType(),
                 'album_id' => $request->album,
                 'created_at' => Carbon::createFromTimestamp($timestamp),
+                'updated_at' => Carbon::createFromTimestamp($timestamp)
             ]);
         }
 
@@ -121,17 +120,19 @@ class MediaController extends Controller
         return redirect()->back()-with('error', 'Media konnte nicht geändert werden.');
       }
 
-      $fileName = $request->imagename.'.'.pathinfo($media->name, PATHINFO_EXTENSION);
+      $originalFileName = $media->name;
+      $fileExtension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+      $newFileName = $this->createMediaName($request->imagename.'.'.$fileExtension, $media->created_at->timestamp);
 
-      $path = $media->isVideo() ? 'ftplink/' : 'media/';
+      $path = 'media/';
 
-      if(Storage::exists($path.$fileName)){
+      if(Storage::exists($path.$newFileName)){
         return redirect()->back()->with('error', 'Dieser Dateiname ist bereits vergeben');
       }
 
-      Storage::move($path.$media->name, $path.$fileName);
+      Storage::move($path.$media->name, $path.$newFileName);
 
-      $media->name = $fileName;
+      $media->name = $newFileName;
       $media->caption = $request->caption;
       $media->save();
 
@@ -175,7 +176,7 @@ class MediaController extends Controller
      * ! WICHTIG dies lädt NUR Videos ins System
      * TODO Sollte ebenfalls den Service für Dateiendungen nutzen
      */
-    public function synchronize(Request $request)
+    public function synchronize()
     {
         // Alle Video-Dateien aus dem Verzeichnis abrufen
         $videoFiles = Storage::files('ftplink');
@@ -185,7 +186,7 @@ class MediaController extends Controller
 
         // Wenn das Album nicht gefunden wird, gib eine Fehlermeldung zurück
         if (! $album) {
-            return redirect()->back()->with('error', 'Album "Videos" nicht gefunden.');
+          return redirect()->back()->with('error', 'Album "Videos" nicht gefunden.');
         }
 
         $albumId = $album->id;
@@ -200,23 +201,29 @@ class MediaController extends Controller
 
         $newMediaEntries = []; // Array für neue Einträge vorbereiten
 
-        foreach ($videoFiles as $file) {
-            $filename = basename($file); // Dateiname ohne Pfad
-            $mimeType = Storage::mimeType($file); // MIME-Typ der Datei abrufen
+        foreach ($videoFiles as $filePath) {
+          $timestamp = time();
+          $file = Storage::get($filePath);
+          $fileName = $this->createMediaName($filePath, $timestamp);
+          $mimeType = Storage::mimeType($filePath); // MIME-Typ der Datei abrufen
 
-            // Prüfen, ob die Datei bereits existiert
-            if (isset($existingFilesSet["{$filename}|{$mimeType}"])) {
-                continue; // Datei ignorieren, wenn sie bereits existiert
-            }
+          // Prüfen, ob die Datei bereits existiert
+          if (isset($existingFilesSet["{$fileName}|{$mimeType}"])) {
+              continue; // Datei ignorieren, wenn sie bereits existiert
+          }
 
-            // Neue Media-Daten für die Datenbank vorbereiten
-            $newMediaEntries[] = [
-                'name' => $filename,
-                'mime_type' => $mimeType,
-                'album_id' => $albumId,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+          if(Storage::disk('public')->put('media/'.$fileName, $file)){
+            Storage::disk('public')->delete($filePath);
+          }
+
+          // Neue Media-Daten für die Datenbank vorbereiten
+          $newMediaEntries[] = [
+              'name' => $fileName,
+              'mime_type' => $mimeType,
+              'album_id' => $albumId,
+              'created_at' => Carbon::createFromTimestamp($timestamp),
+              'updated_at' => Carbon::createFromTimestamp($timestamp)
+          ];
         }
 
         // Batch-Insert für neue Einträge, falls vorhanden
@@ -225,5 +232,25 @@ class MediaController extends Controller
         }
 
         return redirect()->back()->with('success', 'Synchronisation erfolgreich');
+    }
+
+    private function createMediaName(string $filePath, int $timestamp = null): string{
+      $timestamp = $timestamp ?? time();
+
+      // Originalname des Files extrahieren
+      $originalName = pathinfo($filePath, PATHINFO_FILENAME);
+
+      // Ersetze ungültige Zeichen für Windows und Linux (z.B. /, \0, \, :, *, ?, ", <, >, |)
+      // Alle Zeichen außer alphanumerischen, Umlaute und Sonderzeichen wie "-" und "_"
+      $originalName = preg_replace('/[^a-zA-Z0-9äöüÄÖÜß_\- ]/', '_', $originalName);
+
+      // Konvertiere die Erweiterung in Kleinbuchstaben
+      $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+      // Kürze den Dateinamen auf eine sichere Länge (z. B. max. 100 Zeichen)
+      $originalName = substr($originalName, 0, 100);
+
+      // Generiere den neuen Dateinamen
+      return sprintf('%s_%s.%s', $timestamp, $originalName, $extension);
     }
 }

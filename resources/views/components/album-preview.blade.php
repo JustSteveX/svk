@@ -90,7 +90,7 @@
                 </form>
                 @foreach($album->media as $media)
                     <div class='relative aspect-square'>
-                        <input type='checkbox' class='hidden peer' x-model='selectedMedias' :value='{{$media->id}}' id='select-media-{{$media->id}}' x-on:click='if($event.target.checked && selectedMedias.length === 0 || !$event.target.checked && selectedMedias.length === 2) {selectedMedia.id = \`{{$media->id}}\`; selectedMedia.name = \`{{$media->getFileName()}}\`; selectedMedia.caption = \`{{$media->caption}}\`;}'>
+                        <input type='checkbox' class='hidden peer' x-model='selectedMedias' :value='{{$media->id}}' id='select-media-{{$media->id}}' x-on:click='if($event.target.checked && selectedMedias.length === 0 || !$event.target.checked && selectedMedias.length === 2) {selectedMedia.id = \`{{$media->id}}\`; selectedMedia.name = \`{{$media->getShortName()}}\`; selectedMedia.caption = \`{{$media->caption}}\`;}'>
                         <label for='select-media-{{$media->id}}'
                             class='min-h-full flex items-center h-full w-full border-4 border-transparent peer-checked:rounded-lg peer-checked:border-primary hover:border-gray-300 peer-checked:bg-primary/20 transition-all duration-200 overflow-hidden absolute'>
                             @if($media->isImage())
