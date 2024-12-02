@@ -20,7 +20,7 @@
             </button>
         </div>
         <hr class="border-accent">
-        <div class="p-4" x-html="content"></div>
+        <div class="p-4 max-h-[80vh] overflow-y-scroll" x-html="content"></div>
 
         <div x-show="action">
           <hr class="border-accent">

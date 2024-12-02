@@ -75,12 +75,12 @@
                 </div>
               </div>
               <hr class='border-accent'>
-              <div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 overflow-x-hidden overflow-y-scroll'>
+              <div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
                 <form action='{{ route('media.create') }}' method='POST' enctype='multipart/form-data' id='fileUploadForm'>
                   <input type='hidden' name='_token' value='{{ csrf_token() }}'>
                   <input type='hidden' name='_method' value='post'>
                   <input type='hidden' name='album' value='{{$album->id}}'>
-                  <div class='bg-gray-400 hover:bg-gray-500 hover:text-gray-400 rounded-lg text-center text-gray-300 text-7xl select-none py-[50%] px-0 cursor-pointer border-2 border-transparent' x-on:click='window.uploadFiles()'>
+                  <div class='bg-gray-400 hover:bg-gray-500 hover:text-gray-400 rounded-lg text-center text-gray-300 text-7xl select-none h-full flex justify-center items-center px-0 cursor-pointer border-2 border-transparent' x-on:click='window.uploadFiles()'>
                     +
                   </div>
                   <input class='hidden' id='fileupload' name='files[]' multiple required type='file' onchange='window.processFiles(this)' accept='.jpg, .jpeg, .png, .gif, .pdf, .docx, .xlsx, .pptx, .odt, .ods, .odp'>
@@ -89,12 +89,12 @@
                   mp4, .avi, .mov, .wmv,  -->
                 </form>
                 @foreach($album->media as $media)
-                    <div class='relative'>
+                    <div class='relative aspect-square'>
                         <input type='checkbox' class='hidden peer' x-model='selectedMedias' :value='{{$media->id}}' id='select-media-{{$media->id}}' x-on:click='if($event.target.checked && selectedMedias.length === 0 || !$event.target.checked && selectedMedias.length === 2) {selectedMedia.id = \`{{$media->id}}\`; selectedMedia.name = \`{{$media->getFileName()}}\`; selectedMedia.caption = \`{{$media->caption}}\`;}'>
                         <label for='select-media-{{$media->id}}'
-                            class='min-h-full flex items-center h-auto w-full border-4 border-transparent peer-checked:border-primary hover:border-gray-300 peer-checked:bg-primary/20 transition-all duration-200 overflow-hidden absolute'>
+                            class='min-h-full flex items-center h-full w-full border-4 border-transparent peer-checked:rounded-lg peer-checked:border-primary hover:border-gray-300 peer-checked:bg-primary/20 transition-all duration-200 overflow-hidden absolute'>
                             @if($media->isImage())
-                              <img class='overflow-hidden text-ellipsis w-full h-auto'
+                              <img class='overflow-hidden text-ellipsis w-full h-auto object-cover'
                                 src='{{ Storage::url('media/' . $media->name) }}' alt='{{$media->name}}'>
                             @else
                               <div class='flex justify-center items-center flex-col h-full w-full gap-4'>
@@ -131,7 +131,7 @@
         }
     })"
 >
-  <div class="py-16 flex flex-col justify-center items-center gap-4">
+  <div class="py-16 flex flex-col justify-center items-center gap-4 h-full px-4">
     <p>{{$album->name}}</p>
   </div>
 </div>
