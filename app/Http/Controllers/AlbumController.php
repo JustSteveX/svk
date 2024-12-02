@@ -17,6 +17,7 @@ class AlbumController extends Controller
     {
         $albumList = Album::orderByRaw("name = 'Highlights' desc")
             ->orderBy('created_at', 'desc')
+            ->where('archived', false)
             ->get();
 
         return view('components.content.gallery', compact('albumList'));
@@ -27,7 +28,7 @@ class AlbumController extends Controller
      */
     public function show(string $albumName)
     {
-        $album = Album::where('name', $albumName)->firstOrFail();
+        $album = Album::where('name', $albumName)->where('archived', false)->firstOrFail();
         $mediaList = $album->media;
 
         return view('components.content.gallery', compact('album', 'mediaList'));
@@ -57,13 +58,17 @@ class AlbumController extends Controller
             'albumname' => ['string', 'required', 'max:255'],
             'thumbnail_id' => 'nullable|exists:media,id',
             'id' => ['string', 'required', 'exists:albums,id'],
+            'hide' => ['boolean', 'nullable']
         ]);
+
+        $hide = $request->has('hide') ? true : false;
 
         $album = Album::find($request->id);
 
         $album->update([
             'name' => $request->albumname,
             'thumbnail_id' => $request->thumbnail_id,
+            'archived' => $hide
         ]);
 
         return redirect()->back()->with('success', 'Das Album wurde erfolgreich editiert');

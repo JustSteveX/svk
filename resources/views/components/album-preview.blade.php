@@ -24,6 +24,10 @@
                       @endforeach
                     </select>
                   </div>
+                  <div class='flex flex-row justify-between items-center'>
+                    <label for='hide'>Album verstecken?:</label>
+                    <input type='checkbox' name='hide' value='1' {{ old('hide', $album->archived ? 'checked' : '') }}>
+                  </div>
                 </div>
               </form>
               <hr class='border-accent'>

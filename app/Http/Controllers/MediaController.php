@@ -200,6 +200,7 @@ class MediaController extends Controller
         }
 
         $newMediaEntries = []; // Array für neue Einträge vorbereiten
+        // TODO mit Streams lösen, statt das memory_limit temporär zu erhöhen!
         ini_set('memory_limit', '512M');
 
         foreach ($videoFiles as $filePath) {
