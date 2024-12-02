@@ -200,6 +200,7 @@ class MediaController extends Controller
         }
 
         $newMediaEntries = []; // Array für neue Einträge vorbereiten
+        ini_set('memory_limit', '256M');
 
         foreach ($videoFiles as $filePath) {
           $timestamp = time();
@@ -230,6 +231,8 @@ class MediaController extends Controller
         if (! empty($newMediaEntries)) {
             Media::insert($newMediaEntries);
         }
+
+        ini_set('memory_limit', '256M');
 
         return redirect()->back()->with('success', 'Synchronisation erfolgreich');
     }
