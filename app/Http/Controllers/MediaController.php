@@ -200,7 +200,7 @@ class MediaController extends Controller
         }
 
         $newMediaEntries = []; // Array für neue Einträge vorbereiten
-        ini_set('memory_limit', '256M');
+        ini_set('memory_limit', '512M');
 
         foreach ($videoFiles as $filePath) {
           $timestamp = time();
