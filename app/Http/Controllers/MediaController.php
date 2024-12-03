@@ -201,7 +201,6 @@ class MediaController extends Controller
 
         $newMediaEntries = []; // Array für neue Einträge vorbereiten
         // TODO mit Streams lösen, statt das memory_limit temporär zu erhöhen!
-        ini_set('memory_limit', '512M');
 
         foreach ($videoFiles as $filePath) {
           $timestamp = time();
@@ -214,9 +213,14 @@ class MediaController extends Controller
               continue; // Datei ignorieren, wenn sie bereits existiert
           }
 
-          if(Storage::disk('public')->put('media/'.$fileName, $file)){
-            Storage::disk('public')->delete($filePath);
-          }
+          $sourceStream = fopen(Storage::path($filePath), 'r');
+          $destinationStream = fopen(Storage::path('media/'.$fileName), 'w');
+
+          stream_copy_to_stream($sourceStream, $destinationStream);
+          fclose($sourceStream);
+          fclose($destinationStream);
+
+          Storage::disk('public')->delete($filePath);
 
           // Neue Media-Daten für die Datenbank vorbereiten
           $newMediaEntries[] = [
@@ -232,8 +236,6 @@ class MediaController extends Controller
         if (! empty($newMediaEntries)) {
             Media::insert($newMediaEntries);
         }
-
-        ini_set('memory_limit', '256M');
 
         return redirect()->back()->with('success', 'Synchronisation erfolgreich');
     }
