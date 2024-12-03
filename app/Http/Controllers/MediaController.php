@@ -184,56 +184,65 @@ class MediaController extends Controller
         // Das Album mit dem Namen 'Videos' abrufen
         $album = Album::firstWhere('name', 'Videos');
 
-        // Wenn das Album nicht gefunden wird, gib eine Fehlermeldung zurück
-        if (! $album) {
-          return redirect()->back()->with('error', 'Album "Videos" nicht gefunden.');
+        if (!$album) {
+            return redirect()->back()->with('error', 'Album "Videos" nicht gefunden.');
         }
 
         $albumId = $album->id;
 
-        // Alle bestehenden Einträge in der Datenbank abfragen und in ein Set umwandeln
-        $existingFiles = Media::select('name', 'mime_type')->get();
-        $existingFilesSet = [];
-
-        foreach ($existingFiles as $file) {
-            $existingFilesSet["{$file->name}|{$file->mime_type}"] = true; // Kombiniere Name und MIME-Typ
-        }
+        // Alle bestehenden Einträge in der Datenbank abfragen
+        $existingFilesSet = Media::select('name', 'mime_type')
+            ->get()
+            ->pluck(null, 'name|mime_type')
+            ->all();
 
         $newMediaEntries = []; // Array für neue Einträge vorbereiten
-        // TODO mit Streams lösen, statt das memory_limit temporär zu erhöhen!
 
         foreach ($videoFiles as $filePath) {
-          $timestamp = time();
-          $file = Storage::get($filePath);
-          $fileName = $this->createMediaName($filePath, $timestamp);
-          $mimeType = Storage::mimeType($filePath); // MIME-Typ der Datei abrufen
+            $timestamp = time();
+            $fileName = $this->createMediaName($filePath, $timestamp);
+            $mimeType = Storage::mimeType($filePath);
 
-          // Prüfen, ob die Datei bereits existiert
-          if (isset($existingFilesSet["{$fileName}|{$mimeType}"])) {
-              continue; // Datei ignorieren, wenn sie bereits existiert
-          }
+            // Prüfen, ob die Datei bereits existiert
+            if (isset($existingFilesSet["{$fileName}|{$mimeType}"])) {
+                continue;
+            }
 
-          $sourceStream = fopen(Storage::path($filePath), 'r');
-          $destinationStream = fopen(Storage::path('media/'.$fileName), 'w');
+            // Quelle und Zielpfad abrufen
+            $sourcePath = Storage::path($filePath);
+            $destinationPath = Storage::path('media/' . $fileName);
 
-          stream_copy_to_stream($sourceStream, $destinationStream);
-          fclose($sourceStream);
-          fclose($destinationStream);
+            // Datei mit Streams verschieben
+            $sourceStream = fopen($sourcePath, 'r');
+            $destinationStream = fopen($destinationPath, 'w');
 
-          Storage::disk('public')->delete($filePath);
+            if ($sourceStream && $destinationStream) {
+                stream_copy_to_stream($sourceStream, $destinationStream);
+                fclose($sourceStream);
+                fclose($destinationStream);
 
-          // Neue Media-Daten für die Datenbank vorbereiten
-          $newMediaEntries[] = [
-              'name' => $fileName,
-              'mime_type' => $mimeType,
-              'album_id' => $albumId,
-              'created_at' => Carbon::createFromTimestamp($timestamp),
-              'updated_at' => Carbon::createFromTimestamp($timestamp)
-          ];
+                // Originaldatei löschen
+                Storage::delete($filePath);
+
+                // Neue Media-Daten für die Datenbank vorbereiten
+                $newMediaEntries[] = [
+                    'name' => $fileName,
+                    'mime_type' => $mimeType,
+                    'album_id' => $albumId,
+                    'created_at' => Carbon::createFromTimestamp($timestamp),
+                    'updated_at' => Carbon::createFromTimestamp($timestamp),
+                ];
+            } else {
+                // Schließe Streams, falls ein Fehler auftritt
+                if ($sourceStream) fclose($sourceStream);
+                if ($destinationStream) fclose($destinationStream);
+
+                return redirect()->back()->with('error', 'Fehler beim Verarbeiten einer Datei.');
+            }
         }
 
         // Batch-Insert für neue Einträge, falls vorhanden
-        if (! empty($newMediaEntries)) {
+        if (!empty($newMediaEntries)) {
             Media::insert($newMediaEntries);
         }
 
