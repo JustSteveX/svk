@@ -14,9 +14,13 @@
 
   </div>
   <div class="pt-20 pb-40 mx-auto bg-accent-50 min-h-[50vh]">
-    @isset($mediaList)
-      <h1 class="mb-16 text-2xl font-bold text-center">Aktuelle Highlights</h1>
+    @if($mediaList)
+      <h1 class="mb-16 text-2xl font-bold text-center">{{$album->name}}</h1>
       <x-image-showcase :mediaList="$mediaList"></x-image-showcase>
-    @endisset
+    @elseif($blogpost)
+      <div class="mx-auto border border-primary container">
+        <x-article :blogpost="$blogpost"></x-article>
+      </div>
+    @endif
   </div>
 </x-app-layout>

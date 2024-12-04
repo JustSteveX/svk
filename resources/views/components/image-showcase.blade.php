@@ -4,7 +4,7 @@
     <div class="relative h-56 overflow-hidden md:h-96">
       @foreach($mediaList->filter->isImage() as $mediaItem)
         <div class="hidden ease-in-out duration-2000" data-carousel-item="{{ $loop->first ? 'active' : '' }}">
-          <x-image :media="$mediaItem" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"></x-image>
+          <x-image-preview :media="$mediaItem" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"></x-image-preview>
         </div>
       @endforeach
 
@@ -21,7 +21,7 @@
             <path d="M5 1 1 5l4 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               stroke="currentColor" />
           </svg>
-          <span class="sr-only">Previous</span>
+          <span class="sr-only">Zurück</span>
         </span>
       </button>
       <button
@@ -34,7 +34,7 @@
             <path d="m1 9 4-4-4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               stroke="currentColor" />
           </svg>
-          <span class="sr-only">Next</span>
+          <span class="sr-only">Weiter</span>
         </span>
       </button>
     @endif

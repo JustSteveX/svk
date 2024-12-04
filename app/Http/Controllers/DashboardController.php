@@ -12,6 +12,7 @@ use App\Models\Role;
 use App\Models\Subpage;
 use App\Models\Subscriber;
 use App\Models\User;
+use App\Models\Config;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -31,6 +32,7 @@ class DashboardController extends Controller
         $invitationList = Invitation::all();
         $userList = User::all();
         $contactList = Contact::orderBy('sort_order', 'asc')->get();
+        $configList = Config::all();
 
         return view('dashboard', compact(
             'albumList',
@@ -43,6 +45,44 @@ class DashboardController extends Controller
             'invitationList',
             'userList',
             'contactList',
+            'configList'
         ));
+    }
+
+    public function setConfig(Request $request){
+      $request->validate([
+        'startpage_album' => 'nullable|exists:albums,id',
+        'startpage_blogpost' => 'nullable|exists:blogposts,id',
+        'background_image' => 'nullable|exists:media,id'
+      ]);
+
+      if(isset($request->startpage_album)){
+        Config::updateOrInsert(
+          ['key' => 'startpage_album'],
+          ['value' => $request->startpage_album]
+        );
+      } else {
+        Config::where('key', 'startpage_album')->delete();
+      }
+
+      if(isset($request->startpage_blogpost)){
+        Config::updateOrInsert(
+          ['key' => 'startpage_blogpost'],
+          ['value' => $request->startpage_blogpost]
+        );
+      } else {
+        Config::where('key', 'startpage_blogpost')->delete();
+      }
+
+      if(isset($request->background_image)){
+        Config::updateOrInsert(
+          ['key' => 'background_image'],
+          ['value' => $request->background_image]
+        );
+      } else {
+        Config::where('key', 'background_image')->delete();
+      }
+
+      return redirect()->back()->with('success', 'Einstellungen wurden übernommen');
     }
 }

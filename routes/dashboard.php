@@ -38,6 +38,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::patch('/contact', [ContactController::class, 'update'])->name('contact.update');
     Route::delete('/contact', [ContactController::class, 'destroy'])->name('contact.delete');
 
+    Route::post('/config', [DashboardController::class, 'setConfig'])->name('config.set');
+
     // Userverwaltung
     // User - Einladung
     Route::post('/invitations', [InvitationController::class, 'store'])->name('invitation.create');

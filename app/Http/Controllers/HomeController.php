@@ -3,16 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Config;
+use App\Models\Blogpost;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Highlight Album laden
-        //$albumItem = Album::where('name', 'highlights')->first();
+        $mediaList = null;
+        $blogpost = null;
+        $album = null;
 
-        //$mediaList = $albumItem?->media;
+        $startpageAlbum = Config::where('key', 'startpage_album')->value('value');
+        if ($startpageAlbum) {
+            $album = Album::with('media')->find($startpageAlbum);
+            $mediaList = $album?->media;
+        }
 
-        return view('components.content.startpage');
+        if (!$mediaList) {
+            $startpageBlogpost = Config::where('key', 'startpage_blogpost')->value('value');
+            if ($startpageBlogpost) {
+                $blogpost = Blogpost::find($startpageBlogpost);
+            }
+        }
+
+        return view('components.content.startpage', compact('album','mediaList', 'blogpost'));
     }
 }

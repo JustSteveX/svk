@@ -51,7 +51,8 @@
 				</div>
 				<div id="default-tab-content">
 						<div aria-labelledby="home-tab" class="hidden p-4 rounded-lg" id="home" role="tabpanel">
-								<p class="text-sm text-gray-500 dark:text-gray-400">Dashboard:Startseite -> Work in progress...</p>
+
+                <x-dashboard.startpage :configList="$configList" :albumList="$albumList" :blogpostList="$blogpostList" :mediaList="$mediaList"></x-dashboard.startpage>
 						</div>
 						<div aria-labelledby="blogpost-tab" class="hidden p-4 rounded-lg" id="blogpost" role="tabpanel">
 

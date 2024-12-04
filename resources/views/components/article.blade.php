@@ -8,9 +8,9 @@
   </header>
   <section>
     <div class="inline-block w-full h-full text-sm md:text-base">
-      @if ($blogpost->media && $blogpost->media->isImage())
+      @if ($blogpost->media?->isImage())
         <figure class="float-right max-w-sm ml-4">
-          <x-image :media="$blogpost->media"></x-image>
+          <x-image-preview :media="$blogpost->media"></x-image-preview>
           @if ($blogpost->media->caption)
             <figcaption>{{ $blogpost->media->caption }}</figcaption>
           @endif
