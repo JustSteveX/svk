@@ -12,11 +12,9 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['superadmin', 'admin', 'user'];
+        $roles = [];
         DB::table('roles')->insert([
-            ['rolename' => $roles[0]],
-            ['rolename' => $roles[1]],
-            ['rolename' => $roles[2]],
+            ['rolename' => 'superadmin', 'permissions' => 4095],
         ],
         );
         error_log('Die Rollen wurden angelegt: '.implode(', ', $roles));
