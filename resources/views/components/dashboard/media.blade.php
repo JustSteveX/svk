@@ -1,4 +1,4 @@
-@if(Auth::user()->isSuperAdmin())
+@if(Auth::user()->role->hasPermission('sync_application_videos'))
 <div class="flex flex-row flex-wrap justify-between w-full gap-12">
     <div>
       <form action="{{route('media.synchronize')}}" method="POST">

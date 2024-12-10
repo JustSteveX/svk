@@ -28,7 +28,38 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validPermissions = array_keys(config('permissions'));
+
+        $request->validate([
+          'id' => 'int|nullable|exists:roles,id',
+          'name' => 'required|string',
+          'permissions' => 'array',
+          'permissions.*' => ['string', 'in:' . implode(',', $validPermissions)]
+        ]);
+
+        $role = Role::find($request->id);
+        if(!$request->id){
+          if(Role::where('rolename', $request->name)){
+            return redirect()->back()->with('error', 'Dieser Rollenname existiert bereits.');
+          }
+          $role = new Role;
+          $role->rolename = $request->name;
+        }
+
+        $permissionsArray = $request->permissions;
+        $permissionsBitmask = 0; // Initialisiere die Bitmaske mit 0
+
+        // Berechne die Bitmaske
+        foreach ($permissionsArray as $permissionName) {
+            if (isset(config('permissions')[$permissionName])) {
+                $permissionsBitmask |= config('permissions')[$permissionName]; // Füge das entsprechende Bit zur Bitmaske hinzu
+            }
+        }
+
+        $role->permissions = $permissionsBitmask;
+        $role->save();
+
+        return redirect()->back()->with('success', 'Rollen erfolgreich gespeichert');
     }
 
     /**

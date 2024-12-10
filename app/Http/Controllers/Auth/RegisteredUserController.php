@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Invitation;
 use App\Models\User;
+use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
@@ -66,5 +67,18 @@ class RegisteredUserController extends Controller
     public function requestInvitation()
     {
         return view('auth.request');
+    }
+
+    public function update(Request $request){
+      $request->validate(['userid' => 'required|exists:users,id', 'roleid' => 'required|exists:roles,id']);
+
+      $user = User::find($request->userid);
+      $role = Role::find($request->roleid);
+
+      $user->role_id = $role->id;
+
+      $user->save();
+
+      return redirect()->back()->with('success', 'Benutzerrolle wurde geändert.');
     }
 }

@@ -24,7 +24,7 @@
 										<x-nav-link :active="request()->routeIs('kontakt')" :href="route('kontakt')">
 												Kontakt
 										</x-nav-link>
-										@if (Auth::check() && Auth::user()->isAdmin())
+										@if (Auth::check() && Auth::user()->role->hasPermission('view_dashboard'))
 												<x-nav-link :active="request()->routeIs('dashboard')" :href="route('dashboard')">
 														Dashboard
 												</x-nav-link>
@@ -79,7 +79,7 @@
             {{ __('Kontakt') }}
         </x-responsive-nav-link>
       </div>
-      @auth
+      @if(Auth::check() && Auth::user()->role->hasPermission('view_dashboard'))
         <div class="pt-2 pb-3 space-y-1">
           <x-responsive-nav-link :active="request()->routeIs('dashboard')" :href="route('dashboard')">
               {{ __('Dashboard') }}

@@ -28,7 +28,13 @@ class DashboardController extends Controller
                                     ->orderBy('created_at', 'desc')
                                     ->orderBy('email', 'asc')
                                     ->get();
-        $roleList = Role::all();
+        $roleList = Role::all()->map(function ($role) {
+          return [
+              'id' => $role->id,
+              'rolename' => $role->rolename,
+              'permissions' => $role->getPermissionsAttribute(),
+          ];
+      });
         $invitationList = Invitation::all();
         $userList = User::all();
         $contactList = Contact::orderBy('sort_order', 'asc')->get();
@@ -49,40 +55,5 @@ class DashboardController extends Controller
         ));
     }
 
-    public function setConfig(Request $request){
-      $request->validate([
-        'startpage_album' => 'nullable|exists:albums,id',
-        'startpage_blogpost' => 'nullable|exists:blogposts,id',
-        'background_image' => 'nullable|exists:media,id'
-      ]);
 
-      if(isset($request->startpage_album)){
-        Config::updateOrInsert(
-          ['key' => 'startpage_album'],
-          ['value' => $request->startpage_album]
-        );
-      } else {
-        Config::where('key', 'startpage_album')->delete();
-      }
-
-      if(isset($request->startpage_blogpost)){
-        Config::updateOrInsert(
-          ['key' => 'startpage_blogpost'],
-          ['value' => $request->startpage_blogpost]
-        );
-      } else {
-        Config::where('key', 'startpage_blogpost')->delete();
-      }
-
-      if(isset($request->background_image)){
-        Config::updateOrInsert(
-          ['key' => 'background_image'],
-          ['value' => $request->background_image]
-        );
-      } else {
-        Config::where('key', 'background_image')->delete();
-      }
-
-      return redirect()->back()->with('success', 'Einstellungen wurden übernommen');
-    }
 }

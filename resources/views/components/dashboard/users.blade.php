@@ -1,4 +1,5 @@
 @props(['roleList' => [], 'invitationList' => [], 'userList' => []])
+
 <h1 class="text-lg font-bold">Benutzerverwaltung</h1>
 <div class="flex flex-col gap-16">
   <div>
@@ -14,7 +15,7 @@
         <label for="roles">Rolle:</label>
         <select name="role_id" id="roles">
           @foreach($roleList as $roleItem)
-            <option value="{{$roleItem->id}}">{{$roleItem->rolename}}</option>
+            <option value="{{$roleItem['id']}}">{{$roleItem['rolename']}}</option>
           @endforeach
         </select>
       </div>
@@ -103,6 +104,9 @@
                   <th scope="col" class="px-6 py-3">
                       Registriert am
                   </th>
+                  <th scope="col" class="px-6 py-3">
+                    Aktionen
+                  </th>
               </tr>
           </thead>
           <tbody>
@@ -115,10 +119,22 @@
           {{$userItem->email}}
         </td>
         <td class="px-6 py-4">
-          {{$userItem->role->rolename}}
+          <form action="{{route('user.update.role')}}" id="userChangeRoleForm" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="userid" value="{{$userItem->id}}">
+            <select name="roleid">
+              @foreach($roleList as $roleItem)
+                <option {{$userItem->role->id === $roleItem['id'] ? 'selected' : ''}} value="{{$roleItem['id']}}">{{$roleItem['rolename']}}</option>
+              @endforeach
+            </select>
+          </form>
         </td>
         <td class="px-6 py-4">
           {{ $userItem->created_at !== null ? \Carbon\Carbon::parse($userItem->created_at)->format('d.m.Y') : 'Manuell'}}
+        </td>
+        <td class="px-6 py-4">
+          <x-primary-button form="userChangeRoleForm">Speichern</x-primary-button>
         </td>
     </tr>
       @endforeach
