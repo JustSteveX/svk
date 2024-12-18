@@ -9,5 +9,7 @@ class Config extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
+
     protected $fillable = ['key', 'value'];
 }

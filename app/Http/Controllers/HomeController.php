@@ -40,7 +40,7 @@ class HomeController extends Controller
       ]);
 
       if(isset($request->startpage_album)){
-        Config::updateOrInsert(
+        Config::updateOrCreate(
           ['key' => 'startpage_album'],
           ['value' => $request->startpage_album]
         );
@@ -49,7 +49,7 @@ class HomeController extends Controller
       }
 
       if(isset($request->startpage_blogpost)){
-        Config::updateOrInsert(
+        Config::updateOrCreate(
           ['key' => 'startpage_blogpost'],
           ['value' => $request->startpage_blogpost]
         );
@@ -58,7 +58,7 @@ class HomeController extends Controller
       }
 
       if(isset($request->background_image)){
-        Config::updateOrInsert(
+        Config::updateOrCreate(
           ['key' => 'background_image'],
           ['value' => $request->background_image]
         );
