@@ -1,0 +1,83 @@
+name: Deploy to Server
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            # 1. Check-out your code
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            # 2. Install PHP and set the version
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.3' # Verwende die PHP-Version, die mit deiner lokalen Umgebung übereinstimmt
+
+            # 3. Install PHP dependencies with Composer
+            - name: Install PHP dependencies
+              run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+            # 4. Install Node.js dependencies and build assets
+            - name: Install Node.js dependencies and build assets
+              run: |
+                  npm install
+                  npm run build
+
+            # 5. Remove node_modules after build
+            - name: Remove node_modules
+              run: rm -rf node_modules
+
+            # 6. Zip the build files
+            - name: Create zip file
+              run: zip -r build.zip ./*
+
+            # 7. Enable maintenance mode
+            - name: Run Laravel migrations
+              uses: appleboy/ssh-action@v0.1.8
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USERNAME }}
+                  password: ${{ secrets.SSH_PASSWORD }}
+                  port: ${{ secrets.SSH_PORT }}
+                  script: |
+                      cd ~/httpdocs
+                      php artisan down --with-secret
+                      mkdir -p ~/httpdocs/deployment
+
+            # 8. Upload build.zip to the server via SCP
+            - name: Upload ZIP to Server via SCP
+              uses: appleboy/scp-action@master
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USERNAME }}
+                  password: ${{ secrets.SSH_PASSWORD }}
+                  port: ${{ secrets.SSH_PORT }}
+                  source: build.zip
+                  target: ~/httpdocs/deployment/ # Zielverzeichnis auf dem Server
+
+            # 9. Run Laravel migrations and unpack the zip
+            - name: Unzip and complete deployment
+              uses: appleboy/ssh-action@v0.1.8
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USERNAME }}
+                  password: ${{ secrets.SSH_PASSWORD }}
+                  port: ${{ secrets.SSH_PORT }}
+                  script: |
+                      cd ~/httpdocs/
+                      unzip -o ./deployment/build.zip -d ~/httpdocs/
+                      php artisan migrate --force
+                      php artisan config:cache
+                      php artisan event:cache
+                      php artisan route:cache
+                      php artisan view:cache
+                      php artisan up
+                      rm -rf ~/httpdocs/deployment
+                      rm -f ~/httpdocs/public/hot
