@@ -39,8 +39,8 @@ class RoleController extends Controller
 
         $role = Role::find($request->id);
         if(!$request->id){
-          if(Role::where('rolename', $request->name)){
-            return redirect()->back()->with('error', 'Dieser Rollenname existiert bereits.');
+          if(Role::where('rolename', $request->name)->exists()){
+            return redirect()->back()->with('error', $request->name.' existiert bereits.');
           }
           $role = new Role;
           $role->rolename = $request->name;

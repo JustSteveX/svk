@@ -40,7 +40,7 @@ class AlbumController extends Controller
             'albumname' => ['string', 'required', 'max:255'],
         ]);
 
-        if (Str::upper($request->name) === 'HIGHLIGHTS') {
+        if (Str::upper($request->albumname) === 'HIGHLIGHTS') {
             return redirect()->back()->with('error', 'Der Name Highlights ist reserviert.');
         }
 
