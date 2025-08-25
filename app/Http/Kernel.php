@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
         'hasInvitation' => \App\Http\Middleware\HasInvitation::class,
-        'check.permissions' => \App\Http\Middleware\CheckPermissions::class
+        'check.permissions' => \App\Http\Middleware\CheckPermissions::class,
+        'throttle.mail' => \App\Http\Middleware\ThrottleMailSending::class
     ];
 }

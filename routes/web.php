@@ -51,9 +51,9 @@ Route::middleware([DevelopmentMiddleware::class])->group(function () {
 });
 
 Route::get('newsletter/unsubscribe/{email}/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
-Route::post('newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::post('newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe')->middleware('throttle.mail');
 Route::get('newsletter/verify/{token}', [NewsletterController::class, 'verifySubscription'])->name('newsletter.verify');
-Route::get('newsletter/send-verification/{email}', [NewsletterController::class, 'resend'])->name('newsletter.resend');
+Route::get('newsletter/send-verification/{email}', [NewsletterController::class, 'resend'])->name('newsletter.resend')->middleware('throttle.mail');
 
 Route::get('impressum', function () {
     return view('components.content.imprint');
